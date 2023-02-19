@@ -21,7 +21,7 @@ public class Manacost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private Integer red;
     private Integer black;
     private Integer green;
