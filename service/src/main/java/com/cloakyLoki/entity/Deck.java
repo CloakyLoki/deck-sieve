@@ -21,6 +21,7 @@ public class Deck {
     @Id
     private Integer id;
     private String name;
+
     @Column(name = "user_id")
     private Integer userId;
 }
