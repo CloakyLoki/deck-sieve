@@ -1,6 +1,6 @@
-package com.cloakyLoki.entity;
+package com.cloakyloki.entity;
 
-import com.cloakyLoki.entity.enumerated.Role;
+import com.cloakyloki.entity.enumerated.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +32,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "is_active")
+    @Column(name = "active")
     private Boolean isActive;
 }

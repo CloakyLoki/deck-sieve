@@ -1,7 +1,6 @@
-package com.cloakyLoki.entity.enumerated;
+package com.cloakyloki.entity.enumerated;
 
 public enum CardSubType {
-
     Abian,
     Adventure,
     Advisor,

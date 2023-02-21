@@ -1,9 +1,8 @@
-package com.cloakyLoki.entity;
-
-import com.cloakyLoki.entity.enumerated.CardSubType;
-import com.cloakyLoki.entity.enumerated.CardSuperType;
-import com.cloakyLoki.entity.enumerated.CardType;
-import com.cloakyLoki.entity.enumerated.Rarity;
+package com.cloakyloki.entity;
+import com.cloakyloki.entity.enumerated.CardSubType;
+import com.cloakyloki.entity.enumerated.CardSuperType;
+import com.cloakyloki.entity.enumerated.CardType;
+import com.cloakyloki.entity.enumerated.Rarity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,20 +15,20 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "cards")
 public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Column(name = "mana_value")
     private Integer manaValue;
 
     @Enumerated(EnumType.STRING)
@@ -57,6 +56,6 @@ public class Card {
     @Column(name = "scryfall_illustration_id")
     private String scryfallIllustrationId;
 
-    @Column(name = "is_banned")
+    @Column(name = "banned")
     private Boolean isBanned;
 }

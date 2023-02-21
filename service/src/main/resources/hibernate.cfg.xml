@@ -12,9 +12,9 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
-        <mapping class="com.cloakyLoki.entity.Card"/>
-        <mapping class="com.cloakyLoki.entity.Deck"/>
-        <mapping class="com.cloakyLoki.entity.Manacost"/>
-        <mapping class="com.cloakyLoki.entity.User"/>
+        <mapping class="com.cloakyloki.entity.Card"/>
+        <mapping class="com.cloakyloki.entity.Deck"/>
+        <mapping class="com.cloakyloki.entity.Manacost"/>
+        <mapping class="com.cloakyloki.entity.User"/>
     </session-factory>
 </hibernate-configuration>

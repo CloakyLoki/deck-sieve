@@ -1,4 +1,4 @@
-package com.cloakyLoki.entity.enumerated;
+package com.cloakyloki.entity.enumerated;
 
 public enum CardType {
     Artifact,
@@ -32,5 +32,5 @@ public enum CardType {
             Tribal,
             Universewalker,
             Vanguard,
-            Wolf,
+            Wolf
 }
