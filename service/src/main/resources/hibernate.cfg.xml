@@ -16,5 +16,6 @@
         <mapping class="com.cloakyloki.entity.Deck"/>
         <mapping class="com.cloakyloki.entity.Manacost"/>
         <mapping class="com.cloakyloki.entity.User"/>
+        <mapping class="com.cloakyloki.entity.CardDeck"/>
     </session-factory>
 </hibernate-configuration>

@@ -17,11 +17,10 @@ CREATE TABLE IF NOT EXISTS card
     banned                   BOOLEAN      NOT NULL
 );
 
--- Colors need to cast a card
 CREATE TABLE IF NOT EXISTS card_manacost_qty
 (
-    id      BIGSERIAL,
-    card_id BIGINT REFERENCES card (id),
+    id      BIGSERIAL PRIMARY KEY,
+    card_id BIGINT REFERENCES card (id) UNIQUE NOT NULL ,
     red     INT,
     black   INT,
     green   INT,
@@ -47,9 +46,9 @@ CREATE TABLE IF NOT EXISTS deck
     user_id   BIGINT REFERENCES users (id) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS deck_card
+CREATE TABLE IF NOT EXISTS card_deck
 (
-    deck_id BIGINT REFERENCES deck (id) NOT NULL,
+    id BIGSERIAL PRIMARY KEY ,
     card_id BIGINT REFERENCES card (id) NOT NULL,
-    PRIMARY KEY (card_id, deck_id)
+    deck_id BIGINT REFERENCES deck (id) NOT NULL
 );
