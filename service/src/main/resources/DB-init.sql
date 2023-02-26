@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS card
 CREATE TABLE IF NOT EXISTS card_manacost_qty
 (
     id      BIGSERIAL PRIMARY KEY,
-    card_id BIGINT REFERENCES card (id) UNIQUE NOT NULL ,
+    card_id BIGINT REFERENCES card (id) UNIQUE NOT NULL,
     red     INT,
     black   INT,
     green   INT,
@@ -48,7 +48,8 @@ CREATE TABLE IF NOT EXISTS deck
 
 CREATE TABLE IF NOT EXISTS card_deck
 (
-    id BIGSERIAL PRIMARY KEY ,
+    id      BIGSERIAL PRIMARY KEY,
+    name    VARCHAR(64),
     card_id BIGINT REFERENCES card (id) NOT NULL,
     deck_id BIGINT REFERENCES deck (id) NOT NULL
 );

@@ -44,7 +44,7 @@ class UserIT {
     }
 
     @Test
-    void createUser() {
+    void addUser() {
         var expectedUser = User.builder()
                 .nickname("Andrey")
                 .password("123")
@@ -60,7 +60,7 @@ class UserIT {
     }
 
     @Test
-    void readUser() {
+    void getUser() {
         var expectedUser = User.builder()
                 .nickname("Andrey")
                 .password("123")

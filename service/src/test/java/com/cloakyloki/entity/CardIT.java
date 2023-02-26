@@ -45,7 +45,7 @@ class CardIT {
     }
 
     @Test
-    void createCard() {
+    void addCard() {
         var expectedCard = Card.builder()
                 .name("Mirage Mirror")
                 .flavorText("Most mirrors show your reflection. Other show your potential")
@@ -67,7 +67,7 @@ class CardIT {
     }
 
     @Test
-    void readCard() {
+    void getCard() {
         var expectedCard = Card.builder()
                 .name("Mirage Mirror")
                 .flavorText("Most mirrors show your reflection. Other show your potential")

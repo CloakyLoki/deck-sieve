@@ -45,7 +45,7 @@ class ManacostIT {
     }
 
     @Test
-    void createManacost() {
+    void addManacost() {
         var card = Card.builder()
                 .name("test")
                 .type(CardType.LAND)
@@ -72,7 +72,7 @@ class ManacostIT {
     }
 
     @Test
-    void readManacost() {
+    void getManacost() {
         var card = Card.builder()
                 .name("test")
                 .type(CardType.LAND)

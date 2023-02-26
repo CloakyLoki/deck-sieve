@@ -24,6 +24,8 @@ public class CardDeck {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     private Card card;
 

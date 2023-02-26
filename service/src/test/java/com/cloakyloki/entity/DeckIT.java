@@ -44,7 +44,7 @@ class DeckIT {
     }
 
     @Test
-    void createDeck() {
+    void addDeck() {
         var user = User.builder()
                 .nickname("Andrey")
                 .password("123")
@@ -66,7 +66,7 @@ class DeckIT {
     }
 
     @Test
-    void readDeck() {
+    void getDeck() {
         var user = User.builder()
                 .nickname("Andrey")
                 .password("123")
