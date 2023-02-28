@@ -1,0 +1,450 @@
+{
+  "meta": {
+    "date": "2023-02-19",
+    "version": "5.2.1+20230219"
+  },
+  "data": {
+    "00010d56-fe38-5e35-8aed-518019aa36a5": {
+      "artist": "Lius Lasahido",
+      "availability": [
+        "paper"
+      ],
+      "borderColor": "black",
+      "colorIdentity": [
+        "U"
+      ],
+      "colors": [
+        "U"
+      ],
+      "convertedManaCost": 7.0,
+      "edhrecRank": 7120,
+      "edhrecSaltiness": 0.12,
+      "finishes": [
+        "foil"
+      ],
+      "flavorText": "He answers questions as readily as he asks them, but his answer is always \"no.\"",
+      "foreignData": [],
+      "frameVersion": "2015",
+      "hasFoil": true,
+      "hasNonFoil": false,
+      "identifiers": {
+        "cardKingdomFoilId": "206447",
+        "cardsphereId": "37481",
+        "mcmId": "287630",
+        "mtgjsonV4Id": "7bf63c97-27da-516c-b722-75299370a28d",
+        "scryfallId": "f6555d1f-d4cf-41f7-99d3-88fd53e75457",
+        "scryfallIllustrationId": "414c0cef-4fd9-4515-b602-91c206c33a3d",
+        "scryfallOracleId": "d4246e4d-390d-4925-a5a8-89cd096a237c",
+        "tcgplayerProductId": "111268"
+      },
+      "isPromo": true,
+      "isReprint": true,
+      "isStarter": true,
+      "keywords": [
+        "Flying",
+        "Hexproof"
+      ],
+      "language": "English",
+      "layout": "normal",
+      "legalities": {
+        "commander": "Legal",
+        "duel": "Legal",
+        "legacy": "Legal",
+        "modern": "Legal",
+        "pioneer": "Legal",
+        "vintage": "Legal"
+      },
+      "manaCost": "{5}{U}{U}",
+      "manaValue": 7.0,
+      "name": "Sphinx of the Final Word",
+      "number": "63s",
+      "power": "5",
+      "printings": [
+        "OGW",
+        "POGW"
+      ],
+      "promoTypes": [
+        "setpromo",
+        "prerelease",
+        "datestamped"
+      ],
+      "purchaseUrls": {
+        "cardKingdomFoil": "https://mtgjson.com/links/cf9936d3fed16d63",
+        "tcgplayer": "https://mtgjson.com/links/f81cadeb87698023"
+      },
+      "rarity": "mythic",
+      "rulings": [
+        {
+          "date": "2016-01-22",
+          "text": "A spell that can’t be countered can still be targeted by spells or abilities that would counter it. The part of their effect that would counter the spell won’t do anything, but any other effects those spells or abilities may have will still happen, if applicable."
+        }
+      ],
+      "securityStamp": "oval",
+      "setCode": "POGW",
+      "subtypes": [
+        "Sphinx"
+      ],
+      "supertypes": [],
+      "text": "This spell can't be countered.\nFlying, hexproof\nInstant and sorcery spells you control can't be countered.",
+      "toughness": "5",
+      "type": "Creature — Sphinx",
+      "types": [
+        "Creature"
+      ],
+      "uuid": "00010d56-fe38-5e35-8aed-518019aa36a5"
+    },
+    "0001e0d0-2dcd-5640-aadc-a84765cf5fc9": {
+      "artist": "Jesper Myrfors",
+      "availability": [
+        "paper"
+      ],
+      "boosterTypes": [
+        "draft"
+      ],
+      "borderColor": "white",
+      "colorIdentity": [
+        "R"
+      ],
+      "colors": [
+        "R"
+      ],
+      "convertedManaCost": 3.0,
+      "edhrecRank": 2685,
+      "edhrecSaltiness": 0.17,
+      "finishes": [
+        "nonfoil"
+      ],
+      "flavorText": "To become king of the Goblins, one must assassinate the previous king. Thus, only the most foolish seek positions of leadership.",
+      "foreignData": [
+        {
+          "language": "German",
+          "name": "Goblinkönig",
+          "text": "Alle Goblins erhalten +1/+1 und die Fähigkeit Gebirgstarnung.",
+          "type": "Beschwörung eines Herrschers"
+        },
+        {
+          "language": "French",
+          "name": "Roi des gobelins"
+        },
+        {
+          "language": "Italian",
+          "name": "Re dei Goblin"
+        }
+      ],
+      "frameVersion": "1993",
+      "hasFoil": false,
+      "hasNonFoil": true,
+      "identifiers": {
+        "cardKingdomId": "26107",
+        "cardsphereId": "39157",
+        "mcmId": "5682",
+        "mtgjsonV4Id": "1695614c-25a4-5a2d-8c81-0a3c8be0f86a",
+        "multiverseId": "1296",
+        "scryfallId": "e3094187-d666-414b-a1fd-ae0ef55c3fcb",
+        "scryfallIllustrationId": "683ea412-77de-474f-94cb-ec51d4443d55",
+        "scryfallOracleId": "d236b3fc-0d3f-4d99-875d-e32a33fe5767",
+        "tcgplayerProductId": "1435"
+      },
+      "isReprint": true,
+      "language": "English",
+      "layout": "normal",
+      "legalities": {
+        "commander": "Legal",
+        "duel": "Legal",
+        "legacy": "Legal",
+        "modern": "Legal",
+        "oldschool": "Legal",
+        "penny": "Legal",
+        "premodern": "Legal",
+        "vintage": "Legal"
+      },
+      "manaCost": "{1}{R}{R}",
+      "manaValue": 3.0,
+      "name": "Goblin King",
+      "number": "155",
+      "originalText": "All Goblins in play gain mountainwalk and +1/+1 while this card remains in play.",
+      "originalType": "Summon - Lord",
+      "power": "2",
+      "printings": [
+        "10E",
+        "2ED",
+        "30A",
+        "3ED",
+        "4BB",
+        "4ED",
+        "5ED",
+        "6ED",
+        "7ED",
+        "8ED",
+        "9ED",
+        "ATH",
+        "CED",
+        "CEI",
+        "FBB",
+        "LEA",
+        "LEB",
+        "SLD",
+        "SUM"
+      ],
+      "purchaseUrls": {
+        "cardKingdom": "https://mtgjson.com/links/d9511078b91ec705",
+        "tcgplayer": "https://mtgjson.com/links/b94c239cd411b84e"
+      },
+      "rarity": "rare",
+      "rulings": [
+        {
+          "date": "2005-08-01",
+          "text": "Goblin King now has the Goblin creature type and its ability has been reworded to affect *other* Goblins. This means that if two Goblin Kings are on the battlefield, each gives the other a bonus."
+        }
+      ],
+      "setCode": "3ED",
+      "subtypes": [
+        "Goblin"
+      ],
+      "supertypes": [],
+      "text": "Other Goblins get +1/+1 and have mountainwalk.",
+      "toughness": "2",
+      "type": "Creature — Goblin",
+      "types": [
+        "Creature"
+      ],
+      "uuid": "0001e0d0-2dcd-5640-aadc-a84765cf5fc9"
+    },
+    "0003caab-9ff5-5d1a-bc06-976dd0457f19": {
+      "artist": "Drew Baker",
+      "availability": [
+        "mtgo",
+        "paper"
+      ],
+      "boosterTypes": [
+        "draft"
+      ],
+      "borderColor": "black",
+      "colorIdentity": [
+        "G"
+      ],
+      "colors": [
+        "G"
+      ],
+      "convertedManaCost": 1.0,
+      "edhrecRank": 8686,
+      "edhrecSaltiness": 0.11,
+      "finishes": [
+        "nonfoil",
+        "foil"
+      ],
+      "foreignData": [
+        {
+          "language": "German",
+          "multiverseId": 273605,
+          "name": "Karawanen-Nachtwache",
+          "text": "Durchsuche deine Bibliothek nach einer Standardland-Karte, zeige sie offen vor, nimm sie auf deine Hand und mische dann deine Bibliothek.\nMorbide — Du kannst diese Karte ins Spiel bringen, anstatt sie auf deine Hand zu nehmen, falls in diesem Zug eine Kreatur gestorben ist.",
+          "type": "Hexerei"
+        },
+        {
+          "language": "Spanish",
+          "multiverseId": 273889,
+          "name": "Vigilia de la caravana",
+          "text": "Busca una carta de tierra básica en tu biblioteca, muéstrala, y ponla en tu mano. Luego baraja tu biblioteca.\nNecrario — En vez de eso, puedes poner esa carta en el campo de batalla si una criatura murió este turno.",
+          "type": "Conjuro"
+        },
+        {
+          "language": "French",
+          "multiverseId": 273037,
+          "name": "Veille de caravane",
+          "text": "Cherchez dans votre bibliothèque une carte de terrain de base, révélez-la et mettez-la dans votre main. Mélangez ensuite votre bibliothèque.\nMorbidité — Vous pouvez mettre cette carte sur le champ de bataille à la place de la mettre dans votre main si une créature est morte ce tour-ci.",
+          "type": "Rituel"
+        },
+        {
+          "language": "Italian",
+          "multiverseId": 274173,
+          "name": "Sorvegliare la Carovana",
+          "text": "Passa in rassegna il tuo grimorio per una carta terra base, rivelala e aggiungila alla tua mano, poi rimescola il tuo grimorio.\nMorboso — Puoi mettere quella carta sul campo di battaglia invece di aggiungerla alla tua mano se è morta una creatura in questo turno.",
+          "type": "Stregoneria"
+        },
+        {
+          "language": "Japanese",
+          "multiverseId": 274457,
+          "name": "隊商の夜番",
+          "text": "あなたのライブラリーから基本土地カードを１枚探し、それを公開してあなたの手札に加え、その後あなたのライブラリーを切り直す。\n陰鬱 ― このターンいずれかのクリーチャーが死亡していた場合、あなたはそのカードを手札に加える代わりに戦場に出してもよい。",
+          "type": "ソーサリー"
+        },
+        {
+          "language": "Korean",
+          "name": "호송 경계",
+          "text": "당신의 서고에서 기본 대지 카드 한 장을 찾아 공개한 후 당신의 손으로 가져간다. 그리고 나서 당신의 서고를 섞는다.사망 — 만약 이 턴에 생물이 죽었다면, 당신은 그 대지 카드를 손으로 가져가는 대신에 전장에 놓을 수 있다.",
+          "type": "집중마법"
+        },
+        {
+          "language": "Portuguese (Brazil)",
+          "multiverseId": 272753,
+          "name": "Vigília da Caravana",
+          "text": "Procure um card de terreno básico no seu grimório, revele-o, coloque-o na sua mão e depois embaralhe seu grimório.\nMórbido — Se uma criatura tiver morrido neste turno, em vez de colocar aquele card na sua mão, você poderá colocá-lo no campo de batalha.",
+          "type": "Feitiço"
+        },
+        {
+          "language": "Russian",
+          "multiverseId": 273321,
+          "name": "Караванное Дежурство",
+          "text": "Найдите в вашей библиотеке карту базовой земли, покажите ее, положите ее в вашу руку, затем перетасуйте вашу библиотеку.\nБолезненность — Вы можете положить ту карту на поле битвы вместо того, чтобы положить ее в вашу руку, если в этом ходу умерло существо.",
+          "type": "Волшебство"
+        },
+        {
+          "language": "Chinese Simplified",
+          "multiverseId": 272185,
+          "name": "商队守夜",
+          "text": "从你的牌库中搜寻一张基本地牌，展示该牌，并将它置入你手上，然后将你的牌库洗牌。\n丧心～如果本回合有生物死去，你可以改为将所展示的牌放进战场，而非将它置入你手上。",
+          "type": "法术"
+        },
+        {
+          "language": "Chinese Traditional",
+          "multiverseId": 272469,
+          "name": "商隊守夜",
+          "text": "從你的牌庫中搜尋一張基本地牌，展示該牌，並將它置入你手上，然後將你的牌庫洗牌。\n喪心～如果本回合有生物死去，你可以改為將所展示的牌放進戰場，而非將它置入你手上。",
+          "type": "巫術"
+        }
+      ],
+      "frameVersion": "2003",
+      "hasFoil": true,
+      "hasNonFoil": true,
+      "identifiers": {
+        "cardKingdomFoilId": "186014",
+        "cardKingdomId": "185736",
+        "cardsphereId": "20428",
+        "mcmId": "250748",
+        "mcmMetaId": "204181",
+        "mtgjsonV4Id": "24938f1c-75dc-5dc9-982b-87ee0b71a4da",
+        "mtgoFoilId": "42601",
+        "mtgoId": "42600",
+        "multiverseId": "234444",
+        "scryfallId": "9a8dfb98-a975-41bf-8aac-c0001c9ddaa7",
+        "scryfallIllustrationId": "36d0a6d4-6ee7-467a-bfa1-1a0398983d9c",
+        "scryfallOracleId": "925a3ded-b7bc-4384-8684-79c20c59ab12",
+        "tcgplayerProductId": "56309"
+      },
+      "keywords": [
+        "Morbid"
+      ],
+      "language": "English",
+      "layout": "normal",
+      "legalities": {
+        "commander": "Legal",
+        "duel": "Legal",
+        "legacy": "Legal",
+        "modern": "Legal",
+        "pauper": "Legal",
+        "paupercommander": "Legal",
+        "penny": "Legal",
+        "vintage": "Legal"
+      },
+      "manaCost": "{G}",
+      "manaValue": 1.0,
+      "name": "Caravan Vigil",
+      "number": "173",
+      "originalText": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle your library.\nMorbid — You may put that card onto the battlefield instead of putting it into your hand if a creature died this turn.",
+      "originalType": "Sorcery",
+      "printings": [
+        "ISD"
+      ],
+      "purchaseUrls": {
+        "cardKingdom": "https://mtgjson.com/links/d4b26a64521a2859",
+        "cardKingdomFoil": "https://mtgjson.com/links/6258ccb057e70e14",
+        "cardmarket": "https://mtgjson.com/links/67efc1a9c0c2c89e",
+        "tcgplayer": "https://mtgjson.com/links/29b9944a68c24574"
+      },
+      "rarity": "common",
+      "rulings": [
+        {
+          "date": "2011-09-22",
+          "text": "You can choose to put the basic land card into your hand even if a creature died the turn you cast Caravan Vigil."
+        }
+      ],
+      "setCode": "ISD",
+      "subtypes": [],
+      "supertypes": [],
+      "text": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.\nMorbid — You may put that card onto the battlefield instead of putting it into your hand if a creature died this turn.",
+      "type": "Sorcery",
+      "types": [
+        "Sorcery"
+      ],
+      "uuid": "0003caab-9ff5-5d1a-bc06-976dd0457f19"
+    },
+    "mtgjsonV4Id": "5393c09d-943b-5203-b175-9905bff7e047",
+    "multiverseId": "532600",
+    "scryfallId": "fd9e5b05-11b5-46fc-a1c8-484f41a0cee6",
+    "scryfallIllustrationId": "7561a89f-f7cc-4a0b-a52c-7bb00274be2b",
+    "scryfallOracleId": "48b84b58-1a06-4bb4-be1f-ad3ca69e66dc",
+    "tcgplayerProductId": "243925"
+  },
+  "isReprint": true,
+  "keywords": [
+    "Ascend"
+  ],
+  "language": "English",
+  "layout": "normal",
+  "legalities": {
+    "commander": "Legal",
+    "duel": "Legal",
+    "explorer": "Legal",
+    "gladiator": "Legal",
+    "historic": "Legal",
+    "historicbrawl": "Legal",
+    "legacy": "Legal",
+    "modern": "Legal",
+    "pauper": "Legal",
+    "paupercommander": "Legal",
+    "penny": "Legal",
+    "pioneer": "Legal",
+    "vintage": "Legal"
+  },
+  "manaCost": "{3}",
+  "manaValue": 3.0,
+  "name": "Orazca Relic",
+  "number": "213",
+  "originalText": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\n{T}: Add {C}.\n{T}, Sacrifice Orazca Relic: You gain 3 life and draw a card. Activate only if you have the city's blessing.",
+  "originalType": "Artifact",
+  "printings": [
+    "AFC",
+    "RIX"
+  ],
+  "purchaseUrls": {
+    "cardKingdom": "https://mtgjson.com/links/41112f29e0e7083d",
+    "tcgplayer": "https://mtgjson.com/links/fd69bfc6860f1081"
+  },
+  "rarity": "common",
+  "rulings": [
+    {
+      "date": "2018-01-19",
+      "text": "If you cast a spell with ascend, you don't get the city's blessing until it resolves. Players may respond to that spell by trying to change whether you get the city's blessing."
+    },
+    {
+      "date": "2018-01-19",
+      "text": "Once you have the city's blessing, you have it for the rest of the game, even if you lose control of some or all of your permanents. The city's blessing isn't a permanent itself and can't be removed by any effect."
+    },
+    {
+      "date": "2018-01-19",
+      "text": "A permanent is any object on the battlefield, including tokens and lands. Spells and emblems aren't permanents."
+    },
+    {
+      "date": "2018-01-19",
+      "text": "If you control ten permanents but don't control a permanent or resolving spell with ascend, you don't get the city's blessing. For example, if you control ten permanents, lose control of one, then cast Golden Demise, you won't have the city's blessing and the spell will affect creatures you control."
+    },
+    {
+      "date": "2018-01-19",
+      "text": "If your tenth permanent enters the battlefield and then a permanent leaves the battlefield immediately afterwards (most likely due to the “Legend Rule” or due to being a creature with 0 toughness), you get the city's blessing before it leaves the battlefield."
+    },
+    {
+      "date": "2018-01-19",
+      "text": "Ascend on a permanent isn't a triggered ability and doesn't use the stack. Players can respond to a spell that will give you your tenth permanent, but they can't respond to getting the city's blessing once you control that tenth permanent. This means that if your tenth permanent is a land you play, players can't respond before you get the city's blessing."
+    }
+  ],
+  "setCode": "AFC",
+  "subtypes": [],
+  "supertypes": [],
+  "text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\n{T}: Add {C}.\n{T}, Sacrifice Orazca Relic: You gain 3 life and draw a card. Activate only if you have the city's blessing.",
+  "type": "Artifact",
+  "types": [
+    "Artifact"
+  ],
+  "uuid": "ffe94bae-20ae-5a9d-9dbf-584579102877"
+}

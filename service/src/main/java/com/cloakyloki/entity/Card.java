@@ -6,8 +6,11 @@ import com.cloakyloki.entity.enumerated.Rarity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,10 +18,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "cardDecks")
+@ToString(exclude = "cardDecks")
 @Builder
 @Entity
 public class Card {
@@ -30,6 +39,9 @@ public class Card {
 
     @Column(name = "mana_value")
     private Integer manaValue;
+
+    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
+    private Manacost manacost;
 
     @Enumerated(EnumType.STRING)
     private CardType type;
@@ -58,4 +70,8 @@ public class Card {
 
     @Column(name = "banned")
     private Boolean isBanned;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "card")
+    private List<CardDeck> cardDecks = new ArrayList<>();
 }
