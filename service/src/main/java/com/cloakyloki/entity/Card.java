@@ -15,6 +15,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +27,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "cardDecks")
-@ToString(exclude = "cardDecks")
+@EqualsAndHashCode(exclude = {"cardDecks", "manacost"})
+@ToString(exclude = {"cardDecks", "manacost"})
 @Builder
 @Entity
 public class Card {
@@ -40,7 +41,7 @@ public class Card {
     @Column(name = "mana_value")
     private Integer manaValue;
 
-    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Manacost manacost;
 
     @Enumerated(EnumType.STRING)
