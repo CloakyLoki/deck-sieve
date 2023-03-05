@@ -1,4 +1,5 @@
 package com.cloakyloki.entity;
+
 import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardSuperType;
 import com.cloakyloki.entity.enumerated.CardType;
@@ -19,11 +20,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedEntityGraph(name = "cardInfoWithManacost", attributeNodes = {@NamedAttributeNode("manacost")})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

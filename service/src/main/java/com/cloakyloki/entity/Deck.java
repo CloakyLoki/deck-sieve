@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"cardDecks", "user"})
-@ToString(exclude = "cardDecks")
+@ToString(exclude = {"cardDecks", "user"})
 @Builder
 @Entity
 public class Deck {
@@ -36,7 +37,7 @@ public class Deck {
     @OneToMany(mappedBy = "deck")
     private List<CardDeck> cardDecks = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public void setUser(User user) {
