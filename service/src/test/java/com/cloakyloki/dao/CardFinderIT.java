@@ -145,6 +145,10 @@ class CardFinderIT extends IntegrationTestBase {
 
         var actualCardList = cardDao.getCardByManaValueAndType(session, filter);
 
-        assertThat(actualCardList.size()).isEqualTo(0);
+        Assertions.assertAll(
+                () -> assertThat(actualCardList.size()).isEqualTo(2),
+                () -> assertThat(actualCardList).contains(mirrorCard),
+                () -> assertThat(actualCardList).contains(mishraCard)
+        );
     }
 }
