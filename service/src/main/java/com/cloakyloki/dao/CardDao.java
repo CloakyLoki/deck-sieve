@@ -8,7 +8,6 @@ import com.cloakyloki.entity.Card_;
 import com.cloakyloki.entity.Manacost;
 import com.cloakyloki.entity.QCard;
 import com.cloakyloki.entity.enumerated.CardSubType;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.graph.GraphSemantic;
 
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -99,7 +99,7 @@ public class CardDao {
                 .build();
 
         criteria.select(card)
-                .where(predicates);
+                .where(predicates.toArray(Predicate[]::new));
 
         return session.createQuery(criteria).list();
     }

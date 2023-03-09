@@ -1,6 +1,7 @@
 package com.cloakyloki.util;
 
 import com.cloakyloki.entity.Card;
+import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardType;
 import com.cloakyloki.entity.enumerated.Rarity;
 import lombok.experimental.UtilityClass;
@@ -16,6 +17,7 @@ public class CardProvider {
                 .keywords("mishra")
                 .manaValue(4)
                 .type(CardType.CREATURE)
+                .subtype(CardSubType.ARTIFICER)
                 .purchaseUrl("https://www.tcgplayer.com/product/14296")
                 .rarity(Rarity.RARE)
                 .scryfallIllustrationId("1562940254")
@@ -33,6 +35,7 @@ public class CardProvider {
                 .keywords("mirror")
                 .manaValue(3)
                 .type(CardType.ARTIFACT)
+                .subtype(CardSubType.AURA)
                 .purchaseUrl("https://www.tcgplayer.com/product/134930")
                 .rarity(Rarity.RARE)
                 .scryfallIllustrationId("1562793459")

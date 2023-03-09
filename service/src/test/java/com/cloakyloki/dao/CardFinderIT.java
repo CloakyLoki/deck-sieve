@@ -2,6 +2,7 @@ package com.cloakyloki.dao;
 
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.entity.Manacost;
+import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardType;
 import com.cloakyloki.entity.enumerated.Rarity;
 import com.cloakyloki.integration.IntegrationTestBase;
@@ -52,9 +53,9 @@ class CardFinderIT extends IntegrationTestBase {
         var actualCardList = cardDao.getCardByAnyParameter(session, filter);
 
         Assertions.assertAll(
-                ()->assertThat(actualCardList.size()).isEqualTo(2),
-                ()->assertThat(actualCardList).contains(mirrorCard),
-                ()->assertThat(actualCardList).contains(mishraCard)
+                () -> assertThat(actualCardList.size()).isEqualTo(2),
+                () -> assertThat(actualCardList).contains(mirrorCard),
+                () -> assertThat(actualCardList).contains(mishraCard)
         );
     }
 
@@ -111,6 +112,22 @@ class CardFinderIT extends IntegrationTestBase {
                 .build();
 
         var actualCardList = cardDao.getCardByTextOrKeyword(session, filter);
+
+        assertThat(actualCardList.size()).isEqualTo(1);
+        assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
+    }
+
+    @Test
+    void shouldReturnAllCardsBySubtypeAndManavalue() {
+        var mirrorCard = CardProvider.createMirrorCard();
+        session.save(mirrorCard);
+        session.clear();
+        var filter = CardFilter.builder()
+                .cardSubType(CardSubType.AURA)
+                .manaValue(3)
+                .build();
+
+        var actualCardList = cardDao.getCardBySubtypeAndManavalue(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
