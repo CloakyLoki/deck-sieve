@@ -1,9 +1,7 @@
 package com.cloakyloki.entity;
 
 import com.cloakyloki.entity.enumerated.Role;
-import org.hibernate.Session;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.cloakyloki.integration.IntegrationTestBase;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,20 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class DeckIT extends IntegrationTestBase {
-
-    private Session session;
-
-    @BeforeEach
-    void sessionInit() {
-        this.session = sessionFactory.openSession();
-        this.session.beginTransaction();
-    }
-
-    @AfterEach
-    void cleanAfterTest() {
-        this.session.getTransaction().rollback();
-        this.session.close();
-    }
 
     @Test
     void addDeck() {

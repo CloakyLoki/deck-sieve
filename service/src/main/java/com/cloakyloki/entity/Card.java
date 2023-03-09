@@ -1,4 +1,5 @@
 package com.cloakyloki.entity;
+
 import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardSuperType;
 import com.cloakyloki.entity.enumerated.CardType;
@@ -15,19 +16,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedEntityGraph(name = "cardInfoWithManacost", attributeNodes = {@NamedAttributeNode("manacost")})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "cardDecks")
-@ToString(exclude = "cardDecks")
+@EqualsAndHashCode(exclude = {"cardDecks", "manacost"})
+@ToString(exclude = {"cardDecks", "manacost"})
 @Builder
 @Entity
 public class Card {
@@ -40,7 +45,7 @@ public class Card {
     @Column(name = "mana_value")
     private Integer manaValue;
 
-    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Manacost manacost;
 
     @Enumerated(EnumType.STRING)
