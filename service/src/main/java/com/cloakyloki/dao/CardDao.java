@@ -5,18 +5,13 @@ import com.cloakyloki.dao.predicate.QPredicate;
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.Card_;
-import com.cloakyloki.entity.Manacost;
-import com.cloakyloki.entity.QCard;
-import com.cloakyloki.entity.enumerated.CardSubType;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.graph.GraphSemantic;
 
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 import static com.cloakyloki.entity.QCard.card;
