@@ -132,4 +132,19 @@ class CardFinderIT extends IntegrationTestBase {
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
     }
+
+    @Test
+    void shouldReturnAllIfFilterIsEmpty() {
+        var mirrorCard = CardProvider.createMirrorCard();
+        var mishraCard = CardProvider.createMishraCard();
+        session.save(mirrorCard);
+        session.save(mishraCard);
+        session.clear();
+        var filter = CardFilter.builder()
+                .build();
+
+        var actualCardList = cardDao.getCardByManaValueAndType(session, filter);
+
+        assertThat(actualCardList.size()).isEqualTo(0);
+    }
 }

@@ -18,7 +18,6 @@ public abstract class IntegrationTestBase {
         var configuration = new Configuration();
         configuration.configure();
         sessionFactory = configuration.buildSessionFactory();
-//        TestDataSupplier.initDB(sessionFactory);
     }
 
     @BeforeEach
