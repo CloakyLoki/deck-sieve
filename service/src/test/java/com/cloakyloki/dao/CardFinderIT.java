@@ -1,6 +1,7 @@
 package com.cloakyloki.dao;
 
 import com.cloakyloki.dto.CardFilter;
+import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.Manacost;
 import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardType;
@@ -10,19 +11,35 @@ import com.cloakyloki.util.CardProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.EntityManager;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CardFinderIT extends IntegrationTestBase {
 
-    private final CardDao cardDao = CardDao.getInstance();
+    //    private final CardDao cardDao = CardDao.getInstance();
+    EntityManager entityManager;
+    CardRepository cardRepository = new CardRepository(Card.class, session);
+
+
+    @Test
+    void delete() {
+        var expectedCard = CardProvider.createMirrorCard();
+        session.save(expectedCard);
+        session.clear();
+        assertThat(session.get(Card.class, expectedCard.getId())).isNotNull();
+        cardRepository.delete(expectedCard.getId());
+//        assertThat(session.get(Card.class, expectedCard.getId())).isNull();
+
+
+    }
 
     @Test
     void shouldReturnCardByName() {
         var expectedCard = CardProvider.createMirrorCard();
         session.save(expectedCard);
         session.clear();
-
-        var actualCardList = cardDao.getCardByName(session, expectedCard.getName());
+        var actualCardList = cardRepository.getCardByName(session, expectedCard.getName());
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(expectedCard);
@@ -50,7 +67,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .keywords("mishra")
                 .build();
 
-        var actualCardList = cardDao.getCardByAnyParameter(session, filter);
+        var actualCardList = cardRepository.getCardByAnyParameter(session, filter);
 
         Assertions.assertAll(
                 () -> assertThat(actualCardList.size()).isEqualTo(2),
@@ -77,7 +94,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .manacost(mishraManacost)
                 .build();
 
-        var actualCardList = cardDao.getCardByAnyParameter(session, filter);
+        var actualCardList = cardRepository.getCardByAnyParameter(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mishraCard);
@@ -94,7 +111,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .cardType(CardType.ARTIFACT)
                 .build();
 
-        var actualCardList = cardDao.getCardByManaValueAndType(session, filter);
+        var actualCardList = cardRepository.getCardByManaValueAndType(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -111,7 +128,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .text("dummy text")
                 .build();
 
-        var actualCardList = cardDao.getCardByTextOrKeyword(session, filter);
+        var actualCardList = cardRepository.getCardByTextOrKeyword(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -127,7 +144,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .manaValue(3)
                 .build();
 
-        var actualCardList = cardDao.getCardBySubtypeAndManavalue(session, filter);
+        var actualCardList = cardRepository.getCardBySubtypeAndManavalue(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -143,7 +160,7 @@ class CardFinderIT extends IntegrationTestBase {
         var filter = CardFilter.builder()
                 .build();
 
-        var actualCardList = cardDao.getCardByManaValueAndType(session, filter);
+        var actualCardList = cardRepository.getCardByManaValueAndType(session, filter);
 
         Assertions.assertAll(
                 () -> assertThat(actualCardList.size()).isEqualTo(2),

@@ -21,15 +21,16 @@ public abstract class IntegrationTestBase {
     }
 
     @BeforeEach
-    void openSession() {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
+    void getSession() {
+        session = sessionFactory.getCurrentSession();
+//        var session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
+//                (proxy, method, args) -> method.invoke(sessionFactory.openSession(), args));
+        this.session.beginTransaction();
     }
 
     @AfterEach
     void closeSession() {
         session.getTransaction().rollback();
-        session.close();
     }
 
     @AfterAll
