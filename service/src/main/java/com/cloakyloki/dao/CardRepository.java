@@ -6,23 +6,19 @@ import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.Card_;
 import com.querydsl.jpa.impl.JPAQuery;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.graph.GraphSemantic;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.Predicate;
 import java.util.List;
 
 import static com.cloakyloki.entity.QCard.card;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CardDao {
+public class CardRepository extends AbstractRepository<Long, Card> {
 
-    private static final CardDao INSTANCE = new CardDao();
-
-    public static CardDao getInstance() {
-        return INSTANCE;
+    public CardRepository(Class<Card> clazz, EntityManager entityManager) {
+        super(clazz, entityManager);
     }
 
     public List<Card> getCardByName(Session session, String cardName) {

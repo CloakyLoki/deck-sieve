@@ -28,7 +28,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

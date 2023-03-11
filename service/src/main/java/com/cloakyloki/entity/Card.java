@@ -35,7 +35,7 @@ import java.util.List;
 @ToString(exclude = {"cardDecks", "manacost"})
 @Builder
 @Entity
-public class Card {
+public class Card implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
