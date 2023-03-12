@@ -7,39 +7,65 @@ import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardType;
 import com.cloakyloki.entity.enumerated.Rarity;
 import com.cloakyloki.integration.IntegrationTestBase;
-import com.cloakyloki.util.CardProvider;
+import com.cloakyloki.util.TestDataProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManager;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CardFinderIT extends IntegrationTestBase {
+class CardRepositoryIT extends IntegrationTestBase {
 
-    //    private final CardDao cardDao = CardDao.getInstance();
-    EntityManager entityManager;
     CardRepository cardRepository = new CardRepository(Card.class, session);
 
+    @Test
+    void deleteCard() {
+        var card = TestDataProvider.createMirrorCard();
+        cardRepository.saveEntity(card);
+
+        cardRepository.deleteEntity(card);
+
+        assertThat(session.get(Card.class, card.getId())).isNull();
+    }
 
     @Test
-    void delete() {
-        var expectedCard = CardProvider.createMirrorCard();
-        session.save(expectedCard);
+    void updateCard() {
+        var card = TestDataProvider.createMirrorCard();
+        session.save(card);
         session.clear();
-        assertThat(session.get(Card.class, expectedCard.getId())).isNotNull();
-        cardRepository.delete(expectedCard.getId());
-//        assertThat(session.get(Card.class, expectedCard.getId())).isNull();
 
+        card.setIsBanned(true);
+        cardRepository.updateEntity(card);
+        session.clear();
 
+        assertThat(session.get(Card.class, card.getId())).isEqualTo(card);
+    }
+
+    @Test
+    void createCard() {
+        var card = TestDataProvider.createMirrorCard();
+        cardRepository.saveEntity(card);
+        session.clear();
+
+        assertThat(session.get(Card.class, card.getId())).isNotNull();
+    }
+
+    @Test
+    void findCardById() {
+        var card = TestDataProvider.createMirrorCard();
+        cardRepository.saveEntity(card);
+        session.clear();
+
+        assertThat(cardRepository.findById(card.getId())).isEqualTo(Optional.of(card));
     }
 
     @Test
     void shouldReturnCardByName() {
-        var expectedCard = CardProvider.createMirrorCard();
+        var expectedCard = TestDataProvider.createMirrorCard();
         session.save(expectedCard);
         session.clear();
-        var actualCardList = cardRepository.getCardByName(session, expectedCard.getName());
+        var actualCardList = cardRepository.getCardByName(expectedCard.getName());
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(expectedCard);
@@ -47,8 +73,8 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllMatchingCards() {
-        var mirrorCard = CardProvider.createMirrorCard();
-        var mishraCard = CardProvider.createMishraCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
+        var mishraCard = TestDataProvider.createMishraCard();
         session.save(mirrorCard);
         session.save(mishraCard);
         session.clear();
@@ -78,7 +104,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsWithMatchingManacost() {
-        var mishraCard = CardProvider.createMishraCard();
+        var mishraCard = TestDataProvider.createMishraCard();
         var mishraManacost = Manacost.builder()
                 .card(mishraCard)
                 .blue(1)
@@ -102,7 +128,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsMatchingManavalueAndType() {
-        var mirrorCard = CardProvider.createMirrorCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
         session.save(mirrorCard);
         session.clear();
 
@@ -119,7 +145,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsMatchingKeywordOrText() {
-        var mirrorCard = CardProvider.createMirrorCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
         session.save(mirrorCard);
         session.clear();
 
@@ -136,7 +162,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsBySubtypeAndManavalue() {
-        var mirrorCard = CardProvider.createMirrorCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
         session.save(mirrorCard);
         session.clear();
         var filter = CardFilter.builder()
@@ -152,8 +178,8 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllIfFilterIsEmpty() {
-        var mirrorCard = CardProvider.createMirrorCard();
-        var mishraCard = CardProvider.createMishraCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
+        var mishraCard = TestDataProvider.createMishraCard();
         session.save(mirrorCard);
         session.save(mishraCard);
         session.clear();

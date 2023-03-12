@@ -21,8 +21,8 @@ public class CardRepository extends AbstractRepository<Long, Card> {
         super(clazz, entityManager);
     }
 
-    public List<Card> getCardByName(Session session, String cardName) {
-        return new JPAQuery<Card>(session)
+    public List<Card> getCardByName(String cardName) {
+        return new JPAQuery<Card>(getEntityManager())
                 .select(card)
                 .from(card)
                 .where(card.name.eq(cardName))

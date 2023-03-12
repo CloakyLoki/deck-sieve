@@ -1,13 +1,18 @@
 package com.cloakyloki.util;
 
 import com.cloakyloki.entity.Card;
+import com.cloakyloki.entity.CardDeck;
+import com.cloakyloki.entity.Deck;
+import com.cloakyloki.entity.Manacost;
+import com.cloakyloki.entity.User;
 import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardType;
 import com.cloakyloki.entity.enumerated.Rarity;
+import com.cloakyloki.entity.enumerated.Role;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class CardProvider {
+public class TestDataProvider {
 
     public static Card createMishraCard() {
         return Card.builder()
@@ -27,7 +32,7 @@ public class CardProvider {
                 .build();
     }
 
-    public static Card createMirrorCard(){
+    public static Card createMirrorCard() {
         return Card.builder()
                 .name("Mirage Mirror")
                 .flavorText("Most mirrors show your reflection. Other show your potential")
@@ -41,6 +46,39 @@ public class CardProvider {
                 .scryfallIllustrationId("1562793459")
                 .text("Mirage Mirror becomes a copy of target artifact, creature, enchantment, " +
                         "or land until end of turn.")
+                .build();
+    }
+
+    public static Deck createTestDeck(User user) {
+        return Deck.builder()
+                .user(user)
+                .favourite(true)
+                .build();
+    }
+
+    public static User createTestUser() {
+        return User.builder()
+                .nickname("CloakyLoki")
+                .role(Role.USER)
+                .password("123")
+                .build();
+    }
+
+    public static CardDeck createTestCardDeck() {
+        return CardDeck.builder()
+                .name("testname")
+                .deck(TestDataProvider.createTestDeck(TestDataProvider.createTestUser()))
+                .card(TestDataProvider.createMishraCard())
+                .build();
+    }
+
+    public static Manacost createTestManacost(Card card) {
+        return Manacost.builder()
+                .card(card)
+                .blue(1)
+                .red(2)
+                .black(3)
+                .common(2)
                 .build();
     }
 }
