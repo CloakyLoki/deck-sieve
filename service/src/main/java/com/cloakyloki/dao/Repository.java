@@ -19,5 +19,6 @@ public interface Repository<S extends Serializable, E extends GenericEntity<S>> 
     default Optional<E> findById(S id) {
         return findById(id, emptyMap());
     }
+
     Optional<E> findById(S id, Map<String, Object> properties);
 }
