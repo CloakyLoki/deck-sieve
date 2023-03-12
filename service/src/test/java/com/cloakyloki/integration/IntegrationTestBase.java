@@ -22,15 +22,12 @@ public abstract class IntegrationTestBase {
         var configuration = new Configuration();
         configuration.configure();
         sessionFactory = configuration.buildSessionFactory();
-//        session = sessionFactory.getCurrentSession();
         session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
                 (proxy, method, args) -> method.invoke(sessionFactory.getCurrentSession(), args));
     }
 
     @BeforeEach
     void getSession() {
-//        session = sessionFactory.getCurrentSession();
-
         session.beginTransaction();
     }
 
