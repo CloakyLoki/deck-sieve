@@ -1,28 +1,71 @@
 package com.cloakyloki.dao;
 
 import com.cloakyloki.dto.CardFilter;
+import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.Manacost;
 import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardType;
 import com.cloakyloki.entity.enumerated.Rarity;
 import com.cloakyloki.integration.IntegrationTestBase;
-import com.cloakyloki.util.CardProvider;
+import com.cloakyloki.util.TestDataProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CardFinderIT extends IntegrationTestBase {
+class CardRepositoryIT extends IntegrationTestBase {
 
-    private final CardDao cardDao = CardDao.getInstance();
+    CardRepository cardRepository = new CardRepository(Card.class, session);
+
+    @Test
+    void deleteCard() {
+        var card = TestDataProvider.createMirrorCard();
+        cardRepository.save(card);
+
+        cardRepository.delete(card);
+
+        assertThat(session.get(Card.class, card.getId())).isNull();
+    }
+
+    @Test
+    void updateCard() {
+        var card = TestDataProvider.createMirrorCard();
+        session.save(card);
+        session.clear();
+
+        card.setIsBanned(true);
+        cardRepository.update(card);
+        session.clear();
+
+        assertThat(session.get(Card.class, card.getId())).isEqualTo(card);
+    }
+
+    @Test
+    void createCard() {
+        var card = TestDataProvider.createMirrorCard();
+        cardRepository.save(card);
+        session.clear();
+
+        assertThat(session.get(Card.class, card.getId())).isNotNull();
+    }
+
+    @Test
+    void findCardById() {
+        var card = TestDataProvider.createMirrorCard();
+        cardRepository.save(card);
+        session.clear();
+
+        assertThat(cardRepository.findById(card.getId())).isEqualTo(Optional.of(card));
+    }
 
     @Test
     void shouldReturnCardByName() {
-        var expectedCard = CardProvider.createMirrorCard();
+        var expectedCard = TestDataProvider.createMirrorCard();
         session.save(expectedCard);
         session.clear();
-
-        var actualCardList = cardDao.getCardByName(session, expectedCard.getName());
+        var actualCardList = cardRepository.getCardByName(expectedCard.getName());
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(expectedCard);
@@ -30,8 +73,8 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllMatchingCards() {
-        var mirrorCard = CardProvider.createMirrorCard();
-        var mishraCard = CardProvider.createMishraCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
+        var mishraCard = TestDataProvider.createMishraCard();
         session.save(mirrorCard);
         session.save(mishraCard);
         session.clear();
@@ -50,7 +93,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .keywords("mishra")
                 .build();
 
-        var actualCardList = cardDao.getCardByAnyParameter(session, filter);
+        var actualCardList = cardRepository.getCardByAnyParameter(session, filter);
 
         Assertions.assertAll(
                 () -> assertThat(actualCardList.size()).isEqualTo(2),
@@ -61,7 +104,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsWithMatchingManacost() {
-        var mishraCard = CardProvider.createMishraCard();
+        var mishraCard = TestDataProvider.createMishraCard();
         var mishraManacost = Manacost.builder()
                 .card(mishraCard)
                 .blue(1)
@@ -77,7 +120,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .manacost(mishraManacost)
                 .build();
 
-        var actualCardList = cardDao.getCardByAnyParameter(session, filter);
+        var actualCardList = cardRepository.getCardByAnyParameter(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mishraCard);
@@ -85,7 +128,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsMatchingManavalueAndType() {
-        var mirrorCard = CardProvider.createMirrorCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
         session.save(mirrorCard);
         session.clear();
 
@@ -94,7 +137,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .cardType(CardType.ARTIFACT)
                 .build();
 
-        var actualCardList = cardDao.getCardByManaValueAndType(session, filter);
+        var actualCardList = cardRepository.getCardByManaValueAndType(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -102,7 +145,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsMatchingKeywordOrText() {
-        var mirrorCard = CardProvider.createMirrorCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
         session.save(mirrorCard);
         session.clear();
 
@@ -111,7 +154,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .text("dummy text")
                 .build();
 
-        var actualCardList = cardDao.getCardByTextOrKeyword(session, filter);
+        var actualCardList = cardRepository.getCardByTextOrKeyword(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -119,7 +162,7 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllCardsBySubtypeAndManavalue() {
-        var mirrorCard = CardProvider.createMirrorCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
         session.save(mirrorCard);
         session.clear();
         var filter = CardFilter.builder()
@@ -127,7 +170,7 @@ class CardFinderIT extends IntegrationTestBase {
                 .manaValue(3)
                 .build();
 
-        var actualCardList = cardDao.getCardBySubtypeAndManavalue(session, filter);
+        var actualCardList = cardRepository.getCardBySubtypeAndManavalue(session, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -135,15 +178,15 @@ class CardFinderIT extends IntegrationTestBase {
 
     @Test
     void shouldReturnAllIfFilterIsEmpty() {
-        var mirrorCard = CardProvider.createMirrorCard();
-        var mishraCard = CardProvider.createMishraCard();
+        var mirrorCard = TestDataProvider.createMirrorCard();
+        var mishraCard = TestDataProvider.createMishraCard();
         session.save(mirrorCard);
         session.save(mishraCard);
         session.clear();
         var filter = CardFilter.builder()
                 .build();
 
-        var actualCardList = cardDao.getCardByManaValueAndType(session, filter);
+        var actualCardList = cardRepository.getCardByManaValueAndType(session, filter);
 
         Assertions.assertAll(
                 () -> assertThat(actualCardList.size()).isEqualTo(2),

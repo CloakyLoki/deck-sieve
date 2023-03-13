@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Builder
 @Table(name = "card_deck")
 @Entity
-public class CardDeck {
+public class CardDeck implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

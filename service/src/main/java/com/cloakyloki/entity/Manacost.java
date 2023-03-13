@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Builder
 @Entity
 @Table(name = "card_manacost_qty")
-public class Manacost {
+public class Manacost implements GenericEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
