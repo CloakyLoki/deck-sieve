@@ -10,11 +10,11 @@ import static java.util.Collections.emptyMap;
 
 public interface Repository<S extends Serializable, E extends GenericEntity<S>> {
 
-    E saveEntity(E entity);
+    E save(E entity);
 
-    void deleteEntity(E entity);
+    void delete(E entity);
 
-    void updateEntity(E entity);
+    void update(E entity);
 
     default Optional<E> findById(S id) {
         return findById(id, emptyMap());

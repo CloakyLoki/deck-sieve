@@ -17,19 +17,19 @@ public abstract class AbstractRepository<S extends Serializable, E extends Gener
     private final EntityManager entityManager;
 
     @Override
-    public E saveEntity(E entity) {
+    public E save(E entity) {
         entityManager.persist(entity);
         return entity;
     }
 
     @Override
-    public void deleteEntity(E entity) {
+    public void delete(E entity) {
         entityManager.remove(entity);
         entityManager.flush();
     }
 
     @Override
-    public void updateEntity(E entity) {
+    public void update(E entity) {
         entityManager.merge(entity);
         entityManager.flush();
     }

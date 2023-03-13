@@ -22,9 +22,9 @@ class CardRepositoryIT extends IntegrationTestBase {
     @Test
     void deleteCard() {
         var card = TestDataProvider.createMirrorCard();
-        cardRepository.saveEntity(card);
+        cardRepository.save(card);
 
-        cardRepository.deleteEntity(card);
+        cardRepository.delete(card);
 
         assertThat(session.get(Card.class, card.getId())).isNull();
     }
@@ -36,7 +36,7 @@ class CardRepositoryIT extends IntegrationTestBase {
         session.clear();
 
         card.setIsBanned(true);
-        cardRepository.updateEntity(card);
+        cardRepository.update(card);
         session.clear();
 
         assertThat(session.get(Card.class, card.getId())).isEqualTo(card);
@@ -45,7 +45,7 @@ class CardRepositoryIT extends IntegrationTestBase {
     @Test
     void createCard() {
         var card = TestDataProvider.createMirrorCard();
-        cardRepository.saveEntity(card);
+        cardRepository.save(card);
         session.clear();
 
         assertThat(session.get(Card.class, card.getId())).isNotNull();
@@ -54,7 +54,7 @@ class CardRepositoryIT extends IntegrationTestBase {
     @Test
     void findCardById() {
         var card = TestDataProvider.createMirrorCard();
-        cardRepository.saveEntity(card);
+        cardRepository.save(card);
         session.clear();
 
         assertThat(cardRepository.findById(card.getId())).isEqualTo(Optional.of(card));

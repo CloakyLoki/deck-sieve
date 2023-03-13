@@ -18,9 +18,9 @@ class ManacostRepositoryIT extends IntegrationTestBase {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
         session.save(mishraCard);
-        manacostRepository.saveEntity(manacost);
+        manacostRepository.save(manacost);
 
-        manacostRepository.deleteEntity(manacost);
+        manacostRepository.delete(manacost);
 
         assertThat(session.get(Manacost.class, manacost.getId())).isNull();
     }
@@ -30,11 +30,11 @@ class ManacostRepositoryIT extends IntegrationTestBase {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
         session.save(mishraCard);
-        manacostRepository.saveEntity(manacost);
+        manacostRepository.save(manacost);
         session.clear();
 
         manacost.setBlack(999);
-        manacostRepository.updateEntity(manacost);
+        manacostRepository.update(manacost);
         session.clear();
 
         assertThat(session.get(Manacost.class, manacost.getId())).isEqualTo(manacost);
@@ -45,7 +45,7 @@ class ManacostRepositoryIT extends IntegrationTestBase {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
         session.save(mishraCard);
-        manacostRepository.saveEntity(manacost);
+        manacostRepository.save(manacost);
         session.clear();
 
         assertThat(session.get(Manacost.class, manacost.getId())).isNotNull();
@@ -56,7 +56,7 @@ class ManacostRepositoryIT extends IntegrationTestBase {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
         session.save(mishraCard);
-        manacostRepository.saveEntity(manacost);
+        manacostRepository.save(manacost);
         session.clear();
 
         assertThat(manacostRepository.findById(manacost.getId())).isEqualTo(Optional.of(manacost));

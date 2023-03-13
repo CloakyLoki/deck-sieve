@@ -25,9 +25,9 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
         session.save(mishraCard);
         session.save(user);
         session.save(testDeck);
-        cardDeckRepository.saveEntity(testCardDeck);
+        cardDeckRepository.save(testCardDeck);
 
-        cardDeckRepository.deleteEntity(testCardDeck);
+        cardDeckRepository.delete(testCardDeck);
 
         assertThat(session.get(CardDeck.class, testCardDeck.getId())).isNull();
     }
@@ -58,7 +58,7 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
         session.save(testCardDeck);
 
         testCardDeck.setCard(mishraCard);
-        cardDeckRepository.updateEntity(testCardDeck);
+        cardDeckRepository.update(testCardDeck);
         session.clear();
 
         assertThat(session.get(CardDeck.class, testCardDeck.getId())).isEqualTo(testCardDeck);
@@ -74,7 +74,7 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
         session.save(user);
         session.save(testDeck);
 
-        cardDeckRepository.saveEntity(testCardDeck);
+        cardDeckRepository.save(testCardDeck);
         session.clear();
 
         assertThat(session.get(CardDeck.class, testCardDeck.getId())).isNotNull();
@@ -102,7 +102,7 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
         session.save(user);
         session.save(deck);
 
-        cardDeckRepository.saveEntity(testCardDeck);
+        cardDeckRepository.save(testCardDeck);
         session.clear();
 
         assertThat(cardDeckRepository.findById(testCardDeck.getId())).isEqualTo(Optional.of(testCardDeck));

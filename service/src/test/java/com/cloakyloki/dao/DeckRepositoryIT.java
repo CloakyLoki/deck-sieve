@@ -19,9 +19,9 @@ public class DeckRepositoryIT extends IntegrationTestBase {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
         session.save(testUser);
-        deckRepository.saveEntity(deck);
+        deckRepository.save(deck);
 
-        deckRepository.deleteEntity(deck);
+        deckRepository.delete(deck);
 
         assertThat(session.get(Card.class, deck.getId())).isNull();
     }
@@ -31,11 +31,11 @@ public class DeckRepositoryIT extends IntegrationTestBase {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
         session.save(testUser);
-        deckRepository.saveEntity(deck);
+        deckRepository.save(deck);
         session.clear();
 
         deck.setFavourite(false);
-        deckRepository.updateEntity(deck);
+        deckRepository.update(deck);
         session.clear();
 
         assertThat(session.get(Deck.class, deck.getId())).isEqualTo(deck);
@@ -46,7 +46,7 @@ public class DeckRepositoryIT extends IntegrationTestBase {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
         session.save(testUser);
-        deckRepository.saveEntity(deck);
+        deckRepository.save(deck);
         session.clear();
 
         assertThat(session.get(Deck.class, deck.getId())).isNotNull();
@@ -57,7 +57,7 @@ public class DeckRepositoryIT extends IntegrationTestBase {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
         session.save(testUser);
-        deckRepository.saveEntity(deck);
+        deckRepository.save(deck);
         session.clear();
 
         assertThat(deckRepository.findById(deck.getId())).isEqualTo(Optional.of(deck));

@@ -17,9 +17,9 @@ class UserRepositoryIT extends IntegrationTestBase {
     @Test
     void deleteUser() {
         var testUser = TestDataProvider.createTestUser();
-        userRepository.saveEntity(testUser);
+        userRepository.save(testUser);
 
-        userRepository.deleteEntity(testUser);
+        userRepository.delete(testUser);
 
         assertThat(session.get(User.class, testUser.getId())).isNull();
     }
@@ -27,11 +27,11 @@ class UserRepositoryIT extends IntegrationTestBase {
     @Test
     void updateUser() {
         var testUser = TestDataProvider.createTestUser();
-        userRepository.saveEntity(testUser);
+        userRepository.save(testUser);
         session.clear();
 
         testUser.setRole(Role.USER);
-        userRepository.updateEntity(testUser);
+        userRepository.update(testUser);
         session.clear();
 
         assertThat(session.get(User.class, testUser.getId())).isEqualTo(testUser);
@@ -42,7 +42,7 @@ class UserRepositoryIT extends IntegrationTestBase {
         var testUser = TestDataProvider.createTestUser();
         session.save(testUser);
 
-        userRepository.saveEntity(testUser);
+        userRepository.save(testUser);
         session.clear();
 
         assertThat(session.get(User.class, testUser.getId())).isNotNull();
@@ -51,7 +51,7 @@ class UserRepositoryIT extends IntegrationTestBase {
     @Test
     void findUserById() {
         var testUser = TestDataProvider.createTestUser();
-        userRepository.saveEntity(testUser);
+        userRepository.save(testUser);
         session.clear();
 
         assertThat(userRepository.findById(testUser.getId())).isEqualTo(Optional.of(testUser));
