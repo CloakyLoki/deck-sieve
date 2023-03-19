@@ -8,6 +8,7 @@ import com.cloakyloki.entity.Card_;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.hibernate.Session;
 import org.hibernate.graph.GraphSemantic;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.Predicate;
@@ -15,10 +16,11 @@ import java.util.List;
 
 import static com.cloakyloki.entity.QCard.card;
 
+@Repository
 public class CardRepository extends AbstractRepository<Long, Card> {
 
-    public CardRepository(Class<Card> clazz, EntityManager entityManager) {
-        super(clazz, entityManager);
+    public CardRepository(EntityManager entityManager) {
+        super(Card.class, entityManager);
     }
 
     public List<Card> getCardByName(String cardName) {
