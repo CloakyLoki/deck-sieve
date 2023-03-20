@@ -41,6 +41,5 @@ public abstract class IntegrationTestBase {
     @AfterAll
     static void close() {
         context.close();
-        sessionFactory.close();
     }
 }
