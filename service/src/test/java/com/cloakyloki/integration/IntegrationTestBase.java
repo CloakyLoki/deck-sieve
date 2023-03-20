@@ -1,6 +1,5 @@
 package com.cloakyloki.integration;
 
-import com.cloakyloki.config.RepositoryConfig;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +10,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.persistence.EntityManager;
+
 @RequiredArgsConstructor
 public abstract class IntegrationTestBase {
 
@@ -20,10 +21,8 @@ public abstract class IntegrationTestBase {
 
     @BeforeAll
     static void init() {
-        context = new AnnotationConfigApplicationContext();
-        context.register(RepositoryConfig.class);
-        context.refresh();
-        session = (Session) context.getBean("entityManager");
+        context = new AnnotationConfigApplicationContext("com.cloakyloki.config");
+        session = (Session) context.getBean(EntityManager.class);
         sessionFactory = context.getBean(SessionFactory.class);
         var configuration = context.getBean(Configuration.class);
         configuration.configure();

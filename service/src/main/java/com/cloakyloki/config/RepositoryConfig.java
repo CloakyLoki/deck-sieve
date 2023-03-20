@@ -2,7 +2,6 @@ package com.cloakyloki.config;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +13,7 @@ import java.lang.reflect.Proxy;
 @ComponentScan(basePackages = "com.cloakyloki.dao")
 public class RepositoryConfig {
 
-    @Bean(name = "entityManager")
+    @Bean
     EntityManager entityManager() {
         var configuration = new org.hibernate.cfg.Configuration();
         configuration.configure();
@@ -29,7 +28,6 @@ public class RepositoryConfig {
     }
 
     @Bean
-    @Autowired
     SessionFactory sessionFactory(org.hibernate.cfg.Configuration configuration) {
         configuration().configure();
         return configuration.buildSessionFactory();

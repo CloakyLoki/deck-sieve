@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class DeckRepositoryIT extends IntegrationTestBase {
 
     private final DeckRepository deckRepository = context.getBean(DeckRepository.class);
