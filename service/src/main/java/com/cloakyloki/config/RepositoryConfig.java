@@ -1,12 +1,11 @@
 package com.cloakyloki.config;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import java.lang.reflect.Proxy;
 
@@ -15,11 +14,8 @@ import java.lang.reflect.Proxy;
 public class RepositoryConfig {
 
     @Bean
-    @Autowired
-    EntityManager entityManager(org.hibernate.cfg.Configuration configuration) {
-        configuration.configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        return (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
+    EntityManager entityManager(SessionFactory sessionFactory) {
+        return (EntityManager) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{EntityManager.class},
                 (proxy, method, args) -> method.invoke(sessionFactory.getCurrentSession(), args));
     }
 
@@ -32,5 +28,11 @@ public class RepositoryConfig {
     SessionFactory sessionFactory(org.hibernate.cfg.Configuration configuration) {
         configuration().configure();
         return configuration.buildSessionFactory();
+    }
+
+    @PreDestroy
+    void destroy() {
+        System.out.println("Destroy");
+        sessionFactory(configuration()).close();
     }
 }

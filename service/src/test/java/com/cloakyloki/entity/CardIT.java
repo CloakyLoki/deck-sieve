@@ -25,10 +25,10 @@ class CardIT extends IntegrationTestBase {
                 .scryfallIllustrationId("1562793459")
                 .text("Mirage Mirror becomes a copy of target artifact, creature, enchantment, or land until end of turn.")
                 .build();
-        session.save(expectedCard);
-        session.clear();
+        entityManager.persist(expectedCard);
+        entityManager.clear();
 
-        var actualCard = session.get(Card.class, expectedCard.getId());
+        var actualCard = entityManager.find(Card.class, expectedCard.getId());
 
         assertThat(actualCard.getId()).isNotNull();
     }
@@ -47,10 +47,10 @@ class CardIT extends IntegrationTestBase {
                 .scryfallIllustrationId("1562793459")
                 .text("Mirage Mirror becomes a copy of target artifact, creature, enchantment, or land until end of turn.")
                 .build();
-        session.save(expectedCard);
-        session.clear();
+        entityManager.persist(expectedCard);
+        entityManager.clear();
 
-        var actualCard = session.get(Card.class, expectedCard.getId());
+        var actualCard = entityManager.find(Card.class, expectedCard.getId());
 
         assertEquals(expectedCard, actualCard);
     }
@@ -65,14 +65,14 @@ class CardIT extends IntegrationTestBase {
                 .keywords("commander")
                 .isBanned(false)
                 .build();
-        session.save(expectedCard);
-        session.clear();
+        entityManager.persist(expectedCard);
+        entityManager.clear();
         expectedCard.setIsBanned(true);
-        session.update(expectedCard);
-        session.flush();
-        session.clear();
+        entityManager.merge(expectedCard);
+        entityManager.flush();
+        entityManager.clear();
 
-        var actualCard = session.get(Card.class, expectedCard.getId());
+        var actualCard = entityManager.find(Card.class, expectedCard.getId());
 
         assertEquals(expectedCard, actualCard);
     }
@@ -87,16 +87,16 @@ class CardIT extends IntegrationTestBase {
                 .keywords("commander")
                 .isBanned(false)
                 .build();
-        session.save(card);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.clear();
 
-        assertThat(session.get(Card.class, card.getId()).getId()).isNotNull();
+        assertThat(entityManager.find(Card.class, card.getId()).getId()).isNotNull();
 
-        session.clear();
-        session.delete(card);
-        session.flush();
-        session.clear();
+        entityManager.clear();
+        entityManager.remove(card);
+        entityManager.flush();
+        entityManager.clear();
 
-        assertNull(session.get(Card.class, card.getId()));
+        assertNull(entityManager.find(Card.class, card.getId()));
     }
 }

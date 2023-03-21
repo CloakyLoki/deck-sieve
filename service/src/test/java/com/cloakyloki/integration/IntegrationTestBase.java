@@ -1,9 +1,8 @@
 package com.cloakyloki.integration;
 
+import com.cloakyloki.config.RepositoryConfig;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,29 +13,24 @@ import javax.persistence.EntityManager;
 @RequiredArgsConstructor
 public abstract class IntegrationTestBase {
 
-    protected static Session session;
+    protected static EntityManager entityManager;
     protected static AnnotationConfigApplicationContext context;
 
     @BeforeAll
     static void init() {
-        context = new AnnotationConfigApplicationContext("com.cloakyloki.config");
-        session = (Session) context.getBean(EntityManager.class);
+        context = new AnnotationConfigApplicationContext(RepositoryConfig.class);
+        entityManager = context.getBean(EntityManager.class);
         var configuration = context.getBean(Configuration.class);
         configuration.configure();
     }
 
     @BeforeEach
-    void getSession() {
-        session.beginTransaction();
+    void getEntityManager() {
+        entityManager.getTransaction().begin();
     }
 
     @AfterEach
     void closeSession() {
-        session.getTransaction().rollback();
-    }
-
-    @AfterAll
-    static void close() {
-        context.close();
+        entityManager.getTransaction().rollback();
     }
 }

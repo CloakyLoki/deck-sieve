@@ -23,11 +23,11 @@ class DeckIT extends IntegrationTestBase {
                 .user(user)
                 .favourite(true)
                 .build();
-        session.save(user);
-        session.save(expectedDeck);
-        session.clear();
+        entityManager.persist(user);
+        entityManager.persist(expectedDeck);
+        entityManager.clear();
 
-        var actualDeck = session.get(Deck.class, expectedDeck.getId());
+        var actualDeck = entityManager.find(Deck.class, expectedDeck.getId());
 
         assertThat(actualDeck.getId()).isNotNull();
     }
@@ -45,11 +45,11 @@ class DeckIT extends IntegrationTestBase {
                 .user(user)
                 .favourite(true)
                 .build();
-        session.save(user);
-        session.save(expectedDeck);
-        session.clear();
+        entityManager.persist(user);
+        entityManager.persist(expectedDeck);
+        entityManager.clear();
 
-        var actualDeck = session.get(Deck.class, expectedDeck.getId());
+        var actualDeck = entityManager.find(Deck.class, expectedDeck.getId());
 
         assertEquals(expectedDeck, actualDeck);
     }
@@ -67,16 +67,16 @@ class DeckIT extends IntegrationTestBase {
                 .user(user)
                 .favourite(true)
                 .build();
-        session.save(user);
-        session.save(expectedDeck);
-        session.clear();
+        entityManager.persist(user);
+        entityManager.persist(expectedDeck);
+        entityManager.clear();
 
         expectedDeck.setFavourite(false);
-        session.update(expectedDeck);
-        session.flush();
-        session.clear();
+        entityManager.merge(expectedDeck);
+        entityManager.flush();
+        entityManager.clear();
 
-        var actualDeck = session.get(Deck.class, expectedDeck.getId());
+        var actualDeck = entityManager.find(Deck.class, expectedDeck.getId());
 
         assertEquals(expectedDeck, actualDeck);
     }
@@ -94,16 +94,16 @@ class DeckIT extends IntegrationTestBase {
                 .user(user)
                 .favourite(true)
                 .build();
-        session.save(user);
-        session.save(newDeck);
-        session.clear();
+        entityManager.persist(user);
+        entityManager.persist(newDeck);
+        entityManager.clear();
 
         assertThat(newDeck.getId()).isNotNull();
 
-        session.delete(newDeck);
-        session.flush();
-        session.clear();
+        entityManager.remove(newDeck);
+        entityManager.flush();
+        entityManager.clear();
 
-        assertNull(session.get(Deck.class, newDeck.getId()));
+        assertNull(entityManager.find(Deck.class, newDeck.getId()));
     }
 }

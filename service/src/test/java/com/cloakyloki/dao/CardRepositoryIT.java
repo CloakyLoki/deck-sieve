@@ -93,7 +93,7 @@ class CardRepositoryIT extends IntegrationTestBase {
                 .keywords("mishra")
                 .build();
 
-        var actualCardList = cardRepository.getCardByAnyParameter(session, filter);
+        var actualCardList = cardRepository.getCardByAnyParameter(entityManager, filter);
 
         Assertions.assertAll(
                 () -> assertThat(actualCardList.size()).isEqualTo(2),
@@ -120,7 +120,7 @@ class CardRepositoryIT extends IntegrationTestBase {
                 .manacost(mishraManacost)
                 .build();
 
-        var actualCardList = cardRepository.getCardByAnyParameter(session, filter);
+        var actualCardList = cardRepository.getCardByAnyParameter(entityManager, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mishraCard);
@@ -137,7 +137,7 @@ class CardRepositoryIT extends IntegrationTestBase {
                 .cardType(CardType.ARTIFACT)
                 .build();
 
-        var actualCardList = cardRepository.getCardByManaValueAndType(session, filter);
+        var actualCardList = cardRepository.getCardByManaValueAndType(entityManager, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -154,7 +154,7 @@ class CardRepositoryIT extends IntegrationTestBase {
                 .text("dummy text")
                 .build();
 
-        var actualCardList = cardRepository.getCardByTextOrKeyword(session, filter);
+        var actualCardList = cardRepository.getCardByTextOrKeyword(entityManager, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -170,7 +170,7 @@ class CardRepositoryIT extends IntegrationTestBase {
                 .manaValue(3)
                 .build();
 
-        var actualCardList = cardRepository.getCardBySubtypeAndManavalue(session, filter);
+        var actualCardList = cardRepository.getCardBySubtypeAndManavalue(entityManager, filter);
 
         assertThat(actualCardList.size()).isEqualTo(1);
         assertThat(actualCardList.get(0)).isEqualTo(mirrorCard);
@@ -186,7 +186,7 @@ class CardRepositoryIT extends IntegrationTestBase {
         var filter = CardFilter.builder()
                 .build();
 
-        var actualCardList = cardRepository.getCardByManaValueAndType(session, filter);
+        var actualCardList = cardRepository.getCardByManaValueAndType(entityManager, filter);
 
         Assertions.assertAll(
                 () -> assertThat(actualCardList.size()).isEqualTo(2),

@@ -37,14 +37,14 @@ class CardDeckIT extends IntegrationTestBase {
                 .card(card)
                 .deck(deck)
                 .build();
-        session.save(card);
-        session.save(user);
-        session.save(deck);
-        session.save(cardDeck);
-        session.flush();
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(user);
+        entityManager.persist(deck);
+        entityManager.persist(cardDeck);
+        entityManager.flush();
+        entityManager.clear();
 
-        var actualCardDeck = session.get(CardDeck.class, cardDeck.getId());
+        var actualCardDeck = entityManager.find(CardDeck.class, cardDeck.getId());
 
         assertThat(actualCardDeck).isNotNull();
     }
@@ -74,13 +74,13 @@ class CardDeckIT extends IntegrationTestBase {
                 .card(card)
                 .deck(deck)
                 .build();
-        session.save(card);
-        session.save(user);
-        session.save(deck);
-        session.save(expectedCardDeck);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(user);
+        entityManager.persist(deck);
+        entityManager.persist(expectedCardDeck);
+        entityManager.clear();
 
-        var actualCardDeck = session.get(CardDeck.class, expectedCardDeck.getId());
+        var actualCardDeck = entityManager.find(CardDeck.class, expectedCardDeck.getId());
 
         assertEquals(expectedCardDeck, actualCardDeck);
     }
@@ -111,18 +111,18 @@ class CardDeckIT extends IntegrationTestBase {
                 .card(card)
                 .deck(deck)
                 .build();
-        session.save(card);
-        session.save(user);
-        session.save(deck);
-        session.save(expectedCardDeck);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(user);
+        entityManager.persist(deck);
+        entityManager.persist(expectedCardDeck);
+        entityManager.clear();
 
         expectedCardDeck.setName("newCardDeck");
-        session.update(expectedCardDeck);
-        session.flush();
-        session.clear();
+        entityManager.merge(expectedCardDeck);
+        entityManager.flush();
+        entityManager.clear();
 
-        var actualCardDeck = session.get(CardDeck.class, expectedCardDeck.getId());
+        var actualCardDeck = entityManager.find(CardDeck.class, expectedCardDeck.getId());
 
         assertEquals(expectedCardDeck, actualCardDeck);
     }
@@ -152,18 +152,18 @@ class CardDeckIT extends IntegrationTestBase {
                 .card(card)
                 .deck(deck)
                 .build();
-        session.save(card);
-        session.save(user);
-        session.save(deck);
-        session.save(cardDeck);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(user);
+        entityManager.persist(deck);
+        entityManager.persist(cardDeck);
+        entityManager.clear();
 
         assertThat(cardDeck.getId()).isNotNull();
 
-        session.delete(cardDeck);
-        session.flush();
-        session.clear();
+        entityManager.remove(cardDeck);
+        entityManager.flush();
+        entityManager.clear();
 
-        assertNull(session.get(CardDeck.class, cardDeck.getId()));
+        assertNull(entityManager.find(CardDeck.class, cardDeck.getId()));
     }
 }

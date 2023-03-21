@@ -1,9 +1,11 @@
 package com.cloakyloki.dao;
 
+import com.cloakyloki.entity.Deck;
 import com.cloakyloki.integration.IntegrationTestBase;
 import com.cloakyloki.util.TestDataProvider;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,6 +14,7 @@ public class DeckRepositoryIT extends IntegrationTestBase {
 
     private final DeckRepository deckRepository = context.getBean(DeckRepository.class);
     private final UserRepository userRepository = context.getBean(UserRepository.class);
+    private final EntityManager entityManager = context.getBean(EntityManager.class);
 
     @Test
     void deleteDeck() {
@@ -22,7 +25,7 @@ public class DeckRepositoryIT extends IntegrationTestBase {
 
         deckRepository.delete(deck);
 
-        assertThat(deckRepository.findById(deck.getId())).isEmpty();
+        assertThat(entityManager.find(Deck.class, deck.getId())).isNull();
     }
 
     @Test

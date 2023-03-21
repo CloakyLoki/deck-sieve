@@ -6,7 +6,6 @@ import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.Card_;
 import com.querydsl.jpa.impl.JPAQuery;
-import org.hibernate.Session;
 import org.hibernate.graph.GraphSemantic;
 import org.springframework.stereotype.Repository;
 
@@ -31,34 +30,34 @@ public class CardRepository extends AbstractRepository<Long, Card> {
                 .fetch();
     }
 
-    public List<Card> getCardByTextOrKeyword(Session session, CardFilter filter) {
+    public List<Card> getCardByTextOrKeyword(EntityManager entityManager, CardFilter filter) {
         var predicate = QPredicate.builder()
                 .add(filter.getText(), card.text::eq)
                 .add(filter.getKeywords(), card.keywords::eq)
                 .buildOr();
 
-        return new JPAQuery<Card>(session)
+        return new JPAQuery<Card>(entityManager)
                 .select(card)
                 .from(card)
                 .where(predicate)
-                .setHint(GraphSemantic.FETCH.getJpaHintName(), session.getEntityGraph("cardInfoWithManacost"))
+                .setHint(GraphSemantic.FETCH.getJpaHintName(), entityManager.getEntityGraph("cardInfoWithManacost"))
                 .fetch();
     }
 
-    public List<Card> getCardByManaValueAndType(Session session, CardFilter filter) {
+    public List<Card> getCardByManaValueAndType(EntityManager entityManager, CardFilter filter) {
         var predicate = QPredicate.builder()
                 .add(filter.getCardType(), card.type::eq)
                 .add(filter.getManaValue(), card.manaValue::eq)
                 .buildAnd();
 
-        return new JPAQuery<Card>(session)
+        return new JPAQuery<Card>(entityManager)
                 .select(card)
                 .from(card)
                 .where(predicate)
                 .fetch();
     }
 
-    public List<Card> getCardByAnyParameter(Session session, CardFilter filter) {
+    public List<Card> getCardByAnyParameter(EntityManager entityManager, CardFilter filter) {
         var predicate = QPredicate.builder()
                 .add(filter.getCardName(), card.name::eq)
                 .add(filter.getManaValue(), card.manaValue::eq)
@@ -74,15 +73,15 @@ public class CardRepository extends AbstractRepository<Long, Card> {
                 .add(filter.getIsBanned(), card.isBanned::eq)
                 .buildOr();
 
-        return new JPAQuery<Card>(session)
+        return new JPAQuery<Card>(entityManager)
                 .select(card)
                 .from(card)
                 .where(predicate)
                 .fetch();
     }
 
-    public List<Card> getCardBySubtypeAndManavalue(Session session, CardFilter filter) {
-        var cb = session.getCriteriaBuilder();
+    public List<Card> getCardBySubtypeAndManavalue(EntityManager entityManager, CardFilter filter) {
+        var cb = entityManager.getCriteriaBuilder();
         var criteria = cb.createQuery(Card.class);
         var card = criteria.from(Card.class);
 
@@ -94,6 +93,6 @@ public class CardRepository extends AbstractRepository<Long, Card> {
         criteria.select(card)
                 .where(predicates.toArray(Predicate[]::new));
 
-        return session.createQuery(criteria).list();
+        return entityManager.createQuery(criteria).getResultList();
     }
 }

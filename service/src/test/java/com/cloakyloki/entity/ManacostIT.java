@@ -29,11 +29,11 @@ class ManacostIT extends IntegrationTestBase {
                 .green(4)
                 .common(2)
                 .build();
-        session.save(card);
-        session.save(expectedManacost);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(expectedManacost);
+        entityManager.clear();
 
-        var actualManacost = session.get(Manacost.class, expectedManacost.getId());
+        var actualManacost = entityManager.find(Manacost.class, expectedManacost.getId());
 
         assertThat(actualManacost.getId()).isNotNull();
     }
@@ -57,11 +57,11 @@ class ManacostIT extends IntegrationTestBase {
                 .green(4)
                 .common(2)
                 .build();
-        session.save(card);
-        session.save(expectedManacost);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(expectedManacost);
+        entityManager.clear();
 
-        var actualManacost = session.get(Manacost.class, expectedManacost.getId());
+        var actualManacost = entityManager.find(Manacost.class, expectedManacost.getId());
 
         assertEquals(expectedManacost, actualManacost);
     }
@@ -85,16 +85,16 @@ class ManacostIT extends IntegrationTestBase {
                 .green(4)
                 .common(2)
                 .build();
-        session.save(card);
-        session.save(expectedManacost);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(expectedManacost);
+        entityManager.clear();
 
         expectedManacost.setBlack(null);
-        session.update(expectedManacost);
-        session.flush();
-        session.clear();
+        entityManager.merge(expectedManacost);
+        entityManager.flush();
+        entityManager.clear();
 
-        var actualManacost = session.get(Manacost.class, expectedManacost.getId());
+        var actualManacost = entityManager.find(Manacost.class, expectedManacost.getId());
 
         assertEquals(expectedManacost, actualManacost);
     }
@@ -118,16 +118,16 @@ class ManacostIT extends IntegrationTestBase {
                 .green(4)
                 .common(2)
                 .build();
-        session.save(card);
-        session.save(manacost);
-        session.clear();
+        entityManager.persist(card);
+        entityManager.persist(manacost);
+        entityManager.clear();
 
         assertThat(manacost.getId()).isNotNull();
 
-        session.delete(manacost);
-        session.flush();
-        session.clear();
+        entityManager.remove(manacost);
+        entityManager.flush();
+        entityManager.clear();
 
-        assertNull(session.get(Manacost.class, manacost.getId()));
+        assertNull(entityManager.find(Manacost.class, manacost.getId()));
     }
 }

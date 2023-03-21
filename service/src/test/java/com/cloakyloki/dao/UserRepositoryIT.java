@@ -39,8 +39,6 @@ class UserRepositoryIT extends IntegrationTestBase {
     @Test
     void createUser() {
         var testUser = TestDataProvider.createTestUser();
-        session.save(testUser);
-
         userRepository.save(testUser);
         userRepository.getEntityManager().clear();
 
