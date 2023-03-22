@@ -3,6 +3,7 @@ package com.cloakyloki.integration;
 import com.cloakyloki.config.RepositoryConfig;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.cfg.Configuration;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,5 +33,10 @@ public abstract class IntegrationTestBase {
     @AfterEach
     void closeSession() {
         entityManager.getTransaction().rollback();
+    }
+
+    @AfterAll
+    static void closeContext() {
+        context.close();
     }
 }

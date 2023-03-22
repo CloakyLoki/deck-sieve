@@ -32,7 +32,6 @@ public class RepositoryConfig {
 
     @PreDestroy
     void destroy() {
-        System.out.println("Destroy");
         sessionFactory(configuration()).close();
     }
 }
