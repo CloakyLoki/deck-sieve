@@ -1,6 +1,5 @@
 package com.cloakyloki.dao;
 
-import com.cloakyloki.entity.User;
 import com.cloakyloki.entity.enumerated.Role;
 import com.cloakyloki.integration.IntegrationTestBase;
 import com.cloakyloki.util.TestDataProvider;
@@ -12,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class UserRepositoryIT extends IntegrationTestBase {
 
-    UserRepository userRepository = new UserRepository(User.class, session);
+    private final UserRepository userRepository = context.getBean(UserRepository.class);
 
     @Test
     void deleteUser() {
@@ -21,38 +20,36 @@ class UserRepositoryIT extends IntegrationTestBase {
 
         userRepository.delete(testUser);
 
-        assertThat(session.get(User.class, testUser.getId())).isNull();
+        assertThat(userRepository.findById(testUser.getId())).isEmpty();
     }
 
     @Test
     void updateUser() {
         var testUser = TestDataProvider.createTestUser();
         userRepository.save(testUser);
-        session.clear();
+        userRepository.getEntityManager().clear();
 
         testUser.setRole(Role.USER);
         userRepository.update(testUser);
-        session.clear();
+        userRepository.getEntityManager().clear();
 
-        assertThat(session.get(User.class, testUser.getId())).isEqualTo(testUser);
+        assertThat(userRepository.findById(testUser.getId())).isEqualTo(Optional.of(testUser));
     }
 
     @Test
     void createUser() {
         var testUser = TestDataProvider.createTestUser();
-        session.save(testUser);
-
         userRepository.save(testUser);
-        session.clear();
+        userRepository.getEntityManager().clear();
 
-        assertThat(session.get(User.class, testUser.getId())).isNotNull();
+        assertThat(userRepository.findById(testUser.getId())).isNotEmpty();
     }
 
     @Test
     void findUserById() {
         var testUser = TestDataProvider.createTestUser();
         userRepository.save(testUser);
-        session.clear();
+        userRepository.getEntityManager().clear();
 
         assertThat(userRepository.findById(testUser.getId())).isEqualTo(Optional.of(testUser));
     }

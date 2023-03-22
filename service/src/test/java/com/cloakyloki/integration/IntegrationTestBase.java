@@ -1,43 +1,42 @@
 package com.cloakyloki.integration;
 
+import com.cloakyloki.config.RepositoryConfig;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.reflect.Proxy;
+import javax.persistence.EntityManager;
 
 @RequiredArgsConstructor
 public abstract class IntegrationTestBase {
 
-    private static SessionFactory sessionFactory;
-    protected static Session session;
+    protected static EntityManager entityManager;
+    protected static AnnotationConfigApplicationContext context;
 
     @BeforeAll
     static void init() {
-        var configuration = new Configuration();
+        context = new AnnotationConfigApplicationContext(RepositoryConfig.class);
+        entityManager = context.getBean(EntityManager.class);
+        var configuration = context.getBean(Configuration.class);
         configuration.configure();
-        sessionFactory = configuration.buildSessionFactory();
-        session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
-                (proxy, method, args) -> method.invoke(sessionFactory.getCurrentSession(), args));
     }
 
     @BeforeEach
-    void getSession() {
-        session.beginTransaction();
+    void getEntityManager() {
+        entityManager.getTransaction().begin();
     }
 
     @AfterEach
     void closeSession() {
-        session.getTransaction().rollback();
+        entityManager.getTransaction().rollback();
     }
 
     @AfterAll
-    static void close() {
-        sessionFactory.close();
+    static void closeContext() {
+        context.close();
     }
 }

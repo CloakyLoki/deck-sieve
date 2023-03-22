@@ -1,6 +1,5 @@
 package com.cloakyloki.dao;
 
-import com.cloakyloki.entity.Manacost;
 import com.cloakyloki.integration.IntegrationTestBase;
 import com.cloakyloki.util.TestDataProvider;
 import org.junit.jupiter.api.Test;
@@ -11,53 +10,55 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ManacostRepositoryIT extends IntegrationTestBase {
 
-    ManacostRepository manacostRepository = new ManacostRepository(Manacost.class, session);
+    private final ManacostRepository manacostRepository = context.getBean(ManacostRepository.class);
+    private final CardRepository cardRepository = context.getBean(CardRepository.class);
+
 
     @Test
     void deleteManacost() {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
-        session.save(mishraCard);
+        cardRepository.save(mishraCard);
         manacostRepository.save(manacost);
 
         manacostRepository.delete(manacost);
 
-        assertThat(session.get(Manacost.class, manacost.getId())).isNull();
+        assertThat(manacostRepository.findById(manacost.getId())).isEmpty();
     }
 
     @Test
     void updateManacost() {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
-        session.save(mishraCard);
+        cardRepository.save(mishraCard);
         manacostRepository.save(manacost);
-        session.clear();
+        manacostRepository.getEntityManager().clear();
 
         manacost.setBlack(999);
         manacostRepository.update(manacost);
-        session.clear();
+        manacostRepository.getEntityManager().clear();
 
-        assertThat(session.get(Manacost.class, manacost.getId())).isEqualTo(manacost);
+        assertThat(manacostRepository.findById(manacost.getId())).isEqualTo(Optional.of(manacost));
     }
 
     @Test
     void createManacost() {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
-        session.save(mishraCard);
+        cardRepository.save(mishraCard);
         manacostRepository.save(manacost);
-        session.clear();
+        manacostRepository.getEntityManager().clear();
 
-        assertThat(session.get(Manacost.class, manacost.getId())).isNotNull();
+        assertThat(manacostRepository.findById(manacost.getId())).isNotEmpty();
     }
 
     @Test
     void findManacostById() {
         var mishraCard = TestDataProvider.createMishraCard();
         var manacost = TestDataProvider.createTestManacost(mishraCard);
-        session.save(mishraCard);
+        cardRepository.save(mishraCard);
         manacostRepository.save(manacost);
-        session.clear();
+        manacostRepository.getEntityManager().clear();
 
         assertThat(manacostRepository.findById(manacost.getId())).isEqualTo(Optional.of(manacost));
     }

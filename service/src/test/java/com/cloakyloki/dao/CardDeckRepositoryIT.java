@@ -14,7 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CardDeckRepositoryIT extends IntegrationTestBase {
 
-    CardDeckRepository cardDeckRepository = new CardDeckRepository(CardDeck.class, session);
+    private final CardDeckRepository cardDeckRepository = context.getBean(CardDeckRepository.class);
+    private final UserRepository userRepository = context.getBean(UserRepository.class);
+    private final CardRepository cardRepository = context.getBean(CardRepository.class);
+    private final DeckRepository deckRepository = context.getBean(DeckRepository.class);
 
     @Test
     void deleteCardDeck() {
@@ -22,14 +25,14 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
         var user = TestDataProvider.createTestUser();
         var testDeck = TestDataProvider.createTestDeck(user);
         var testCardDeck = TestDataProvider.createTestCardDeck();
-        session.save(mishraCard);
-        session.save(user);
-        session.save(testDeck);
+        cardRepository.save(mishraCard);
+        userRepository.save(user);
+        deckRepository.save(testDeck);
         cardDeckRepository.save(testCardDeck);
 
         cardDeckRepository.delete(testCardDeck);
 
-        assertThat(session.get(CardDeck.class, testCardDeck.getId())).isNull();
+        assertThat(cardDeckRepository.findById(testCardDeck.getId())).isEmpty();
     }
 
     @Test
@@ -51,17 +54,17 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
                 .card(mirrorCard)
                 .deck(deck)
                 .build();
-        session.save(mirrorCard);
-        session.save(mishraCard);
-        session.save(user);
-        session.save(deck);
-        session.save(testCardDeck);
+        cardRepository.save(mirrorCard);
+        cardRepository.save(mishraCard);
+        userRepository.save(user);
+        deckRepository.save(deck);
+        cardDeckRepository.save(testCardDeck);
 
         testCardDeck.setCard(mishraCard);
         cardDeckRepository.update(testCardDeck);
-        session.clear();
+        cardDeckRepository.getEntityManager().clear();
 
-        assertThat(session.get(CardDeck.class, testCardDeck.getId())).isEqualTo(testCardDeck);
+        assertThat(cardDeckRepository.findById(testCardDeck.getId())).isEqualTo(Optional.of(testCardDeck));
     }
 
     @Test
@@ -70,14 +73,14 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
         var user = TestDataProvider.createTestUser();
         var testDeck = TestDataProvider.createTestDeck(user);
         var testCardDeck = TestDataProvider.createTestCardDeck();
-        session.save(mishraCard);
-        session.save(user);
-        session.save(testDeck);
+        cardRepository.save(mishraCard);
+        userRepository.save(user);
+        deckRepository.save(testDeck);
 
         cardDeckRepository.save(testCardDeck);
-        session.clear();
+        cardDeckRepository.getEntityManager().clear();
 
-        assertThat(session.get(CardDeck.class, testCardDeck.getId())).isNotNull();
+        assertThat(cardDeckRepository.findById(testCardDeck.getId())).isNotEmpty();
     }
 
     @Test
@@ -98,12 +101,12 @@ class CardDeckRepositoryIT extends IntegrationTestBase {
                 .card(mirrorCard)
                 .deck(deck)
                 .build();
-        session.save(mirrorCard);
-        session.save(user);
-        session.save(deck);
+        cardRepository.save(mirrorCard);
+        userRepository.save(user);
+        deckRepository.save(deck);
 
         cardDeckRepository.save(testCardDeck);
-        session.clear();
+        cardDeckRepository.getEntityManager().clear();
 
         assertThat(cardDeckRepository.findById(testCardDeck.getId())).isEqualTo(Optional.of(testCardDeck));
     }

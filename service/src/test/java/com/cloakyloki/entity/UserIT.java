@@ -18,10 +18,10 @@ class UserIT extends IntegrationTestBase {
                 .role(Role.ADMIN)
                 .isActive(true)
                 .build();
-        session.save(expectedUser);
-        session.clear();
+        entityManager.persist(expectedUser);
+        entityManager.clear();
 
-        var actualUser = session.get(User.class, expectedUser.getId());
+        var actualUser = entityManager.find(User.class, expectedUser.getId());
 
         assertThat(actualUser.getId()).isNotNull();
     }
@@ -34,10 +34,10 @@ class UserIT extends IntegrationTestBase {
                 .role(Role.ADMIN)
                 .isActive(true)
                 .build();
-        session.save(expectedUser);
-        session.clear();
+        entityManager.persist(expectedUser);
+        entityManager.clear();
 
-        var actualUser = session.getReference(User.class, expectedUser.getId());
+        var actualUser = entityManager.find(User.class, expectedUser.getId());
 
         assertEquals(expectedUser, actualUser);
     }
@@ -50,15 +50,15 @@ class UserIT extends IntegrationTestBase {
                 .password("123")
                 .isActive(true)
                 .build();
-        session.save(expectedUser);
-        session.clear();
+        entityManager.persist(expectedUser);
+        entityManager.clear();
 
         expectedUser.setRole(Role.USER);
-        session.update(expectedUser);
-        session.flush();
-        session.clear();
+        entityManager.merge(expectedUser);
+        entityManager.flush();
+        entityManager.clear();
 
-        var actualUser = session.get(User.class, expectedUser.getId());
+        var actualUser = entityManager.find(User.class, expectedUser.getId());
 
         assertEquals(expectedUser, actualUser);
     }
@@ -71,16 +71,16 @@ class UserIT extends IntegrationTestBase {
                 .password("123")
                 .isActive(true)
                 .build();
-        session.save(expectedUser);
-        session.clear();
+        entityManager.persist(expectedUser);
+        entityManager.clear();
 
-        assertThat(session.get(User.class, expectedUser.getId()).getId()).isNotNull();
+        assertThat(entityManager.find(User.class, expectedUser.getId()).getId()).isNotNull();
 
-        session.clear();
-        session.delete(expectedUser);
-        session.flush();
-        session.clear();
+        entityManager.clear();
+        entityManager.remove(expectedUser);
+        entityManager.flush();
+        entityManager.clear();
 
-        assertNull(session.get(User.class, expectedUser.getId()));
+        assertNull(entityManager.find(User.class, expectedUser.getId()));
     }
 }
