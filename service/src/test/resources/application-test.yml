@@ -3,10 +3,10 @@ logging:
     root: INFO
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/mtg
-    username: postgres
-    password: Masterhost25
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:mtg_test
+    username:
+    password:
+    driver-class-name: org.h2.Driver
   jooq:
     sql-dialect: org.hibernate.dialect.PostgreSQLDialect
   jpa:
@@ -14,3 +14,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        hbm2ddl:
+          auto: create-drop
+        current_session_context_class: thread
