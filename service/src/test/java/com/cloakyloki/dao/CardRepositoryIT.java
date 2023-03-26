@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CardRepositoryIT {
 
     private final CardRepository cardRepository;
-    private final ManacostRepository manacostRepository;
 
     @Test
     void deleteCard() {

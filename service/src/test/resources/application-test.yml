@@ -1,6 +1,3 @@
-logging:
-  level:
-    root: INFO
 spring:
   datasource:
     url: jdbc:h2:mem:mtg_test
@@ -17,3 +14,6 @@ spring:
         hbm2ddl:
           auto: create-drop
         current_session_context_class: thread
+  output:
+    ansi:
+      enabled: always
