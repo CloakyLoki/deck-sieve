@@ -5,7 +5,6 @@ import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
@@ -13,7 +12,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @IT
-@Transactional
 @RequiredArgsConstructor
 public class DeckRepositoryIT {
 

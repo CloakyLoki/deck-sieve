@@ -23,7 +23,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hibernate.version>5.6.8.Final</hibernate.version>
         <javax.persistence-api>2.2</javax.persistence-api>
     </properties>
 
@@ -38,11 +37,6 @@
                 <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <version>1.2.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
