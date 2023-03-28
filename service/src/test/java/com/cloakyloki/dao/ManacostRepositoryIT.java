@@ -1,17 +1,20 @@
 package com.cloakyloki.dao;
 
-import com.cloakyloki.integration.IntegrationTestBase;
+import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ManacostRepositoryIT extends IntegrationTestBase {
+@IT
+@RequiredArgsConstructor
+class ManacostRepositoryIT {
 
-    private final ManacostRepository manacostRepository = context.getBean(ManacostRepository.class);
-    private final CardRepository cardRepository = context.getBean(CardRepository.class);
+    private final ManacostRepository manacostRepository;
+    private final CardRepository cardRepository;
 
 
     @Test

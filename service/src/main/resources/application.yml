@@ -1,0 +1,16 @@
+logging:
+  level:
+    root: INFO
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mtg
+    username: postgres
+    password: Masterhost25
+    driver-class-name: org.postgresql.Driver
+  jooq:
+    sql-dialect: org.hibernate.dialect.PostgreSQLDialect
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true

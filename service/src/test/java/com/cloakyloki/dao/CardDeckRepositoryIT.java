@@ -4,20 +4,23 @@ import com.cloakyloki.entity.CardDeck;
 import com.cloakyloki.entity.Deck;
 import com.cloakyloki.entity.User;
 import com.cloakyloki.entity.enumerated.Role;
-import com.cloakyloki.integration.IntegrationTestBase;
+import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CardDeckRepositoryIT extends IntegrationTestBase {
+@IT
+@RequiredArgsConstructor
+class CardDeckRepositoryIT {
 
-    private final CardDeckRepository cardDeckRepository = context.getBean(CardDeckRepository.class);
-    private final UserRepository userRepository = context.getBean(UserRepository.class);
-    private final CardRepository cardRepository = context.getBean(CardRepository.class);
-    private final DeckRepository deckRepository = context.getBean(DeckRepository.class);
+    private final CardDeckRepository cardDeckRepository;
+    private final UserRepository userRepository;
+    private final CardRepository cardRepository;
+    private final DeckRepository deckRepository;
 
     @Test
     void deleteCardDeck() {

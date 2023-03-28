@@ -1,17 +1,20 @@
 package com.cloakyloki.dao;
 
 import com.cloakyloki.entity.enumerated.Role;
-import com.cloakyloki.integration.IntegrationTestBase;
+import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UserRepositoryIT extends IntegrationTestBase {
+@IT
+@RequiredArgsConstructor
+class UserRepositoryIT {
 
-    private final UserRepository userRepository = context.getBean(UserRepository.class);
+    private final UserRepository userRepository;
 
     @Test
     void deleteUser() {
