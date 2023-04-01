@@ -1,11 +1,13 @@
 package com.cloakyloki.dao;
 
+import com.cloakyloki.dao.repository.UserRepository;
 import com.cloakyloki.entity.enumerated.Role;
 import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,13 +17,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class UserRepositoryIT {
 
     private final UserRepository userRepository;
+    private final EntityManager entityManager;
 
     @Test
     void deleteUser() {
         var testUser = TestDataProvider.createTestUser();
-        userRepository.save(testUser);
+        entityManager.persist(testUser);
 
         userRepository.delete(testUser);
+        entityManager.flush();
+        entityManager.clear();
 
         assertThat(userRepository.findById(testUser.getId())).isEmpty();
     }
@@ -29,12 +34,12 @@ class UserRepositoryIT {
     @Test
     void updateUser() {
         var testUser = TestDataProvider.createTestUser();
-        userRepository.save(testUser);
-        userRepository.getEntityManager().clear();
+        entityManager.persist(testUser);
+        entityManager.clear();
 
         testUser.setRole(Role.USER);
-        userRepository.update(testUser);
-        userRepository.getEntityManager().clear();
+        userRepository.saveAndFlush(testUser);
+        entityManager.clear();
 
         assertThat(userRepository.findById(testUser.getId())).isEqualTo(Optional.of(testUser));
     }
@@ -42,8 +47,9 @@ class UserRepositoryIT {
     @Test
     void createUser() {
         var testUser = TestDataProvider.createTestUser();
+
         userRepository.save(testUser);
-        userRepository.getEntityManager().clear();
+        entityManager.clear();
 
         assertThat(userRepository.findById(testUser.getId())).isNotEmpty();
     }
@@ -51,8 +57,8 @@ class UserRepositoryIT {
     @Test
     void findUserById() {
         var testUser = TestDataProvider.createTestUser();
-        userRepository.save(testUser);
-        userRepository.getEntityManager().clear();
+        entityManager.persist(testUser);
+        entityManager.clear();
 
         assertThat(userRepository.findById(testUser.getId())).isEqualTo(Optional.of(testUser));
     }

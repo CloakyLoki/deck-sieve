@@ -1,5 +1,6 @@
 package com.cloakyloki.dao;
 
+import com.cloakyloki.dao.repository.DeckRepository;
 import com.cloakyloki.entity.Deck;
 import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
@@ -16,53 +17,55 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DeckRepositoryIT {
 
     private final DeckRepository deckRepository;
-    private final UserRepository userRepository;
     private final EntityManager entityManager;
 
     @Test
-    void deleteDeck() {
+    void delete() {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
-        userRepository.save(testUser);
-        deckRepository.save(deck);
+        entityManager.persist(testUser);
+        entityManager.persist(deck);
 
         deckRepository.delete(deck);
+        entityManager.flush();
+        entityManager.clear();
 
         assertThat(entityManager.find(Deck.class, deck.getId())).isNull();
     }
 
     @Test
-    void updateDeck() {
+    void update() {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
-        userRepository.save(testUser);
-        deckRepository.save(deck);
+        entityManager.persist(testUser);
+        entityManager.persist(deck);
 
         deck.setFavourite(false);
-        deckRepository.update(deck);
-        deckRepository.getEntityManager().clear();
+        deckRepository.saveAndFlush(deck);
+        entityManager.clear();
 
         assertThat(deckRepository.findById(deck.getId())).isEqualTo(Optional.of(deck));
     }
 
     @Test
-    void createDeck() {
+    void create() {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
-        userRepository.save(testUser);
+        entityManager.persist(testUser);
+
         deckRepository.save(deck);
-        deckRepository.getEntityManager().clear();
+        entityManager.clear();
 
         assertThat(deckRepository.findById(deck.getId())).isNotNull();
     }
 
     @Test
-    void findDeckById() {
+    void findById() {
         var testUser = TestDataProvider.createTestUser();
         var deck = TestDataProvider.createTestDeck(testUser);
-        userRepository.save(testUser);
-        deckRepository.save(deck);
-        deckRepository.getEntityManager().clear();
+        entityManager.persist(testUser);
+        entityManager.persist(deck);
+        entityManager.clear();
 
         assertThat(deckRepository.findById(deck.getId())).isEqualTo(Optional.of(deck));
     }
