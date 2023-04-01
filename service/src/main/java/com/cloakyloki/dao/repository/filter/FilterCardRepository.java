@@ -1,4 +1,4 @@
-package com.cloakyloki.dao.filter;
+package com.cloakyloki.dao.repository.filter;
 
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.entity.Card;

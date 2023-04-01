@@ -1,4 +1,4 @@
-package com.cloakyloki.dao.filter;
+package com.cloakyloki.dao.repository.filter;
 
 import com.cloakyloki.dao.predicate.QPredicate;
 import com.cloakyloki.dto.CardFilter;
@@ -29,7 +29,7 @@ public class FilterCardRepositoryImpl implements FilterCardRepository {
         return new JPAQuery<Card>(entityManager)
                 .select(card)
                 .from(card)
-                .where()
+                .where(predicate)
                 .fetch();
     }
 }

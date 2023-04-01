@@ -65,14 +65,16 @@ class CardRepositoryIT {
     void findAllByFilter() {
         var mirrorCard = TestDataProvider.createMirrorCard();
         var mishraCard = TestDataProvider.createMishraCard();
+        mirrorCard.setName("test");
         var filter = CardFilter.builder()
                 .cardName("mi")
                 .build();
         entityManager.persist(mirrorCard);
         entityManager.persist(mishraCard);
+        entityManager.clear();
 
         var cards = cardRepository.findAllByFilter(filter);
 
-        assertThat(cards).hasSize(2);
+        assertThat(cards).hasSize(1);
     }
 }
