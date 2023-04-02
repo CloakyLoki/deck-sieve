@@ -1,8 +1,7 @@
-package com.cloakyloki.dao;
+package com.cloakyloki.integration.dao;
 
 import com.cloakyloki.dao.repository.UserRepository;
 import com.cloakyloki.entity.enumerated.Role;
-import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -12,15 +11,14 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IT
 @RequiredArgsConstructor
-class UserRepositoryIT {
+class UserRepositoryIT extends IntegrationTestBase {
 
     private final UserRepository userRepository;
     private final EntityManager entityManager;
 
     @Test
-    void deleteUser() {
+    void delete() {
         var testUser = TestDataProvider.createTestUser();
         entityManager.persist(testUser);
 
@@ -32,7 +30,7 @@ class UserRepositoryIT {
     }
 
     @Test
-    void updateUser() {
+    void update() {
         var testUser = TestDataProvider.createTestUser();
         entityManager.persist(testUser);
         entityManager.clear();
@@ -45,7 +43,7 @@ class UserRepositoryIT {
     }
 
     @Test
-    void createUser() {
+    void create() {
         var testUser = TestDataProvider.createTestUser();
 
         userRepository.save(testUser);
@@ -55,7 +53,7 @@ class UserRepositoryIT {
     }
 
     @Test
-    void findUserById() {
+    void findById() {
         var testUser = TestDataProvider.createTestUser();
         entityManager.persist(testUser);
         entityManager.clear();

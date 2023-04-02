@@ -1,7 +1,6 @@
-package com.cloakyloki.dao;
+package com.cloakyloki.integration.dao;
 
 import com.cloakyloki.dao.repository.ManacostRepository;
-import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -11,9 +10,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IT
 @RequiredArgsConstructor
-class ManacostRepositoryIT {
+class ManacostRepositoryIT extends IntegrationTestBase {
 
     private final ManacostRepository manacostRepository;
     private final EntityManager entityManager;

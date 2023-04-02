@@ -1,8 +1,7 @@
-package com.cloakyloki.dao;
+package com.cloakyloki.integration.dao;
 
 import com.cloakyloki.dao.repository.DeckRepository;
 import com.cloakyloki.entity.Deck;
-import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -12,9 +11,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IT
 @RequiredArgsConstructor
-public class DeckRepositoryIT {
+public class DeckRepositoryIT extends IntegrationTestBase {
 
     private final DeckRepository deckRepository;
     private final EntityManager entityManager;

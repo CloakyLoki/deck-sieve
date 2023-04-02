@@ -1,11 +1,10 @@
-package com.cloakyloki.dao;
+package com.cloakyloki.integration.dao;
 
 import com.cloakyloki.dao.repository.CardDeckRepository;
 import com.cloakyloki.entity.CardDeck;
 import com.cloakyloki.entity.Deck;
 import com.cloakyloki.entity.User;
 import com.cloakyloki.entity.enumerated.Role;
-import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -15,19 +14,22 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IT
 @RequiredArgsConstructor
-class CardDeckRepositoryIT {
+class CardDeckRepositoryIT extends IntegrationTestBase {
 
     private final CardDeckRepository cardDeckRepository;
     private final EntityManager entityManager;
 
     @Test
-    void deleteCardDeck() {
+    void delete() {
         var mishraCard = TestDataProvider.createMishraCard();
         var user = TestDataProvider.createTestUser();
         var testDeck = TestDataProvider.createTestDeck(user);
-        var testCardDeck = TestDataProvider.createTestCardDeck();
+        var testCardDeck = CardDeck.builder()
+                .name("testname")
+                .deck(testDeck)
+                .card(mishraCard)
+                .build();
         entityManager.persist(mishraCard);
         entityManager.persist(user);
         entityManager.persist(testDeck);
@@ -77,7 +79,12 @@ class CardDeckRepositoryIT {
         var mishraCard = TestDataProvider.createMishraCard();
         var user = TestDataProvider.createTestUser();
         var testDeck = TestDataProvider.createTestDeck(user);
-        var testCardDeck = TestDataProvider.createTestCardDeck();
+        var testCardDeck =
+                CardDeck.builder()
+                        .name("testname")
+                        .card(mishraCard)
+                        .deck(testDeck)
+                        .build();
         entityManager.persist(mishraCard);
         entityManager.persist(user);
         entityManager.persist(testDeck);

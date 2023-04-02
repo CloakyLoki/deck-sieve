@@ -1,3 +1,6 @@
+--liquibase formatted sql
+
+--changeset cloakyloki:1
 CREATE TABLE IF NOT EXISTS card
 (
     id                       BIGSERIAL PRIMARY KEY,
@@ -14,9 +17,10 @@ CREATE TABLE IF NOT EXISTS card
     toughness                INT,
     purchase_url             VARCHAR(256),
     scryfall_illustration_id VARCHAR(256),
-    banned                   BOOLEAN      NOT NULL
+    banned                   BOOLEAN
 );
 
+--changeset cloakyloki:2
 CREATE TABLE IF NOT EXISTS card_manacost_qty
 (
     id      BIGSERIAL PRIMARY KEY,
@@ -29,6 +33,7 @@ CREATE TABLE IF NOT EXISTS card_manacost_qty
     common  INT
 );
 
+--changeset cloakyloki:3
 CREATE TABLE IF NOT EXISTS users
 (
     id       BIGSERIAL PRIMARY KEY,
@@ -38,14 +43,16 @@ CREATE TABLE IF NOT EXISTS users
     active   BOOLEAN      NOT NULL
 );
 
+--changeset cloakyloki:4
 CREATE TABLE IF NOT EXISTS deck
 (
     id        BIGSERIAL PRIMARY KEY,
-    name      VARCHAR(128)                 NOT NULL,
+    name      VARCHAR(128),
     favourite BOOLEAN                      NOT NULL,
     user_id   BIGINT REFERENCES users (id) NOT NULL
 );
 
+--changeset cloakyloki:5
 CREATE TABLE IF NOT EXISTS card_deck
 (
     id      BIGSERIAL PRIMARY KEY,

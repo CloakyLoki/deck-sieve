@@ -1,8 +1,8 @@
-package com.cloakyloki.dao;
+package com.cloakyloki.integration.dao;
 
+import com.cloakyloki.dao.predicate.QPredicate;
 import com.cloakyloki.dao.repository.CardRepository;
 import com.cloakyloki.dto.CardFilter;
-import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
+import static com.cloakyloki.entity.QCard.card;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IT
 @RequiredArgsConstructor
-class CardRepositoryIT {
+class CardRepositoryIT extends IntegrationTestBase {
 
     private final CardRepository cardRepository;
     private final EntityManager entityManager;
@@ -69,11 +69,15 @@ class CardRepositoryIT {
         var filter = CardFilter.builder()
                 .cardName("mi")
                 .build();
+        var predicate = QPredicate.builder()
+                .add(filter.getCardName(), card.name::containsIgnoreCase)
+                .add(filter.getManaValue(), card.manaValue::eq)
+                .buildAnd();
         entityManager.persist(mirrorCard);
         entityManager.persist(mishraCard);
         entityManager.clear();
 
-        var cards = cardRepository.findAllByFilter(filter);
+        var cards = cardRepository.findAll(predicate);
 
         assertThat(cards).hasSize(1);
     }
