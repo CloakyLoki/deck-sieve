@@ -53,6 +53,7 @@ public class TestDataProvider {
         return Deck.builder()
                 .user(user)
                 .favourite(true)
+                .name("testDeck")
                 .build();
     }
 
@@ -61,6 +62,7 @@ public class TestDataProvider {
                 .nickname("CloakyLoki")
                 .role(Role.USER)
                 .password("123")
+                .isActive(true)
                 .build();
     }
 

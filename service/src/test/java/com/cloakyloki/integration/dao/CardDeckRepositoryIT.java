@@ -1,45 +1,49 @@
-package com.cloakyloki.dao;
+package com.cloakyloki.integration.dao;
 
+import com.cloakyloki.dao.repository.CardDeckRepository;
 import com.cloakyloki.entity.CardDeck;
 import com.cloakyloki.entity.Deck;
 import com.cloakyloki.entity.User;
 import com.cloakyloki.entity.enumerated.Role;
-import com.cloakyloki.integration.annotation.IT;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IT
 @RequiredArgsConstructor
-class CardDeckRepositoryIT {
+class CardDeckRepositoryIT extends IntegrationTestBase {
 
     private final CardDeckRepository cardDeckRepository;
-    private final UserRepository userRepository;
-    private final CardRepository cardRepository;
-    private final DeckRepository deckRepository;
+    private final EntityManager entityManager;
 
     @Test
-    void deleteCardDeck() {
+    void delete() {
         var mishraCard = TestDataProvider.createMishraCard();
         var user = TestDataProvider.createTestUser();
         var testDeck = TestDataProvider.createTestDeck(user);
-        var testCardDeck = TestDataProvider.createTestCardDeck();
-        cardRepository.save(mishraCard);
-        userRepository.save(user);
-        deckRepository.save(testDeck);
-        cardDeckRepository.save(testCardDeck);
+        var testCardDeck = CardDeck.builder()
+                .name("testname")
+                .deck(testDeck)
+                .card(mishraCard)
+                .build();
+        entityManager.persist(mishraCard);
+        entityManager.persist(user);
+        entityManager.persist(testDeck);
+        entityManager.persist(testCardDeck);
 
         cardDeckRepository.delete(testCardDeck);
+        entityManager.flush();
+        entityManager.clear();
 
         assertThat(cardDeckRepository.findById(testCardDeck.getId())).isEmpty();
     }
 
     @Test
-    void updateCardDeck() {
+    void update() {
         var mirrorCard = TestDataProvider.createMirrorCard();
         var mishraCard = TestDataProvider.createMishraCard();
         var user = User.builder()
@@ -57,37 +61,42 @@ class CardDeckRepositoryIT {
                 .card(mirrorCard)
                 .deck(deck)
                 .build();
-        cardRepository.save(mirrorCard);
-        cardRepository.save(mishraCard);
-        userRepository.save(user);
-        deckRepository.save(deck);
-        cardDeckRepository.save(testCardDeck);
+        entityManager.persist(mirrorCard);
+        entityManager.persist(mishraCard);
+        entityManager.persist(user);
+        entityManager.persist(deck);
+        entityManager.persist(testCardDeck);
 
         testCardDeck.setCard(mishraCard);
-        cardDeckRepository.update(testCardDeck);
-        cardDeckRepository.getEntityManager().clear();
+        cardDeckRepository.saveAndFlush(testCardDeck);
+        entityManager.clear();
 
         assertThat(cardDeckRepository.findById(testCardDeck.getId())).isEqualTo(Optional.of(testCardDeck));
     }
 
     @Test
-    void createCardDeck() {
+    void create() {
         var mishraCard = TestDataProvider.createMishraCard();
         var user = TestDataProvider.createTestUser();
         var testDeck = TestDataProvider.createTestDeck(user);
-        var testCardDeck = TestDataProvider.createTestCardDeck();
-        cardRepository.save(mishraCard);
-        userRepository.save(user);
-        deckRepository.save(testDeck);
+        var testCardDeck =
+                CardDeck.builder()
+                        .name("testname")
+                        .card(mishraCard)
+                        .deck(testDeck)
+                        .build();
+        entityManager.persist(mishraCard);
+        entityManager.persist(user);
+        entityManager.persist(testDeck);
 
         cardDeckRepository.save(testCardDeck);
-        cardDeckRepository.getEntityManager().clear();
+        entityManager.clear();
 
         assertThat(cardDeckRepository.findById(testCardDeck.getId())).isNotEmpty();
     }
 
     @Test
-    void findCardDeckById() {
+    void findById() {
         var mirrorCard = TestDataProvider.createMirrorCard();
         var user = User.builder()
                 .nickname("Andrey")
@@ -104,12 +113,11 @@ class CardDeckRepositoryIT {
                 .card(mirrorCard)
                 .deck(deck)
                 .build();
-        cardRepository.save(mirrorCard);
-        userRepository.save(user);
-        deckRepository.save(deck);
-
-        cardDeckRepository.save(testCardDeck);
-        cardDeckRepository.getEntityManager().clear();
+        entityManager.persist(mirrorCard);
+        entityManager.persist(user);
+        entityManager.persist(deck);
+        entityManager.persist(testCardDeck);
+        entityManager.clear();
 
         assertThat(cardDeckRepository.findById(testCardDeck.getId())).isEqualTo(Optional.of(testCardDeck));
     }
