@@ -11,19 +11,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +28,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"cardDecks", "manacost"})
-@ToString(exclude = {"cardDecks", "manacost"})
+@EqualsAndHashCode(exclude = "cardDecks")
+@ToString(exclude = "cardDecks")
 @Builder
 @Entity
 public class Card implements GenericEntity<Long> {
@@ -45,8 +42,8 @@ public class Card implements GenericEntity<Long> {
     @Column(name = "mana_value")
     private Integer manaValue;
 
-    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Manacost manacost;
+    //    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private String manacost;
 
     @Enumerated(EnumType.STRING)
     private CardType type;

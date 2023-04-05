@@ -1,4 +1,4 @@
-package com.cloakyloki.dao.builder;
+package com.cloakyloki.repository.builder;
 
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.enumerated.CardType;

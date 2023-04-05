@@ -1,7 +1,7 @@
-package com.cloakyloki.integration.dao;
+package com.cloakyloki.integration.repository;
 
-import com.cloakyloki.dao.repository.UserRepository;
 import com.cloakyloki.entity.enumerated.Role;
+import com.cloakyloki.repository.UserRepository;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;

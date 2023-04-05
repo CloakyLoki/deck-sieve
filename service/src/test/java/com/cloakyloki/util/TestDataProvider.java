@@ -3,7 +3,6 @@ package com.cloakyloki.util;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.CardDeck;
 import com.cloakyloki.entity.Deck;
-import com.cloakyloki.entity.Manacost;
 import com.cloakyloki.entity.User;
 import com.cloakyloki.entity.enumerated.CardSubType;
 import com.cloakyloki.entity.enumerated.CardType;
@@ -74,13 +73,13 @@ public class TestDataProvider {
                 .build();
     }
 
-    public static Manacost createTestManacost(Card card) {
-        return Manacost.builder()
-                .card(card)
-                .blue(1)
-                .red(2)
-                .black(3)
-                .common(2)
-                .build();
-    }
+//    public static Manacost createTestManacost(Card card) {
+//        return Manacost.builder()
+//                .card(card)
+//                .blue(1)
+//                .red(2)
+//                .black(3)
+//                .common(2)
+//                .build();
+//    }
 }

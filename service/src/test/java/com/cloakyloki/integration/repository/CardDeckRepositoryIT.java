@@ -1,10 +1,10 @@
-package com.cloakyloki.integration.dao;
+package com.cloakyloki.integration.repository;
 
-import com.cloakyloki.dao.repository.CardDeckRepository;
 import com.cloakyloki.entity.CardDeck;
 import com.cloakyloki.entity.Deck;
 import com.cloakyloki.entity.User;
 import com.cloakyloki.entity.enumerated.Role;
+import com.cloakyloki.repository.CardDeckRepository;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;

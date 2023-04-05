@@ -1,8 +1,8 @@
-package com.cloakyloki.integration.dao;
+package com.cloakyloki.integration.repository;
 
-import com.cloakyloki.dao.predicate.QPredicate;
-import com.cloakyloki.dao.repository.CardRepository;
 import com.cloakyloki.dto.CardFilter;
+import com.cloakyloki.repository.CardRepository;
+import com.cloakyloki.repository.predicate.QPredicate;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;

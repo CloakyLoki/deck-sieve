@@ -1,4 +1,4 @@
-package com.cloakyloki.integration.dao;
+package com.cloakyloki.integration.repository;
 
 import com.cloakyloki.integration.annotation.IT;
 import org.junit.jupiter.api.BeforeAll;

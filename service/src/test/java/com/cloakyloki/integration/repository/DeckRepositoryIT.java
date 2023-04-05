@@ -1,7 +1,7 @@
-package com.cloakyloki.integration.dao;
+package com.cloakyloki.integration.repository;
 
-import com.cloakyloki.dao.repository.DeckRepository;
 import com.cloakyloki.entity.Deck;
+import com.cloakyloki.repository.DeckRepository;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
