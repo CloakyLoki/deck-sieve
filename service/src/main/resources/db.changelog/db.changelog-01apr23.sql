@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS card
     id                       BIGSERIAL PRIMARY KEY,
     name                     TEXT NOT NULL,
     mana_value               INT,
-    manacost VARCHAR(128),
+    manacost                 VARCHAR(128),
+    rarity                   TEXT,
     type                     TEXT,
     subtype                  TEXT,
     supertype                TEXT,
@@ -14,9 +15,11 @@ CREATE TABLE IF NOT EXISTS card
     flavor_text              TEXT,
     keywords                 TEXT,
     power                    TEXT,
+    artist                   TEXT,
     toughness                TEXT,
     purchase_url             TEXT,
     scryfall_illustration_id TEXT,
+    frame_version            TEXT,
     banned                   BOOLEAN DEFAULT FALSE
 );
 --rollback DROP TABLE IF EXISTS card;
