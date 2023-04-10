@@ -1,6 +1,7 @@
 package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.UserCreateUpdateDto;
+import com.cloakyloki.entity.enumerated.Role;
 import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,7 @@ public class UserController {
         return userService.findById(id)
                 .map(user -> {
                     model.addAttribute("user", user);
+                    model.addAttribute("roles", Role.values());
                     return "user/user";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -42,8 +44,8 @@ public class UserController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateUpdateDto userDto) {
-        return userService.update(id, userDto)
+    public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateUpdateDto user) {
+        return userService.update(id, user)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

@@ -1,6 +1,9 @@
 package com.cloakyloki.integration.controller;
 
+import com.cloakyloki.dto.UserCreateUpdateDto;
+import com.cloakyloki.entity.enumerated.Role;
 import com.cloakyloki.integration.IntegrationTestBase;
+import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,6 +16,7 @@ import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.role;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -22,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
+    final UserService userService;
 
     @Test
     void findAll() throws Exception {
@@ -32,7 +37,16 @@ class UserControllerIT extends IntegrationTestBase {
     }
 
     @Test
-    void findById() {
+    void findById() throws Exception {
+        var userReadDto = userService.create(new UserCreateUpdateDto(
+                "test",
+                "123",
+                Role.USER,
+                true
+        ));
+        mockMvc.perform(get("/users").param("id", userReadDto.getId().toString()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("user/users"));
     }
 
     @Test
@@ -49,10 +63,41 @@ class UserControllerIT extends IntegrationTestBase {
     }
 
     @Test
-    void update() {
+    void update() throws Exception {
+        var userReadDto = userService.create(new UserCreateUpdateDto(
+                "test",
+                "123",
+                Role.USER,
+                true
+        ));
+        var userId = userReadDto.getId().toString();
+        mockMvc.perform(post("/users/" + userId + "/update")
+                        .param("nickname", "Andrey")
+                        .param(password, "111")
+                        .param(role, "ADMIN")
+                        .param(isActive, "true")
+                )
+                .andExpectAll(
+                        status().is3xxRedirection(),
+//                        model().attributeExists("user"),
+                        redirectedUrl("/users/" + userId)
+                );
     }
 
     @Test
-    void delete() {
+    void delete() throws Exception {
+        var userReadDto = userService.create(new UserCreateUpdateDto(
+                "test",
+                "123",
+                Role.USER,
+                true
+        ));
+        var userId = userReadDto.getId().toString();
+
+        mockMvc.perform(post("/users/" + userId + "/delete"))
+                .andExpectAll(
+                        status().is3xxRedirection(),
+                        redirectedUrl("/users")
+                );
     }
 }
