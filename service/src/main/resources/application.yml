@@ -16,7 +16,3 @@ spring:
     open-in-view: false
   liquibase:
     change-log: db.changelog/db.changelog-master.yaml
-  mvc:
-    view:
-      suffix: .jsp
-      prefix: /WEB-INF/jsp/
