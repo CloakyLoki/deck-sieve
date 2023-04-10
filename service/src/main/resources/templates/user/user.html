@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+    <label for="nickname">Nickname:
+        <input id="nickname" type="text" name="nickname" th:value="*{nickname}">
+    </label><br>
+    <label for="status">Active status:
+        <input id="status" type="text" name="status" th:value="${user.isActive}">
+    </label><br>
+    <div th:each="role: ${roles}">
+        <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+        <label th:for="${role}" th:text="${role}">Role name</label>
+    </div>
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

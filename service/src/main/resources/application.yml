@@ -1,6 +1,7 @@
 logging:
   level:
     root: INFO
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/mtg
@@ -12,5 +13,4 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-  liquibase:
-    change-log: db.changelog/db.changelog-master.yaml
+    open-in-view: false

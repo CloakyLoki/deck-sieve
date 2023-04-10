@@ -1,4 +1,4 @@
-package com.cloakyloki.dao.predicate;
+package com.cloakyloki.repository.predicate;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
