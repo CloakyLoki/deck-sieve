@@ -79,7 +79,6 @@ class UserControllerIT extends IntegrationTestBase {
                 )
                 .andExpectAll(
                         status().is3xxRedirection(),
-//                        model().attributeExists("user"),
                         redirectedUrl("/users/" + userId)
                 );
     }

@@ -1,11 +1,13 @@
 package com.cloakyloki.http.controller;
 
+import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/cards")
 public class CardController {
 
-    CardService cardService;
+    final CardService cardService;
 
     @GetMapping
     public String findAll(Model model) {
@@ -27,5 +29,8 @@ public class CardController {
         return "card/card";
     }
 
-
+    @PostMapping
+    public String create(CardCreateUpdateDto card) {
+//        return "redirect:/users/" + cardService.create(card).getId();
+    }
 }
