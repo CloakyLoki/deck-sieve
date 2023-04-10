@@ -19,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Controller
 public class UserController {
 
-    final UserService userService;
+    private final UserService userService;
 
     @GetMapping
     public String findAll(Model model) {

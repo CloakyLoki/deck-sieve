@@ -21,9 +21,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+/// TODO: 10.04.2023 переделать тест на Card
 @RequiredArgsConstructor
 @AutoConfigureMockMvc
-class UserControllerIT extends IntegrationTestBase {
+class CardControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
     private final UserService userService;

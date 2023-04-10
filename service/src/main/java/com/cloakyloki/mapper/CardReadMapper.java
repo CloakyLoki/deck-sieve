@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CardReadMapper implements Mapper<Card, CardReadDto> {
+
     @Override
     public CardReadDto map(Card card) {
         return new CardReadDto(

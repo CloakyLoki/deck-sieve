@@ -18,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/cards")
 public class CardController {
 
-    final CardService cardService;
+    private final CardService cardService;
 
     @GetMapping
     public String findAll(Model model) {
