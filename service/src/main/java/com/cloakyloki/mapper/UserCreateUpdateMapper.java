@@ -17,8 +17,6 @@ public class UserCreateUpdateMapper implements Mapper<UserCreateUpdateDto, User>
     public User map(UserCreateUpdateDto object) {
         User user = new User();
         copy(object, user);
-
-
         return user;
     }
 
