@@ -23,7 +23,7 @@ public class CardController {
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("cards", cardService.findAll());
-        return "card/cards";
+        return "cardView/cards";
     }
 
     @GetMapping("/{id}")
@@ -31,7 +31,7 @@ public class CardController {
         return cardService.findById(id)
                 .map(card -> {
                     model.addAttribute("card", card);
-                    return "card/card";
+                    return "cardView/card";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

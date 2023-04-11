@@ -10,7 +10,7 @@
         <input id="nickname" type="text" name="nickname" th:value="*{nickname}">
     </label><br>
     <label for="status">Active status:
-        <input id="status" type="text" name="status" th:value="${user.isActive}">
+        <input id="status" type="text" name="isActive" th:value="${user.isActive}">
     </label><br>
     <div th:each="role: ${roles}">
         <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
