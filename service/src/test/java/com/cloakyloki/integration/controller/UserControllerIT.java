@@ -5,6 +5,7 @@ import com.cloakyloki.entity.enumerated.Role;
 import com.cloakyloki.integration.IntegrationTestBase;
 import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
@@ -46,6 +47,8 @@ class UserControllerIT extends IntegrationTestBase {
         ));
         mockMvc.perform(get("/users").param("id", userReadDto.getId().toString()))
                 .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("user"))
+                .andExpect(model().attribute("user", Matchers.equalTo(userReadDto)))
                 .andExpect(view().name("user/users"));
     }
 

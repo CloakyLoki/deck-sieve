@@ -5,6 +5,9 @@
     <title>Deck sieve</title>
 </head>
 <body>
+<form action="/index">
+    <button type="submit">Вернуться к поиску</button>
+</form>
 <div th:each="card : ${cards}">
     <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>
 </div>

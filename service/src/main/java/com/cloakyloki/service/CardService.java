@@ -1,6 +1,7 @@
 package com.cloakyloki.service;
 
 import com.cloakyloki.dto.CardCreateUpdateDto;
+import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.mapper.CardCreateUpdateMapper;
 import com.cloakyloki.mapper.CardReadMapper;
@@ -21,8 +22,8 @@ public class CardService {
     private final CardReadMapper cardReadMapper;
     private final CardCreateUpdateMapper cardCreateUpdateMapper;
 
-    public List<CardReadDto> findAll() {
-        return cardRepository.findAll().stream()
+    public List<CardReadDto> findAll(CardFilter filter) {
+        return cardRepository.findAllByFilter(filter).stream()
                 .map(cardReadMapper::map)
                 .toList();
     }

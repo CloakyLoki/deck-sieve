@@ -25,7 +25,7 @@ public class UserController {
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
-        return "userView/users";
+        return "userview/users";
     }
 
     @GetMapping("/{id}")
@@ -34,7 +34,7 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("user", userReadDto);
         model.addAttribute("roles", Role.values());
-        return "userView/user";
+        return "userview/user";
 
 //        return userService.findById(id)
 //                .map(user -> {

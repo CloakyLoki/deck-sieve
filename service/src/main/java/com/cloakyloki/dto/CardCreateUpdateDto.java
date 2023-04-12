@@ -1,6 +1,5 @@
 package com.cloakyloki.dto;
 
-import com.cloakyloki.entity.enumerated.Rarity;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 
@@ -11,7 +10,7 @@ public class CardCreateUpdateDto {
     String name;
     Integer manaValue;
     String manacost;
-    Rarity rarity;
+    String rarity;
     String type;
     String subtype;
     String supertype;
@@ -22,6 +21,7 @@ public class CardCreateUpdateDto {
     String toughness;
     String artist;
     String purchaseUrl;
+    String mvid;
     String scryfallIllustrationId;
     Boolean isBanned;
 }

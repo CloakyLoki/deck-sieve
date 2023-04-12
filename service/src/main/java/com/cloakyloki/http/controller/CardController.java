@@ -1,6 +1,7 @@
 package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.CardCreateUpdateDto;
+import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,9 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("cards", cardService.findAll());
-        return "cardView/cards";
+    public String findAll(Model model, CardFilter filter) {
+        model.addAttribute("cards", cardService.findAll(filter));
+        return "cardview/cards";
     }
 
     @GetMapping("/{id}")
@@ -31,7 +32,7 @@ public class CardController {
         return cardService.findById(id)
                 .map(card -> {
                     model.addAttribute("card", card);
-                    return "cardView/card";
+                    return "cardview/card";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

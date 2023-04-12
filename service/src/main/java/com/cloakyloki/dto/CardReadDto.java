@@ -1,12 +1,11 @@
 package com.cloakyloki.dto;
 
-import lombok.Builder;
 import lombok.Value;
 
-@Builder
 @Value
-public class CardFilter {
+public class CardReadDto {
 
+    Long id;
     String name;
     Integer manaValue;
     String manacost;
@@ -21,6 +20,8 @@ public class CardFilter {
     String artist;
     String toughness;
     String purchaseUrl;
+    String mvid;
+    String scryfallIllustrationId;
     String frameVersion;
     Boolean isBanned;
 }
