@@ -32,11 +32,12 @@ public class CardCreateUpdateMapper implements Mapper<CardCreateUpdateDto, Card>
         card.setFlavorText(object.getFlavorText());
         card.setKeywords(object.getKeywords());
         card.setPower(object.getPower());
-        card.setToughness(object.getToughness());
         card.setArtist(object.getArtist());
+        card.setToughness(object.getToughness());
         card.setPurchaseUrl(object.getPurchaseUrl());
         card.setMvid(object.getMvid());
         card.setScryfallIllustrationId(object.getScryfallIllustrationId());
+        card.setFrameVersion(object.getFrameVersion());
         card.setIsBanned(object.getIsBanned());
     }
 }

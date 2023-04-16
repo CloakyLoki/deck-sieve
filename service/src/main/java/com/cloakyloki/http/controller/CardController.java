@@ -22,19 +22,6 @@ public class CardController {
 
     private final CardService cardService;
 
-//    @GetMapping("/index")
-//    public String indexPage(Model model) {
-//
-//        model.addAttribute("rarity", Rarity.values());
-//        model.addAttribute("type", CardType.values());
-//        model.addAttribute("subtype", CardSubType.values());
-//        model.addAttribute("supertype", CardSuperType.values());
-//        model.addAttribute("subtype", CardSubType.values());
-//        model.addAttribute("isBanned", false);
-//
-//        return "commonview/index";
-//    }
-
     @GetMapping
     public String findAll(Model model, CardFilter filter) {
         model.addAttribute("cards", cardService.findAll(filter));

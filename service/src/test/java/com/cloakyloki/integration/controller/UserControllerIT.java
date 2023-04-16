@@ -33,7 +33,7 @@ class UserControllerIT extends IntegrationTestBase {
     void findAll() throws Exception {
         mockMvc.perform(get("/users"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("user/users"))
+                .andExpect(view().name("userview/users"))
                 .andExpect(model().attributeExists("users"));
     }
 
@@ -45,11 +45,11 @@ class UserControllerIT extends IntegrationTestBase {
                 Role.USER,
                 true
         ));
-        mockMvc.perform(get("/users").param("id", userReadDto.getId().toString()))
+        mockMvc.perform(get("/users/" + userReadDto.getId().toString()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("user"))
                 .andExpect(model().attribute("user", Matchers.equalTo(userReadDto)))
-                .andExpect(view().name("user/users"));
+                .andExpect(view().name("userview/user"));
     }
 
     @Test

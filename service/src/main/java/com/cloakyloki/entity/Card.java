@@ -51,6 +51,7 @@ public class Card implements GenericEntity<Long> {
     @Column(name = "purchase_url")
     private String purchaseUrl;
 
+    @Column(name = "mvid")
     private String mvid;
 
     @Column(name = "scryfall_illustration_id")

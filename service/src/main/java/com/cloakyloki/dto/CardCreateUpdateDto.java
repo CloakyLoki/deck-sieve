@@ -22,10 +22,11 @@ public class CardCreateUpdateDto {
     String flavorText;
     String keywords;
     String power;
-    String toughness;
     String artist;
+    String toughness;
     String purchaseUrl;
     String mvid;
     String scryfallIllustrationId;
+    String frameVersion;
     Boolean isBanned;
 }

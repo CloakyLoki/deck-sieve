@@ -1,18 +1,37 @@
 package com.cloakyloki.integration.controller;
 
-import com.cloakyloki.dto.UserCreateUpdateDto;
-import com.cloakyloki.entity.enumerated.Role;
+import com.cloakyloki.dto.CardCreateUpdateDto;
+import com.cloakyloki.entity.enumerated.CardSubType;
+import com.cloakyloki.entity.enumerated.CardSuperType;
+import com.cloakyloki.entity.enumerated.CardType;
+import com.cloakyloki.entity.enumerated.Rarity;
 import com.cloakyloki.integration.IntegrationTestBase;
-import com.cloakyloki.service.UserService;
+import com.cloakyloki.service.CardService;
+import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.isActive;
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.nickname;
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.password;
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.role;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.artist;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.flavorText;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.frameVersion;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.isBanned;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.keywords;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.manaValue;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.manacost;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.mvid;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.name;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.power;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.purchaseUrl;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.rarity;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.scryfallIllustrationId;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.subtype;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.supertype;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.text;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.toughness;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.type;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -21,83 +40,75 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-/// TODO: 10.04.2023 переделать тест на Card
 @RequiredArgsConstructor
 @AutoConfigureMockMvc
 class CardControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
-    private final UserService userService;
-
-    @Test
-    void findAll() throws Exception {
-        mockMvc.perform(get("/users"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("user/users"))
-                .andExpect(model().attributeExists("users"));
-    }
+    private final CardService cardService;
 
     @Test
     void findById() throws Exception {
-        var userReadDto = userService.create(new UserCreateUpdateDto(
-                "test",
-                "123",
-                Role.USER,
-                true
-        ));
-        mockMvc.perform(get("/users").param("id", userReadDto.getId().toString()))
+        var cardReadDto = cardService.create(new CardCreateUpdateDto(
+                "Mirage Mirror",
+                3, null, null, null, null, null,
+                null, null, null, null, null, null,
+                null, "12", null, null, null));
+        mockMvc.perform(get("/cards/" + cardReadDto.getId().toString()))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("user/users"));
+                .andExpect(model().attributeExists("card"))
+                .andExpect(model().attribute("card", Matchers.equalTo(cardReadDto)))
+                .andExpect(view().name("cardview/card"));
     }
 
     @Test
     void create() throws Exception {
-        mockMvc.perform(post("/users")
-                        .param(nickname, "testNick")
-                        .param(password, "123")
-                        .param(role, "USER")
-                        .param(isActive, "true"))
+        mockMvc.perform(post("/cards")
+                        .param(name, "testName")
+                        .param(manaValue, "3")
+                        .param(manacost, "testManaCost")
+                        .param(rarity, Rarity.COMMON.toString())
+                        .param(type, CardType.DRAGON.toString())
+                        .param(subtype, CardSubType.ALIEN.toString())
+                        .param(supertype, CardSuperType.LEGENDARY.toString())
+                        .param(text, "testText")
+                        .param(flavorText, "testFlavorText")
+                        .param(keywords, "testKeywords")
+                        .param(power, "5")
+                        .param(artist, "testArtist")
+                        .param(toughness, "7")
+                        .param(purchaseUrl, "testUrl")
+                        .param(mvid, "testMvId")
+                        .param(scryfallIllustrationId, "testIllId")
+                        .param(frameVersion, "2020")
+                        .param(isBanned, Boolean.FALSE.toString())
+                )
                 .andExpectAll(
                         status().is3xxRedirection(),
-                        redirectedUrlPattern("/users/{\\d+}")
+                        redirectedUrlPattern("/cards/{\\d+}")
                 );
     }
 
     @Test
     void update() throws Exception {
-        var userReadDto = userService.create(new UserCreateUpdateDto(
-                "test",
-                "123",
-                Role.USER,
-                true
-        ));
-        var userId = userReadDto.getId().toString();
-        mockMvc.perform(post("/users/" + userId + "/update")
-                        .param("nickname", "Andrey")
-                        .param(password, "111")
-                        .param(role, "ADMIN")
-                        .param(isActive, "true")
-                )
+        var card = cardService.create(TestDataProvider.createCardUpdateDto());
+        var cardId = card.getId().toString();
+        mockMvc.perform(post("/cards/" + cardId + "/update")
+                        .param(name, "NewCardName"))
                 .andExpectAll(
                         status().is3xxRedirection(),
-                        redirectedUrl("/users/" + userId)
+                        redirectedUrl("/cards/" + cardId)
                 );
     }
 
     @Test
     void delete() throws Exception {
-        var userReadDto = userService.create(new UserCreateUpdateDto(
-                "test",
-                "123",
-                Role.USER,
-                true
-        ));
-        var userId = userReadDto.getId().toString();
-
-        mockMvc.perform(post("/users/" + userId + "/delete"))
+        var card = cardService.create(TestDataProvider.createCardUpdateDto());
+        var cardId = card.getId().toString();
+        mockMvc.perform(post("/cards/" + cardId + "/delete"))
                 .andExpectAll(
                         status().is3xxRedirection(),
-                        redirectedUrl("/users")
+                        redirectedUrl("/cards")
                 );
     }
 }

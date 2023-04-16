@@ -35,14 +35,6 @@ public class UserController {
         model.addAttribute("user", userReadDto);
         model.addAttribute("roles", Role.values());
         return "userview/user";
-
-//        return userService.findById(id)
-//                .map(user -> {
-//                    model.addAttribute("user", user);
-//                    model.addAttribute("roles", Role.values());
-//                    return "user/user";
-//                })
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
