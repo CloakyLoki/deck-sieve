@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,19 @@ import org.springframework.web.server.ResponseStatusException;
 public class CardController {
 
     private final CardService cardService;
+
+//    @GetMapping("/index")
+//    public String indexPage(Model model) {
+//
+//        model.addAttribute("rarity", Rarity.values());
+//        model.addAttribute("type", CardType.values());
+//        model.addAttribute("subtype", CardSubType.values());
+//        model.addAttribute("supertype", CardSuperType.values());
+//        model.addAttribute("subtype", CardSubType.values());
+//        model.addAttribute("isBanned", false);
+//
+//        return "commonview/index";
+//    }
 
     @GetMapping
     public String findAll(Model model, CardFilter filter) {
@@ -43,7 +57,7 @@ public class CardController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute CardCreateUpdateDto card) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute @Validated CardCreateUpdateDto card) {
         return cardService.update(id, card)
                 .map(it -> "redirect:/cards/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

@@ -3,11 +3,15 @@ package com.cloakyloki.dto;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 
+import javax.validation.constraints.PositiveOrZero;
+
 @Value
 @FieldNameConstants
 public class CardCreateUpdateDto {
 
     String name;
+
+    @PositiveOrZero
     Integer manaValue;
     String manacost;
     String rarity;

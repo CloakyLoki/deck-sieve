@@ -2,11 +2,15 @@ package com.cloakyloki.dto;
 
 import lombok.Value;
 
+import javax.validation.constraints.PositiveOrZero;
+
 @Value
 public class CardReadDto {
 
     Long id;
     String name;
+
+    @PositiveOrZero
     Integer manaValue;
     String manacost;
     String rarity;
