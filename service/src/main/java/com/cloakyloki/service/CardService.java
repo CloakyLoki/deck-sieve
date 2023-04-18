@@ -28,6 +28,7 @@ public class CardService {
                 .toList();
     }
 
+
     public Optional<CardReadDto> findById(Long id) {
         return cardRepository.findById(id)
                 .map(cardReadMapper::map);
