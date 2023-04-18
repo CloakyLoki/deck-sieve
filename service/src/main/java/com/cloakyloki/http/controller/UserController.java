@@ -1,6 +1,7 @@
 package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.UserCreateUpdateDto;
+import com.cloakyloki.dto.UserReadDto;
 import com.cloakyloki.entity.enumerated.Role;
 import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,18 +25,16 @@ public class UserController {
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
-        return "user/users";
+        return "userview/users";
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
-        return userService.findById(id)
-                .map(user -> {
-                    model.addAttribute("user", user);
-                    model.addAttribute("roles", Role.values());
-                    return "user/user";
-                })
+        UserReadDto userReadDto = userService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("user", userReadDto);
+        model.addAttribute("roles", Role.values());
+        return "userview/user";
     }
 
     @PostMapping

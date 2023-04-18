@@ -1,11 +1,13 @@
 package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.CardCreateUpdateDto;
+import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +23,9 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("cards", cardService.findAll());
-        return "card/cards";
+    public String findAll(Model model, CardFilter filter) {
+        model.addAttribute("cards", cardService.findAll(filter));
+        return "cardview/cards";
     }
 
     @GetMapping("/{id}")
@@ -31,7 +33,7 @@ public class CardController {
         return cardService.findById(id)
                 .map(card -> {
                     model.addAttribute("card", card);
-                    return "card/card";
+                    return "cardview/card";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -42,7 +44,7 @@ public class CardController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute CardCreateUpdateDto card) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute @Validated CardCreateUpdateDto card) {
         return cardService.update(id, card)
                 .map(it -> "redirect:/cards/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

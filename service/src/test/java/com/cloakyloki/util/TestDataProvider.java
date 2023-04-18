@@ -1,9 +1,14 @@
 package com.cloakyloki.util;
 
+import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.CardDeck;
 import com.cloakyloki.entity.Deck;
 import com.cloakyloki.entity.User;
+import com.cloakyloki.entity.enumerated.CardSubType;
+import com.cloakyloki.entity.enumerated.CardSuperType;
+import com.cloakyloki.entity.enumerated.CardType;
+import com.cloakyloki.entity.enumerated.Rarity;
 import com.cloakyloki.entity.enumerated.Role;
 import lombok.experimental.UtilityClass;
 
@@ -66,5 +71,28 @@ public class TestDataProvider {
                 .deck(TestDataProvider.createTestDeck(TestDataProvider.createTestUser()))
                 .card(TestDataProvider.createMishraCard())
                 .build();
+    }
+
+    public static CardCreateUpdateDto createCardUpdateDto() {
+        return new CardCreateUpdateDto(
+                "testName",
+                3,
+                "testManaCost",
+                Rarity.COMMON.toString(),
+                CardType.DRAGON.toString(),
+                CardSubType.ALIEN.toString(),
+                CardSuperType.LEGENDARY.toString(),
+                "testText",
+                "testFlavorText",
+                "testKeywords",
+                "5",
+                "testArtist",
+                "7",
+                "testUrl",
+                "testMvId",
+                "testIllId",
+                "2020",
+                Boolean.FALSE
+        );
     }
 }

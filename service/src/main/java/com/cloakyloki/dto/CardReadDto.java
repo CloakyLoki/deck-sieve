@@ -1,14 +1,13 @@
 package com.cloakyloki.dto;
 
 import lombok.Value;
-import lombok.experimental.FieldNameConstants;
 
 import javax.validation.constraints.PositiveOrZero;
 
 @Value
-@FieldNameConstants
-public class CardCreateUpdateDto {
+public class CardReadDto {
 
+    Long id;
     String name;
 
     @PositiveOrZero

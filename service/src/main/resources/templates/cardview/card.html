@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Card</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>
+            <form action="/cards">
+                <button type="submit">Назад</button>
+            </form>
+        </td>
+        <td>
+            <form action="/index">
+                <button type="submit">Вернуться к поиску</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img th:src="@{'http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=' + ${card.mvid}}"/>
+        </td>
+        <td>
+            <h3 th:text="${card.name}"></h3>
+            <p th:text="'Манакост: '+ ${card.manacost}"></p>
+            <p th:text="'Редкость: '+ ${card.rarity}"></p>
+            <p th:text="'Тип: '+ ${card.type}"></p>
+            <p th:text="'Подтип: '+ ${card.subtype}"></p>
+            <p th:text="'Супертип: '+ ${card.supertype}"></p>
+            <p th:text="'Текст карты: '+ ${card.text}"></p>
+            <p th:text="'Легенда: '+ ${card.flavorText}"></p>
+            <p th:text="'Художник: '+ ${card.artist}"></p>
+            <p th:text="'Супертип: '+ ${card.supertype}"></p>
+            <p th:text="'Сила: '+ ${card.power}"></p>
+            <p th:text="'Выносливость: '+ ${card.toughness}"></p>
+            <p th:text="'Версия: '+ ${card.frameVersion}"></p>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

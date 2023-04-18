@@ -25,6 +25,7 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getArtist(),
                 card.getToughness(),
                 card.getPurchaseUrl(),
+                card.getMvid(),
                 card.getScryfallIllustrationId(),
                 card.getFrameVersion(),
                 card.getIsBanned()

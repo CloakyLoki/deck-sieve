@@ -1,6 +1,5 @@
 package com.cloakyloki.entity;
 
-import com.cloakyloki.entity.enumerated.Rarity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +33,9 @@ public class Card implements GenericEntity<Long> {
     @Column(name = "mana_value")
     private Integer manaValue;
     private String manacost;
-    private Rarity rarity;
+
+
+    private String rarity;
     private String type;
     private String subtype;
     private String supertype;
@@ -49,6 +50,9 @@ public class Card implements GenericEntity<Long> {
 
     @Column(name = "purchase_url")
     private String purchaseUrl;
+
+    @Column(name = "mvid")
+    private String mvid;
 
     @Column(name = "scryfall_illustration_id")
     private String scryfallIllustrationId;
