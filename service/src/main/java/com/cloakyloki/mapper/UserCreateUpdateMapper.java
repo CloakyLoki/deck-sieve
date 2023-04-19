@@ -21,7 +21,7 @@ public class UserCreateUpdateMapper implements Mapper<UserCreateUpdateDto, User>
     }
 
     private void copy(UserCreateUpdateDto object, User user) {
-        user.setNickname(object.getNickname());
+        user.setUsername(object.getUsername());
         user.setPassword(object.getPassword());
         user.setRole(object.getRole());
         user.setIsActive(object.getIsActive());

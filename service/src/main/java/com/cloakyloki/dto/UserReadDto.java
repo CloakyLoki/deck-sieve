@@ -7,7 +7,7 @@ import lombok.Value;
 public class UserReadDto {
 
     Long id;
-    String nickname;
+    String username;
     String password;
     Role role;
     Boolean isActive;

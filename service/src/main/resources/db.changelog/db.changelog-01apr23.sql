@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS card
     artist                   TEXT,
     toughness                TEXT,
     purchase_url             TEXT,
-    mvid TEXT,
+    mvid                     TEXT,
     scryfall_illustration_id TEXT,
     frame_version            TEXT,
     banned                   BOOLEAN DEFAULT FALSE

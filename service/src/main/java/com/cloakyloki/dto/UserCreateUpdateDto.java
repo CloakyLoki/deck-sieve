@@ -8,7 +8,7 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 public class UserCreateUpdateDto {
 
-    String nickname;
+    String username;
     String password;
     Role role;
     Boolean isActive;

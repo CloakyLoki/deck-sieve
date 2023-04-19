@@ -58,7 +58,7 @@ class UserServiceIT extends IntegrationTestBase {
         var actualResult = userService.create(userCreateUpdateDto);
 
         assertAll(
-                () -> assertEquals(userCreateUpdateDto.getNickname(), actualResult.getNickname()),
+                () -> assertEquals(userCreateUpdateDto.getUsername(), actualResult.getNickname()),
                 () -> assertEquals(userCreateUpdateDto.getPassword(), actualResult.getPassword()),
                 () -> assertEquals(userCreateUpdateDto.getRole(), actualResult.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), actualResult.getIsActive())
@@ -81,7 +81,7 @@ class UserServiceIT extends IntegrationTestBase {
         assertTrue(actualUser.isPresent());
 
         actualUser.ifPresent(user -> assertAll(
-                () -> assertEquals(userCreateUpdateDto.getNickname(), user.getNickname()),
+                () -> assertEquals(userCreateUpdateDto.getUsername(), user.getNickname()),
                 () -> assertEquals(userCreateUpdateDto.getPassword(), user.getPassword()),
                 () -> assertEquals(userCreateUpdateDto.getRole(), user.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), user.getIsActive()))

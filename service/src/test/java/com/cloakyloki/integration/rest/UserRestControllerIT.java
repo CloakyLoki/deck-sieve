@@ -55,7 +55,7 @@ class UserRestControllerIT extends IntegrationTestBase {
                         .content(objectMapper.writeValueAsString(newUser)))
                 .andExpectAll(
                         status().isCreated(),
-                        jsonPath("$.nickname").value(newUser.getNickname())
+                        jsonPath("$.nickname").value(newUser.getUsername())
                 );
     }
 
@@ -80,7 +80,7 @@ class UserRestControllerIT extends IntegrationTestBase {
                         .content(objectMapper.writeValueAsString(updatedUser)))
                 .andExpectAll(
                         status().is2xxSuccessful(),
-                        jsonPath("$.nickname").value(updatedUser.getNickname()),
+                        jsonPath("$.nickname").value(updatedUser.getUsername()),
                         jsonPath("$.password").value(updatedUser.getPassword())
                 );
     }
