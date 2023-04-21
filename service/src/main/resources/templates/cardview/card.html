@@ -21,7 +21,8 @@
     </tr>
     <tr>
         <td>
-            <img th:src="@{'http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=' + ${card.mvid}}"/>
+            <img th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId} + '.jpg'}"/>
+
         </td>
         <td>
             <h3 th:text="${card.name}"></h3>

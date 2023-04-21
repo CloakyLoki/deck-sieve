@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.isActive;
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.password;
+import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.rawPassword;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.role;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.username;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -56,7 +56,7 @@ class UserControllerIT extends IntegrationTestBase {
     void create() throws Exception {
         mockMvc.perform(post("/users")
                         .param(username, "testNick")
-                        .param(password, "123")
+                        .param(rawPassword, "123")
                         .param(role, "USER")
                         .param(isActive, "true"))
                 .andExpectAll(
@@ -76,7 +76,7 @@ class UserControllerIT extends IntegrationTestBase {
         var userId = userReadDto.getId().toString();
         mockMvc.perform(post("/users/" + userId + "/update")
                         .param("nickname", "Andrey")
-                        .param(password, "111")
+                        .param(rawPassword, "111")
                         .param(role, "ADMIN")
                         .param(isActive, "true")
                 )

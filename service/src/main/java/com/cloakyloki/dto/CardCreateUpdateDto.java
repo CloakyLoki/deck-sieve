@@ -13,6 +13,7 @@ public class CardCreateUpdateDto {
 
     @PositiveOrZero
     Integer manaValue;
+
     String manacost;
     String rarity;
     String type;

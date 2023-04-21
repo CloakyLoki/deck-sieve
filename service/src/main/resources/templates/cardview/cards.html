@@ -8,7 +8,25 @@
 <form action="/index">
     <button type="submit">Вернуться к поиску</button>
 </form>
-<div th:each="card : ${cards}">
+<form action="/cards">
+    <div>
+        <label for="page">Page:
+            <input id="page" type="number" name="page" th:value="${cards.metadata.page}">
+        </label>
+        <label for="size">Size:
+            <input id="size" type="number" name="size" th:value="${cards.metadata.size}">
+        </label>
+    </div>
+    <button type="submit">Filter</button>
+</form>
+
+<footer style="font-size: large" class="panel-footer">
+    <span th:each="i: ${#numbers.sequence(1, cards.metadata.totalElements)}">
+        <a th:href="@{'/cards' + ${i}}">[[${i}]]</a>
+    </span>
+</footer>
+
+<div th:each="card : ${cards.content}">
     <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>
 </div>
 </body>

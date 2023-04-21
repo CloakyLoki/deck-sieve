@@ -81,7 +81,7 @@ class UserRestControllerIT extends IntegrationTestBase {
                 .andExpectAll(
                         status().is2xxSuccessful(),
                         jsonPath("$.nickname").value(updatedUser.getUsername()),
-                        jsonPath("$.password").value(updatedUser.getPassword())
+                        jsonPath("$.password").value(updatedUser.getRawPassword())
                 );
     }
 
