@@ -20,6 +20,6 @@ public class PageResponse<T> {
     public static class Metadata {
         int page;
         int size;
-        long totalElements;
+        long totalPages;
     }
 }
