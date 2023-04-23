@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Deck sieve</title>
@@ -8,55 +8,29 @@
 <form action="/index">
     <button type="submit">Вернуться к поиску</button>
 </form>
-<form action="/cards">
-    <div>
-        <label for="page">Page:
-            <input id="page" type="number" name="page" th:value="${cards.metadata.page}">
-        </label>
-        <label for="size">Size:
-            <input id="size" type="number" name="size" th:value="${cards.metadata.size}">
-        </label>
-        <label for="name" hidden="hidden">name:
-            <input id="name" type="number" name="name" th:value="${filter.name()}">
-        </label>
-        <label for="keywords" hidden="hidden">keywords:
-            <input id="keywords" type="number" name="keywords" th:value="${filter.keywords()}">
-        </label>
-        <label for="artist" hidden="hidden">artist:
-            <input id="artist" type="number" name="artist" th:value="${filter.artist()}">
-        </label>
-        <label for="manaValue" hidden="hidden">manaValue:
-            <input id="manaValue" type="number" name="manaValue" th:value="${filter.manaValue()}">
-        </label>
-        <label for="type" hidden="hidden">type:
-            <input id="type" type="number" name="type" th:value="${filter.type()}">
-        </label>
-        <label for="subtype" hidden="hidden">subtype:
-            <input id="subtype" type="number" name="subtype" th:value="${filter.subtype()}">
-        </label>
-        <label for="supertype" hidden="hidden">supertype:
-            <input id="supertype" type="number" name="supertype" th:value="${filter.supertype()}">
-        </label>
-        <label for="rarity" hidden="hidden">rarity:
-            <input id="rarity" type="number" name="rarity" th:value="${filter.rarity()}">
-        </label>
-
-    </div>
-    <button type="submit">Filter</button>
-</form>
-
-<!--<footer style="font-size: large" class="panel-footer">-->
-<!--    <span th:each="i: ${#numbers.sequence(1, cards.metadata.totalElements)}">-->
-<a th:href="@{/cards?page=${cards.metadata.page}&size=20}">ads</a>
-<!--    </span>-->
-<!--</footer>-->
-<!--<div th:each="i : ${cards.metadata.getTotalPages}">-->
-<!--    <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>-->
-<!--</div>-->
-
 
 <div th:each="card : ${cards.content}">
     <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>
+</div>
+
+<div th:if="${cards.metadata.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${cards.metadata.pageNumbers}" style="display: inline-block">
+    <a th:href="@{/cards(
+    size=${cards.metadata.size},
+    page=${pageNumber},
+
+    name=${filter.name()},
+    manaValue=${filter.manaValue()},
+    keywords=${filter.keywords()},
+    text=${filter.text()},
+    artist=${filter.artist()},
+    rarity=${filter.rarity()},
+    type=${filter.type()},
+    subtype=${filter.subtype()},
+    supertype=${filter.supertype()})}"
+
+       th:text="${pageNumber}"
+       th:class="${pageNumber==cards.metadata.page + 1} ? active"></a>
 </div>
 </body>
 </html>

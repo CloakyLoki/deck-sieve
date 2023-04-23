@@ -5,7 +5,7 @@
     <title>Login</title>
 </head>
 <body>
-<form action="/login" method="post">
+<form th:action="@{/login}" method="post">
     <div style="color: red" th:if="${param.error}">
         Bad credentials
     </div>
@@ -17,6 +17,7 @@
     </label><br>
     <button type="submit">Login</button>
 </form>
+
 <form action="/users/registration">
     <button type="submit">Registration</button>
 </form>

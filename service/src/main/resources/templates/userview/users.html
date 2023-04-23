@@ -5,6 +5,7 @@
     <title>Users</title>
 </head>
 <body>
+<div th:insert="~{fragment :: header}"></div>
 <div th:each="user : ${users}">
     <a th:href="@{'/users/' + ${user.id}}" th:text="|${user.id}.  ${user.username}|">User</a>
 </div>
