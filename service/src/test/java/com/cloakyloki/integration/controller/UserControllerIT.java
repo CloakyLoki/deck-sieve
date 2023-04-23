@@ -58,7 +58,8 @@ class UserControllerIT extends IntegrationTestBase {
                         .param(username, "testNick")
                         .param(rawPassword, "123")
                         .param(role, "USER")
-                        .param(isActive, "true"))
+                        .param(isActive, "true")
+                )
                 .andExpectAll(
                         status().is3xxRedirection(),
                         redirectedUrlPattern("/users/{\\d+}")

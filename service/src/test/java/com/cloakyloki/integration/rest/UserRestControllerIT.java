@@ -37,7 +37,7 @@ class UserRestControllerIT extends IntegrationTestBase {
         mockMvc.perform(get("/api/v1/users/" + userReadDto.getId().toString()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.nickname").value("test"));
+                .andExpect(jsonPath("$.username").value("test"));
     }
 
     @Test
@@ -55,7 +55,7 @@ class UserRestControllerIT extends IntegrationTestBase {
                         .content(objectMapper.writeValueAsString(newUser)))
                 .andExpectAll(
                         status().isCreated(),
-                        jsonPath("$.nickname").value(newUser.getUsername())
+                        jsonPath("$.username").value(newUser.getUsername())
                 );
     }
 
@@ -68,7 +68,7 @@ class UserRestControllerIT extends IntegrationTestBase {
                 true
         ));
         var updatedUser = new UserCreateUpdateDto(
-                "Andrey",
+                "AAA",
                 "777",
                 Role.USER,
                 true
@@ -80,7 +80,7 @@ class UserRestControllerIT extends IntegrationTestBase {
                         .content(objectMapper.writeValueAsString(updatedUser)))
                 .andExpectAll(
                         status().is2xxSuccessful(),
-                        jsonPath("$.nickname").value(updatedUser.getUsername()),
+                        jsonPath("$.username").value(updatedUser.getUsername()),
                         jsonPath("$.password").value(updatedUser.getRawPassword())
                 );
     }
