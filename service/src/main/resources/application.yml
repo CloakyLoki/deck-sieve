@@ -19,4 +19,11 @@ spring:
   security:
     user:
       roles: USER
-
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 165078320862-7att6tpe835g5gg0gmh3i21pkbs12gdb.apps.googleusercontent.com
+            clientSecret: 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
+            redirectUri: http://localhost:8080/login/oauth2/code/google
+            scope: openid,email,profile
