@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.lang.reflect.Proxy;
+import java.time.LocalTime;
 import java.util.Set;
 
 import static com.cloakyloki.entity.enumerated.Role.ADMIN;
@@ -55,7 +56,7 @@ public class SecurityConfiguration {
         return userRequest -> {
             String name = userRequest.getIdToken().getClaim("email");
             if (userService.findByUsername(name).isEmpty()) {
-                userService.create(new UserCreateUpdateDto(name, "123", USER, true));
+                userService.create(new UserCreateUpdateDto(name, LocalTime.now().toString(), USER, true));
             }
             UserDetails userDetails = userService.loadUserByUsername(name);
             DefaultOidcUser oidcUser = new DefaultOidcUser(userDetails.getAuthorities(), userRequest.getIdToken());
