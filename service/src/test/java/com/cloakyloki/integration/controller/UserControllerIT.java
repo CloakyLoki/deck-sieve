@@ -14,6 +14,7 @@ import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.isActive;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.rawPassword;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.role;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.username;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RequiredArgsConstructor
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class UserControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
@@ -55,6 +56,7 @@ class UserControllerIT extends IntegrationTestBase {
     @Test
     void create() throws Exception {
         mockMvc.perform(post("/users")
+                        .with(csrf())
                         .param(username, "testNick")
                         .param(rawPassword, "123")
                         .param(role, "USER")

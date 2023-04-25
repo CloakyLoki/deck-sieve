@@ -32,6 +32,7 @@ import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.supertype;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.text;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.toughness;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.type;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -54,7 +55,8 @@ class CardControllerIT extends IntegrationTestBase {
                 3, null, null, null, null, null,
                 null, null, null, null, null, null,
                 null, "12", null, null, null));
-        mockMvc.perform(get("/cards/" + cardReadDto.getId().toString()))
+        mockMvc.perform(get("/cards/" + cardReadDto.getId().toString())
+                        .with(csrf()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("card"))
                 .andExpect(model().attribute("card", Matchers.equalTo(cardReadDto)))
@@ -82,6 +84,7 @@ class CardControllerIT extends IntegrationTestBase {
                         .param(scryfallIllustrationId, "testIllId")
                         .param(frameVersion, "2020")
                         .param(isBanned, Boolean.FALSE.toString())
+                        .with(csrf())
                 )
                 .andExpectAll(
                         status().is3xxRedirection(),
@@ -94,6 +97,7 @@ class CardControllerIT extends IntegrationTestBase {
         var card = cardService.create(TestDataProvider.createCardUpdateDto());
         var cardId = card.getId().toString();
         mockMvc.perform(post("/cards/" + cardId + "/update")
+                        .with(csrf())
                         .param(name, "NewCardName"))
                 .andExpectAll(
                         status().is3xxRedirection(),
@@ -105,7 +109,8 @@ class CardControllerIT extends IntegrationTestBase {
     void delete() throws Exception {
         var card = cardService.create(TestDataProvider.createCardUpdateDto());
         var cardId = card.getId().toString();
-        mockMvc.perform(post("/cards/" + cardId + "/delete"))
+        mockMvc.perform(post("/cards/" + cardId + "/delete")
+                        .with(csrf()))
                 .andExpectAll(
                         status().is3xxRedirection(),
                         redirectedUrl("/cards")

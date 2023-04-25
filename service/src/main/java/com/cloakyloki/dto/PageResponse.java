@@ -14,7 +14,6 @@ public class PageResponse<T> {
     List<T> content;
     Metadata metadata;
 
-
     public static <T> PageResponse<T> of(Page<T> page) {
         List<Integer> pageNumbers;
         int PAGE_SIZE = 20;
