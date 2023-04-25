@@ -1,8 +1,10 @@
 package com.cloakyloki.http.controller;
 
+import com.cloakyloki.dto.DeckReadDto;
 import com.cloakyloki.dto.UserCreateUpdateDto;
 import com.cloakyloki.dto.UserReadDto;
 import com.cloakyloki.entity.enumerated.Role;
+import com.cloakyloki.service.DeckService;
 import com.cloakyloki.service.UserService;
 import com.cloakyloki.validation.CreateAction;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.groups.Default;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -27,6 +30,7 @@ import javax.validation.groups.Default;
 public class UserController {
 
     private final UserService userService;
+    private final DeckService deckService;
 
     @GetMapping
     public String findAll(Model model) {
@@ -38,8 +42,10 @@ public class UserController {
     public String findById(@PathVariable("id") Long id, Model model) {
         UserReadDto userReadDto = userService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        List<DeckReadDto> deckReadDtoList = deckService.findAllByUserId(id);
         model.addAttribute("user", userReadDto);
         model.addAttribute("roles", Role.values());
+        model.addAttribute("decks", deckReadDtoList);
         return "userview/user";
     }
 
