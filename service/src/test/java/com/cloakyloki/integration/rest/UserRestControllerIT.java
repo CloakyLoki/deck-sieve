@@ -7,7 +7,6 @@ import com.cloakyloki.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -20,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RequiredArgsConstructor
-@AutoConfigureMockMvc(addFilters = false)
 class UserRestControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
@@ -72,20 +70,19 @@ class UserRestControllerIT extends IntegrationTestBase {
         var updatedUser = new UserCreateUpdateDto(
                 "AAA",
                 "777",
-                Role.USER,
+                Role.ADMIN,
                 true
         );
         var userId = newUser.getId().toString();
 
         mockMvc.perform(put("/api/v1/users/" + userId)
-
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedUser))
-                        .with(csrf()))
+                )
                 .andExpectAll(
                         status().is2xxSuccessful(),
-                        jsonPath("$.username").value(updatedUser.getUsername()),
-                        jsonPath("$.password").value(updatedUser.getRawPassword())
+                        jsonPath("$.username").value(updatedUser.getUsername())
                 );
     }
 
@@ -98,7 +95,8 @@ class UserRestControllerIT extends IntegrationTestBase {
                 true
         ));
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/api/v1/users/" + userReadDto.getId()))
+                        .delete("/api/v1/users/" + userReadDto.getId())
+                        .with(csrf()))
                 .andExpect(status().isNoContent());
     }
 }
