@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RequiredArgsConstructor
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class UserRestControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
@@ -37,7 +38,7 @@ class UserRestControllerIT extends IntegrationTestBase {
         mockMvc.perform(get("/api/v1/users/" + userReadDto.getId().toString()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.nickname").value("test"));
+                .andExpect(jsonPath("$.username").value("test"));
     }
 
     @Test
@@ -51,11 +52,12 @@ class UserRestControllerIT extends IntegrationTestBase {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/users")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newUser)))
                 .andExpectAll(
                         status().isCreated(),
-                        jsonPath("$.nickname").value(newUser.getNickname())
+                        jsonPath("$.username").value(newUser.getUsername())
                 );
     }
 
@@ -68,7 +70,7 @@ class UserRestControllerIT extends IntegrationTestBase {
                 true
         ));
         var updatedUser = new UserCreateUpdateDto(
-                "Andrey",
+                "AAA",
                 "777",
                 Role.USER,
                 true
@@ -76,12 +78,14 @@ class UserRestControllerIT extends IntegrationTestBase {
         var userId = newUser.getId().toString();
 
         mockMvc.perform(put("/api/v1/users/" + userId)
+
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedUser)))
+                        .content(objectMapper.writeValueAsString(updatedUser))
+                        .with(csrf()))
                 .andExpectAll(
                         status().is2xxSuccessful(),
-                        jsonPath("$.nickname").value(updatedUser.getNickname()),
-                        jsonPath("$.password").value(updatedUser.getPassword())
+                        jsonPath("$.username").value(updatedUser.getUsername()),
+                        jsonPath("$.password").value(updatedUser.getRawPassword())
                 );
     }
 

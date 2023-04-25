@@ -6,16 +6,21 @@ import com.cloakyloki.mapper.UserCreateUpdateMapper;
 import com.cloakyloki.mapper.UserReadMapper;
 import com.cloakyloki.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
@@ -29,6 +34,11 @@ public class UserService {
 
     public Optional<UserReadDto> findById(Long id) {
         return userRepository.findById(id)
+                .map(userReadMapper::map);
+    }
+
+    public Optional<UserReadDto> findByUsername(String username) {
+        return userRepository.findByUsername(username)
                 .map(userReadMapper::map);
     }
 
@@ -58,5 +68,16 @@ public class UserService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .map(user -> new User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        Collections.singleton(user.getRole())
+                ))
+                .orElseThrow(() -> new UsernameNotFoundException("User with nickname " + username + " is not found"));
     }
 }

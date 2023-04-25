@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Deck sieve</title>
@@ -8,8 +8,29 @@
 <form action="/index">
     <button type="submit">Вернуться к поиску</button>
 </form>
-<div th:each="card : ${cards}">
+
+<div th:each="card : ${cards.content}">
     <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>
+</div>
+
+<div th:if="${cards.metadata.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${cards.metadata.pageNumbers}" style="display: inline-block">
+    <a th:href="@{/cards(
+    size=${cards.metadata.size},
+    page=${pageNumber},
+
+    name=${filter.name()},
+    manaValue=${filter.manaValue()},
+    keywords=${filter.keywords()},
+    text=${filter.text()},
+    artist=${filter.artist()},
+    rarity=${filter.rarity()},
+    type=${filter.type()},
+    subtype=${filter.subtype()},
+    supertype=${filter.supertype()})}"
+
+       th:text="${pageNumber}"
+       th:class="${pageNumber==cards.metadata.page + 1} ? active"></a>
 </div>
 </body>
 </html>

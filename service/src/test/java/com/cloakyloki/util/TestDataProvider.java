@@ -58,7 +58,7 @@ public class TestDataProvider {
 
     public static User createTestUser() {
         return User.builder()
-                .nickname("CloakyLoki")
+                .username("CloakyLoki")
                 .role(Role.USER)
                 .password("123")
                 .isActive(true)

@@ -11,9 +11,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.isActive;
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.nickname;
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.password;
+import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.rawPassword;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.role;
+import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.username;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RequiredArgsConstructor
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class UserControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
@@ -55,10 +56,12 @@ class UserControllerIT extends IntegrationTestBase {
     @Test
     void create() throws Exception {
         mockMvc.perform(post("/users")
-                        .param(nickname, "testNick")
-                        .param(password, "123")
+                        .with(csrf())
+                        .param(username, "testNick")
+                        .param(rawPassword, "123")
                         .param(role, "USER")
-                        .param(isActive, "true"))
+                        .param(isActive, "true")
+                )
                 .andExpectAll(
                         status().is3xxRedirection(),
                         redirectedUrlPattern("/users/{\\d+}")
@@ -76,7 +79,7 @@ class UserControllerIT extends IntegrationTestBase {
         var userId = userReadDto.getId().toString();
         mockMvc.perform(post("/users/" + userId + "/update")
                         .param("nickname", "Andrey")
-                        .param(password, "111")
+                        .param(rawPassword, "111")
                         .param(role, "ADMIN")
                         .param(isActive, "true")
                 )

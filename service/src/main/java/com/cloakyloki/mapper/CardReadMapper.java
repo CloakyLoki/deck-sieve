@@ -26,9 +26,18 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getToughness(),
                 card.getPurchaseUrl(),
                 card.getMvid(),
-                card.getScryfallIllustrationId(),
+                getImagePrefix(card.getScryfallIllustrationId()) + card.getScryfallIllustrationId(),
                 card.getFrameVersion(),
                 card.getIsBanned()
         );
+    }
+
+    private String getImagePrefix(String string) {
+        StringBuilder resultString = new StringBuilder();
+        for (int i = 0; i < 2; i++) {
+            resultString.append(string.charAt(i));
+            resultString.append('/');
+        }
+        return resultString.toString();
     }
 }

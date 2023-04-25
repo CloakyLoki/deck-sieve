@@ -44,7 +44,7 @@ class CardServiceIT extends IntegrationTestBase {
         Optional<UserReadDto> maybeUser = userService.findById(expectedUser.getId());
 
         assertTrue(maybeUser.isPresent());
-        maybeUser.ifPresent(userReadDto -> assertEquals("CloakyLoki", userReadDto.getNickname()));
+        maybeUser.ifPresent(userReadDto -> assertEquals("CloakyLoki", userReadDto.getUsername()));
     }
 
     @Test
@@ -58,8 +58,8 @@ class CardServiceIT extends IntegrationTestBase {
         var actualResult = userService.create(userCreateUpdateDto);
 
         assertAll(
-                () -> assertEquals(userCreateUpdateDto.getNickname(), actualResult.getNickname()),
-                () -> assertEquals(userCreateUpdateDto.getPassword(), actualResult.getPassword()),
+                () -> assertEquals(userCreateUpdateDto.getUsername(), actualResult.getUsername()),
+                () -> assertEquals(userCreateUpdateDto.getRawPassword(), actualResult.getPassword()),
                 () -> assertEquals(userCreateUpdateDto.getRole(), actualResult.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), actualResult.getIsActive())
         );
@@ -81,8 +81,8 @@ class CardServiceIT extends IntegrationTestBase {
         assertTrue(actualUser.isPresent());
 
         actualUser.ifPresent(user -> assertAll(
-                () -> assertEquals(userCreateUpdateDto.getNickname(), user.getNickname()),
-                () -> assertEquals(userCreateUpdateDto.getPassword(), user.getPassword()),
+                () -> assertEquals(userCreateUpdateDto.getUsername(), user.getUsername()),
+                () -> assertEquals(userCreateUpdateDto.getRawPassword(), user.getPassword()),
                 () -> assertEquals(userCreateUpdateDto.getRole(), user.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), user.getIsActive()))
         );

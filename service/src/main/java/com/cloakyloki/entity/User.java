@@ -33,7 +33,9 @@ public class User implements GenericEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nickname;
+
+    @Column(name = "nickname")
+    private String username;
     private String password;
 
     @Enumerated(EnumType.STRING)
