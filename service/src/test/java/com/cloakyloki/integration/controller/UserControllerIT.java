@@ -7,7 +7,6 @@ import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.isActive;
@@ -19,12 +18,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RequiredArgsConstructor
-@AutoConfigureMockMvc(addFilters = false)
 class UserControllerIT extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
@@ -64,7 +61,7 @@ class UserControllerIT extends IntegrationTestBase {
                 )
                 .andExpectAll(
                         status().is3xxRedirection(),
-                        redirectedUrlPattern("/users/{\\d+}")
+                        redirectedUrl("/login")
                 );
     }
 
@@ -78,7 +75,8 @@ class UserControllerIT extends IntegrationTestBase {
         ));
         var userId = userReadDto.getId().toString();
         mockMvc.perform(post("/users/" + userId + "/update")
-                        .param("nickname", "Andrey")
+                        .with(csrf())
+                        .param(username, "Andrey")
                         .param(rawPassword, "111")
                         .param(role, "ADMIN")
                         .param(isActive, "true")
@@ -99,7 +97,9 @@ class UserControllerIT extends IntegrationTestBase {
         ));
         var userId = userReadDto.getId().toString();
 
-        mockMvc.perform(post("/users/" + userId + "/delete"))
+        mockMvc.perform(post("/users/" + userId + "/delete")
+                        .with(csrf())
+                )
                 .andExpectAll(
                         status().is3xxRedirection(),
                         redirectedUrl("/users")
