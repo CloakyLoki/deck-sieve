@@ -22,5 +22,8 @@
 <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
     <button type="submit">Remove</button>
 </form>
+<div th:each="deck : ${decks}">
+    <a th:href="@{'/decks/' + ${deck.id}}" th:text="|${deck.id}.  ${deck.name}|">Deck</a>
+</div>
 </body>
 </html>

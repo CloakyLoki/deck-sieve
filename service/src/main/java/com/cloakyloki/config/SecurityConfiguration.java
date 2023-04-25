@@ -32,10 +32,10 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(
                         urlConfig -> urlConfig
+                                .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(ADMIN.getAuthority())
+                                .antMatchers("/admin", "/users/{\\d+}/delete", "/cards/{\\d+}/delete").hasAuthority(ADMIN.getAuthority())
                                 .antMatchers("/login", "/index", "/cards/**", "/users/registration").permitAll()
                                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/js/**/", "/css/**/", "/img/**/").permitAll()
-                                .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(ADMIN.getAuthority())
-                                .antMatchers("/admin/**", "/users/{\\d+}/delete", "/cards/{\\d+}/delete").hasAuthority(ADMIN.getAuthority())
                                 .anyRequest().authenticated()
                 )
                 .logout(logout -> logout

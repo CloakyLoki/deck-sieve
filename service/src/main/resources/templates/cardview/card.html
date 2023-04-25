@@ -32,12 +32,14 @@
             </form>
         </div>
         <div class="card__wrapper description">
-            <img class="description__img" th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId} + '.jpg'}"/>
+            <img class="description__img"
+                 th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}"/>
 <!--            <img src="../../static/img/card.jpg" alt="болванка" class="description__img">-->
             <article class="description__article">
                 <h2 class="description__title"  th:text="${card.name}"></h2>
                 <ul class="description__list">
-                    <li class="description__item" th:text="'Манакост: '+ ${card.manacost}"></li>
+                    <li class="description__item">Манакост: <span class="description__span"
+                                                                  th:text="${card.manacost}"></span></li>
                     <li class="description__item" th:text="'Редкость: '+ ${card.rarity}"></li>
                     <li class="description__item" th:text="'Тип: '+ ${card.type}"></li>
                     <li class="description__item" th:text="'Подтип: '+ ${card.subtype}"></li>

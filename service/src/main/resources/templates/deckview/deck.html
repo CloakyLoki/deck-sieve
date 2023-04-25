@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:text="${deck.name}">Deck</a>
+<div th:each="card : ${cards}">
+    <a th:text="${card.name}">Card</a>
+</div>
+</body>
+</html>

@@ -314,13 +314,19 @@ ul {
     gap: 2rem;
   }
 
+  &__span {
+    font-weight: normal;
+  }
+
   &__btn {
     border: none;
     background-color: transparent;
     cursor: pointer;
+
     & path {
       transition: all .4s ease;
     }
+
     &:hover path,
     &:focus-visible path {
       fill: $gray;

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CardReadMapper implements Mapper<Card, CardReadDto> {
 
+    private static final String IMAGE_FORMAT = "%s/%s/%s.jpg";
+
     @Override
     public CardReadDto map(Card card) {
         return new CardReadDto(
@@ -26,18 +28,13 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getToughness(),
                 card.getPurchaseUrl(),
                 card.getMvid(),
-                getImagePrefix(card.getScryfallIllustrationId()) + card.getScryfallIllustrationId(),
+                getScryfallImagePath(card.getScryfallIllustrationId()),
                 card.getFrameVersion(),
                 card.getIsBanned()
         );
     }
 
-    private String getImagePrefix(String string) {
-        StringBuilder resultString = new StringBuilder();
-        for (int i = 0; i < 2; i++) {
-            resultString.append(string.charAt(i));
-            resultString.append('/');
-        }
-        return resultString.toString();
+    private String getScryfallImagePath(String imageId) {
+        return String.format(IMAGE_FORMAT, imageId.charAt(0), imageId.charAt(1), imageId);
     }
 }

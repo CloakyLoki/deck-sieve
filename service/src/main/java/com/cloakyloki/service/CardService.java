@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.cloakyloki.entity.QCard.card;
@@ -48,6 +49,11 @@ public class CardService {
                 .map(cardReadMapper::map);
     }
 
+    public List<CardReadDto> findAllByDeckId(Long deckId) {
+        return cardRepository.findAllByDeckId(deckId).stream()
+                .map(cardReadMapper::map)
+                .toList();
+    }
 
     public Optional<CardReadDto> findById(Long id) {
         return cardRepository.findById(id)
