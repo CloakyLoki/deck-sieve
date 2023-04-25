@@ -26,14 +26,54 @@ body {
 }
 
 @mixin btn {
+  position: relative;
+  z-index: 50;
+  margin: .5rem;
   padding: 1rem 2rem;
-  border: 2px solid transparent;
-  transition: background-color .4s ease, color .4s ease, border .4s ease;
+  border: none;
+  outline: none;
   cursor: pointer;
-  color: $blue;
   font-weight: 800;
   font-family: 'Raleway', sans-serif;
-  border-radius: 5px;
+  font-size: 1rem;
+  background-color: $blue;
+  color: $white;
+  transition: all .6s ease;
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    width: 50px;
+    height: 25px;
+    top: -10px;
+    left: -20px;
+    background-color: $red;
+    transition: all .4s ease;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    width: 50px;
+    height: 25px;
+    bottom: -10px;
+    right: -20px;
+    background-color: $green;
+    transition: all .6s ease;
+  }
+}
+
+@mixin btn-effect {
+  background-color: $gray;
+  color: $blue;
+  &::before {
+    transform: translateX(250%);
+    opacity: .5;
+  }
+  &::after {
+    transform: translateX(-250%);
+    opacity: .5;
+  }
 }
 
 @mixin link {
@@ -46,18 +86,11 @@ body {
 @mixin input {
   padding: .2rem .5rem;
   background-color: transparent;
-  color: $blue;
+  color: $black;
   outline: none;
   border: none;
   border-bottom: 2px solid $gray;
   width: 100%;
-}
-
-@mixin title {
-  font-family: 'Rubik Vinyl', cursive;
-  font-size: 2rem;
-  color: $blue;
-  margin-bottom: 1rem;
 }
 
 
@@ -116,6 +149,7 @@ body {
   background-image: url(../img/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 88vh;
 
   &::after {
     content: "";
@@ -139,116 +173,98 @@ body {
   }
 }
 
-.find {
-  margin-bottom: 3rem;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    z-index: -10;
-    height: 100%;
-    width: 75%;
-    bottom: -1rem;
-    left: 12.5%;
-    border: 2px solid $blue;
-    border-radius: 20px;
-    background-color: $gray;
-  }
-
-  &__form {
-    position: relative;
-    z-index: 50;
-    display: flex;
-    gap: 1rem;
-    border: 2px solid $blue;
-    border-radius: 30px;
-    padding: 1rem 2rem;
-    transition:  .4s ease;
-    width: 80%;
-    left: 10%;
-    background-color: $white;
-
-    &:hover,
-    &:focus-within {
-      transform: translatey(-3px);
-    }
-  }
-
+.search {
+  font-size: .75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   &__btn {
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-
-    & path {
-      transition: .4s ease;
-    }
-
-    &:hover path,
-    &:focus-visible path {
-      fill: $gray;
+    @include btn;
+    max-width: max-content;
+    align-self: center;
+    &:hover,
+    &:focus-visible {
+      @include btn-effect;
     }
   }
-
+  &__wrapper {
+    border: 2px solid $gray;
+    &--advanced {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+    }
+  }
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    padding: .3rem;
+    justify-content: space-between;
+  }
   &__label {
-  width: 80%;
+    font-size: .75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: .5rem
   }
-
   &__input {
     @include input;
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-left: 2px solid $blue;
-  }
-}
-
-.advanced {
-  font-size: .75rem;
-
-  &__title {
-    @include title;
-    text-align: center;
-  }
-
-  &-form {
-    font-family: inherit;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    &__btn {
-      @include btn;
-      &:hover,
-      &:focus-visible {
-        background-color: $blue;
-        color: $white;
-      }
+    transition: border .4s ease;
+    font-size: .75rem;
+    &:hover,
+    &:focus-visible {
+      border-bottom: 2px solid $blue;
     }
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      border: 2px solid $gray;
-      border-radius: 5px;
-      padding: .75rem;
-      justify-content: space-between;
+  }
+  &-name {
+    display: block;
+    width: 80%;
+    align-self: center;
+    position: relative;
+    margin-bottom: 1rem;
+    border: none;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 90%;
+      height: 80%;
+      left: 5%;
+      bottom: -15px;
+      border: 2px solid $blue;
+      background-color: $gray;
     }
     &__label {
-      font-family: inherit;
-      font-size: .75rem;
-      font-weight: 600;
-      text-align: center;
+      width: 100%;
+      position: relative;
+      z-index: 100;
     }
     &__input {
       @include input;
-      transition: border .4s ease;
-      font-size: .75rem;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      width: 100%;
+      height: 100%;
+      border: 2px solid $blue;
+      transition: all .4s ease;
+      background-color: $white;
       &:hover,
       &:focus-visible {
-        border-bottom: 2px solid $black;
+        transform: translateY(-10px);
       }
     }
   }
 }
+
+
+//.advanced {
+
+//    &__label {
+
+//    }
+//    &__input {
+
+//      }
+//    }
+//  }
+//}
