@@ -3,9 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>User</title>
+
+    <!--    <link href="../../static/css/normalize.css" rel="stylesheet">-->
+    <!--    <link href="../../static/css/style.css" rel="stylesheet">-->
+
+    <!--    <link href="/css/normalize.css" rel="stylesheet">-->
+    <!--    <link href="/css/style.css" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+
+    <!--    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>-->
+    <!--    <script defer src="../../static/js/script.js"></script>-->
+
+    <script defer src="/js/script.js"></script>
 </head>
 <body>
-<div th:insert="~{fragment :: header}"></div>
+<div class="user">
+    <div class="header user-header">
+        <div class="user-header__container">
+            <div th:fragment="header" class="user-header__wrap">
+                <span th:text="${#authentication.principal.username}" class="user-header__name">Username</span>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="user-header__btn">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="user-main">
+        <div class="user-main__container">
+            .user-main__content
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div th:insert="~{fragment :: header}"></div>-->
 <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
     <label for="username">Username:
         <input id="username" type="text" name="username" th:value="*{username}">
@@ -19,9 +53,11 @@
     </div>
     <button type="submit">Update</button>
 </form>
+
 <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
     <button type="submit">Remove</button>
 </form>
+
 <div th:each="deck : ${decks}">
     <a th:href="@{'/decks/' + ${deck.id}}" th:text="|${deck.id}.  ${deck.name}|">Deck</a>
 </div>

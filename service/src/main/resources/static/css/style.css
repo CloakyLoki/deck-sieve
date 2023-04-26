@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&display=swap");
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Jost", sans-serif;
   font-size: 16px;
   font-weight: 300;
   line-height: 1.5;
@@ -113,7 +114,7 @@ ul {
   outline: none;
   cursor: pointer;
   font-weight: 800;
-  font-family: "Raleway", sans-serif;
+  font-family: "Jost", sans-serif;
   font-size: 1rem;
   background-color: #B7B8B6;
   color: #fcfcfa;
@@ -177,7 +178,7 @@ ul {
   height: 80%;
   left: 5%;
   bottom: -15px;
-  border: 2px solid #217CA3;
+  border: 2px solid #B7B8B6;
   background-color: #B7B8B6;
 }
 .search-name__label {
@@ -197,7 +198,7 @@ ul {
   font-size: 1.5rem;
   width: 100%;
   height: 100%;
-  border: 2px solid #217CA3;
+  border: 2px solid #B7B8B6;
   transition: all 0.4s ease;
   background-color: #fcfcfa;
 }
@@ -211,6 +212,7 @@ ul {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
+  font-size: 20px;
 }
 .card::after {
   content: "";
@@ -243,7 +245,7 @@ ul {
   outline: none;
   cursor: pointer;
   font-weight: 800;
-  font-family: "Raleway", sans-serif;
+  font-family: "Jost", sans-serif;
   font-size: 1rem;
   background-color: #B7B8B6;
   color: #fcfcfa;
@@ -255,8 +257,7 @@ ul {
   border-left: 8px solid #217CA3;
   border-right: 8px solid #211F30;
 }
-
-.description {
+.card-description {
   width: 100%;
   border: 2px solid #B7B8B6;
   vertical-align: center;
@@ -264,40 +265,103 @@ ul {
   height: 75vh;
   gap: 3rem;
 }
-.description__img {
-  max-width: 40%;
+.card-description__img {
   height: 100%;
 }
-.description__list {
+.card-description__list {
   margin-bottom: 1rem;
 }
-.description__item {
+.card-description__item {
   font-weight: bold;
   color: #211F30;
   line-height: 200%;
 }
-.description__article {
+.card-description__article {
   padding: 1rem;
   display: flex;
   flex-direction: column;
 }
-.description__buttons {
+.card-description__buttons {
   display: flex;
   gap: 2rem;
 }
-.description__span {
+.card-description__span {
   font-weight: normal;
 }
-.description__btn {
+.card-description__btn {
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
-.description__btn path {
+.card-description__btn path {
   transition: all 0.4s ease;
 }
-.description__btn:hover path, .description__btn:focus-visible path {
+.card-description__btn:hover path, .card-description__btn:focus-visible path {
   fill: #B7B8B6;
+}
+
+.user-header {
+  background-color: #211F30;
+  color: #B7B8B6;
+}
+.user-header__container {
+  margin: 0 auto;
+  padding: 2rem 8rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.user-header__wrap {
+  display: flex;
+  gap: 2rem;
+  text-align: right;
+}
+.user-header__name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.user-header__btn {
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 300;
+  transition: 0.4s ease;
+  font-size: 0.85rem;
+  position: relative;
+  color: #B7B8B6;
+  border: none;
+  background-color: transparent;
+}
+.user-header__btn::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  width: 50%;
+  border-bottom: 3px solid #B7B8B6;
+  transition: width 0.4s ease;
+}
+.user-header__btn:hover::after, .user-header__btn:focus::after {
+  width: 100%;
+}
+.user-main {
+  position: relative;
+  background-image: url(../img/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.user-main::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  height: 100%;
+}
+.user-main__container {
+  margin: 0 auto;
+  padding: 2rem 8rem;
+  position: relative;
+  z-index: 5;
 }
 
 /*# sourceMappingURL=style.css.map */
