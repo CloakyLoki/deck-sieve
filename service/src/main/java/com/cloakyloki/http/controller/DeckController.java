@@ -53,9 +53,7 @@ public class DeckController {
 
     @PostMapping("/{deckId}/{cardId}/delete")
     public String removeCardFromDeck(@PathVariable("deckId") Long deckId, @PathVariable("cardId") Long cardId, Model model) {
-        if (!cardDeckService.delete(deckId, cardId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return "redirect:/cards";
+        cardDeckService.delete(deckId, cardId);
+        return "redirect:/decks/{deckId}";
     }
 }
