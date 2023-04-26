@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <title>Card</title>
 
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&family=Rubik+Vinyl&display=swap"
-          rel="stylesheet">
-
 <!--    <link href="../../static/css/normalize.css" rel="stylesheet">-->
 <!--    <link href="../../static/css/style.css" rel="stylesheet">-->
 
-    <link href="/css/normalize.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+<!--    <link href="/css/normalize.css" rel="stylesheet">-->
+<!--    <link href="/css/style.css" rel="stylesheet">-->
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+
+<!--    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>-->
 <!--    <script defer src="../../static/js/script.js"></script>-->
 
     <script defer src="/js/script.js"></script>
@@ -31,34 +29,32 @@
                 <button type="submit" class="card__btn">Вернуться к поиску</button>
             </form>
         </div>
-        <div class="card__wrapper description">
-            <img class="description__img"
-                 th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}"/>
-<!--            <img src="../../static/img/card.jpg" alt="болванка" class="description__img">-->
-            <article class="description__article">
-                <h2 class="description__title"  th:text="${card.name}"></h2>
-                <ul class="description__list">
-                    <li class="description__item">Манакост: <span class="description__span"
-                                                                  th:text="${card.manacost}"></span></li>
-                    <li class="description__item" th:text="'Редкость: '+ ${card.rarity}"></li>
-                    <li class="description__item" th:text="'Тип: '+ ${card.type}"></li>
-                    <li class="description__item" th:text="'Подтип: '+ ${card.subtype}"></li>
-                    <li class="description__item" th:text="'Супертип: '+ ${card.supertype}"></li>
-                    <li class="description__item" th:text="'Текст карты: '+ ${card.text}"></li>
-                    <li class="description__item" th:text="'Легенда: '+ ${card.flavorText}"></li>
-                    <li class="description__item" th:text="'Художник: '+ ${card.artist}"></li>
-                    <li class="description__item" th:text="'Сила: '+ ${card.power}"></li>
-                    <li class="description__item" th:text="'Выносливость: '+ ${card.toughness}"></li>
-                    <li class="description__item" th:text="'Версия: '+ ${card.frameVersion}"></li>
+        <div class="card__wrapper card-description">
+<!--            <img class="description__img" th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}"/>-->
+            <img src="../../static/img/card.jpg" alt="болванка" class="card-description__img">
+            <article class="card-description__article">
+                <h2 class="card-description__title"  th:text="${card.name}"></h2>
+                <ul class="card-description__list">
+                    <li class="card-description__item">Манакост: <span class="card-description__span" th:text="${card.manacost}"></span></li>
+                    <li class="card-description__item">Редкость: <span class="card-description__span" th:text="${card.rarity}"></span></li>
+                    <li class="card-description__item">Тип: <span class="card-description__span" th:text="${card.type}"></span></li>
+                    <li class="card-description__item">Подтип: <span class="card-description__span" th:text="${card.subtype}"></span></li>
+                    <li class="card-description__item">Супертип: <span class="card-description__span" th:text="${card.supertype}"></span></li>
+                    <li class="card-description__item">Текст карты: <span class="card-description__span" th:text="${card.text}"></span></li>
+                    <li class="card-description__item">Легенда: <span class="card-description__span" th:text="${card.flavorText}"></span></li>
+                    <li class="card-description__item">Художник: <span class="card-description__span" th:text="${card.artist}"></span></li>
+                    <li class="card-description__item">Сила: <span class="card-description__span" th:text="${card.power}"></span></li>
+                    <li class="card-description__item">Выносливость: <span class="card-description__span" th:text="${card.toughness}"></span></li>
+                    <li class="card-description__item">Версия: <span class="card-description__span" th:text="${card.frameVersion}"></span></li>
                 </ul>
-                <div class="description__buttons">
-                    <button class="description__btn">
+                <div class="card-description__buttons">
+                    <button class="card-description__btn">
                         <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><title/>
                             <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z" stroke="#211F30"/>
                             <path d="M90,61H67V38a3,3,0,0,0-6,0V61H38a3,3,0,0,0,0,6H61V90a3,3,0,0,0,6,0V67H90a3,3,0,0,0,0-6Z" stroke="#211F30"/>
                         </svg>
                     </button>
-                    <button class="description__btn">
+                    <button class="card-description__btn">
                         <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><title/>
                             <path d="M105,82a23,23,0,0,0-22.49,18.17L41.74,77.29a23,23,0,0,0,0-26.57L82.51,27.83a23,23,0,1,0-.44-6.63l-44.53,25a23,23,0,1,0,0,35.62l44.53,25A23,23,0,1,0,105,82Zm0-76A17,17,0,1,1,88,23,17,17,0,0,1,105,6ZM11,76A17,17,0,0,1,35,52h0A17,17,0,0,1,11,76Zm94,46a17,17,0,1,1,17-17A17,17,0,0,1,105,122Z" stroke="#211F30"/>
                         </svg>
