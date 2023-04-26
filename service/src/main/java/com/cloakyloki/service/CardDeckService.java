@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class CardDeckService {
 
     private final CardDeckRepository cardDeckRepository;
@@ -27,5 +26,15 @@ public class CardDeckService {
                 .map(cardDeckRepository::saveAndFlush)
                 .map(cardDeckReadMapper::map)
                 .orElseThrow();
+    }
+
+    //TODO переделать на boolean
+    @Transactional
+    public void delete(Long deckId, Long cardId) {
+        cardDeckRepository.delete(cardDeckRepository.findByDeckIdAndCardId(deckId, cardId)
+                .stream()
+                .findFirst()
+                .orElseThrow());
+        cardDeckRepository.flush();
     }
 }

@@ -1,7 +1,6 @@
 package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.CardDeckCreateUpdateDto;
-import com.cloakyloki.dto.CardDeckReadDto;
 import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.dto.DeckReadDto;
 import com.cloakyloki.service.CardDeckService;
@@ -40,10 +39,23 @@ public class DeckController {
         return "deckview/deck";
     }
 
-    @PostMapping
-    public CardDeckReadDto addCardToDeck(Long deckId, Long cardId, Model model) {
+    @PostMapping("/{deckId}/{cardId}/add")
+    public String addCardToDeck(@PathVariable("deckId") Long deckId, @PathVariable("cardId") Long cardId, Model model) {
         CardDeckCreateUpdateDto cardDeckCreateUpdateDto = new CardDeckCreateUpdateDto("new", cardId, deckId);
+        DeckReadDto deckReadDto = deckService.findById(deckId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         var cardDeckReadDto = cardDeckService.create(cardDeckCreateUpdateDto);
-        model.addAttribute((card))
+        model.addAttribute("cardadd", cardDeckReadDto);
+        model.addAttribute("deck", deckReadDto);
+//        return "deckview/deck";
+        return "redirect:/decks/{deckId}";
+    }
+
+    @PostMapping("/{deckId}/{cardId}/delete")
+    public String removeCardFromDeck(@PathVariable("deckId") Long deckId, @PathVariable("cardId") Long cardId, Model model) {
+        if (!cardDeckService.delete(deckId, cardId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return "redirect:/cards";
     }
 }

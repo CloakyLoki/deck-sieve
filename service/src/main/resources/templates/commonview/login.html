@@ -9,10 +9,10 @@
     <div style="color: red" th:if="${param.error}">
         Bad credentials
     </div>
-    <label for="username">Username:
+    <label for="username"><span th:text="#{login.username}">Username:</span>
         <input id="username" type="text" name="username">
     </label><br>
-    <label for="password">Password:
+    <label for="password"><span th:text="#{login.password}">Password:</span>
         <input id="password" type="password" name="password">
     </label><br>
     <button type="submit">Login</button>

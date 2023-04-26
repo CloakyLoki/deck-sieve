@@ -90,7 +90,7 @@ public class CardService {
     }
 
     public String getAverageManaValue(List<CardReadDto> cards) {
-        DecimalFormat df = new DecimalFormat("0.0");
+        DecimalFormat df = new DecimalFormat("0.000");
         Float average = 0F;
         for (CardReadDto card : cards) {
             average += card.getManaValue();

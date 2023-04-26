@@ -1,20 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>User</title>
 
-    <!--    <link href="../../static/css/normalize.css" rel="stylesheet">-->
-    <!--    <link href="../../static/css/style.css" rel="stylesheet">-->
-
-    <!--    <link href="/css/normalize.css" rel="stylesheet">-->
-    <!--    <link href="/css/style.css" rel="stylesheet">-->
-
     <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
-
-    <!--    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>-->
-    <!--    <script defer src="../../static/js/script.js"></script>-->
 
     <script defer src="/js/script.js"></script>
 </head>
@@ -28,6 +19,17 @@
                     <button type="submit" class="user-header__btn">Logout</button>
                 </form>
             </div>
+
+            <div th:fragment="locale">
+                <form action="">
+                    <select name="lang" onchange="this.form.submit()">
+                        <option></option>
+                        <option value="en">EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </form>
+            </div>
+
         </div>
     </div>
     <div class="user-main">
@@ -36,26 +38,22 @@
         </div>
     </div>
 </div>
-
-
-
-<!--<div th:insert="~{fragment :: header}"></div>-->
 <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
-    <label for="username">Username:
+    <label for="username"><span th:text="#{user.username}">Username:</span>
         <input id="username" type="text" name="username" th:value="*{username}">
     </label><br>
-    <label for="status">Active status:
+    <label for="status"><span th:text="#{user.isActive}">isActive:</span>
         <input id="status" type="text" name="isActive" th:value="${user.isActive}">
     </label><br>
     <div th:each="role: ${roles}">
         <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
-        <label th:for="${role}" th:text="${role}">Role name</label>
+        <label th:for="${role}" th:text="${role}"><span th:text="#{user.rolename}">Role:</span></label>
     </div>
-    <button type="submit">Update</button>
+    <button type="submit"><span th:text="#{user.updateBtn}">Update</span></button>
 </form>
 
 <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
-    <button type="submit">Remove</button>
+    <button type="submit"><span th:text="#{user.removeBtn}">Remove</span></button>
 </form>
 
 <div th:each="deck : ${decks}">

@@ -4,17 +4,10 @@
     <meta charset="UTF-8">
     <title>Deck sieve</title>
 
-<!--    <link href="../../static/css/normalize.css" rel="stylesheet">-->
-<!--    <link href="../../static/css/style.css" rel="stylesheet">-->
-
-<!--    <link href="/css/normalize.css" rel="stylesheet">-->
-<!--    <link href="/css/style.css" rel="stylesheet">-->
     <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-<!--    <script defer src="../../static/js/script.js"></script>-->
-
     <script defer src="/js/script.js"></script>
 </head>
 <body>
@@ -26,6 +19,15 @@
                 <a class="header__btn header__btn--enter" href="/login">Войти</a>
                 <a class="header__btn header__btn--join" href="/users/registration">Зарегистрироваться</a>
             </div>
+        </div>
+        <div th:fragment="locale">
+            <form action="">
+                <select name="lang" onchange="this.form.submit()">
+                    <option></option>
+                    <option value="en">EN</option>
+                    <option value="ru">RU</option>
+                </select>
+            </form>
         </div>
     </div>
 </header>
