@@ -9,5 +9,6 @@
 <div th:each="card : ${cards}">
     <a th:text="${card.name}">Card</a>
 </div>
+<a th:text="|Средний манакост: ${averageManaValue}|"></a>
 </body>
 </html>

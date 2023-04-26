@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,5 +87,14 @@ public class CardService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    public String getAverageManaValue(List<CardReadDto> cards) {
+        DecimalFormat df = new DecimalFormat("0.0");
+        Float average = 0F;
+        for (CardReadDto card : cards) {
+            average += card.getManaValue();
+        }
+        return df.format(average / cards.size());
     }
 }

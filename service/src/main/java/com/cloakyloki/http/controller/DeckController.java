@@ -1,7 +1,10 @@
 package com.cloakyloki.http.controller;
 
+import com.cloakyloki.dto.CardDeckCreateUpdateDto;
+import com.cloakyloki.dto.CardDeckReadDto;
 import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.dto.DeckReadDto;
+import com.cloakyloki.service.CardDeckService;
 import com.cloakyloki.service.CardService;
 import com.cloakyloki.service.DeckService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,14 +26,24 @@ public class DeckController {
 
     private final DeckService deckService;
     private final CardService cardService;
+    private final CardDeckService cardDeckService;
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
         DeckReadDto deckReadDto = deckService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         List<CardReadDto> cardsInDeck = cardService.findAllByDeckId(id);
+        String averageManaValue = cardService.getAverageManaValue(cardsInDeck);
         model.addAttribute("deck", deckReadDto);
         model.addAttribute("cards", cardsInDeck);
+        model.addAttribute("averageManaValue", averageManaValue);
         return "deckview/deck";
+    }
+
+    @PostMapping
+    public CardDeckReadDto addCardToDeck(Long deckId, Long cardId, Model model) {
+        CardDeckCreateUpdateDto cardDeckCreateUpdateDto = new CardDeckCreateUpdateDto("new", cardId, deckId);
+        var cardDeckReadDto = cardDeckService.create(cardDeckCreateUpdateDto);
+        model.addAttribute((card))
     }
 }
