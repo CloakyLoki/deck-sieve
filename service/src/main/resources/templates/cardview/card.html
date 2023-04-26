@@ -29,6 +29,7 @@
                 <button type="submit" class="card__btn">Вернуться к поиску</button>
             </form>
         </div>
+
         <div class="card__wrapper card-description">
 <!--            <img class="description__img" th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}"/>-->
             <img src="../../static/img/card.jpg" alt="болванка" class="card-description__img">
@@ -46,6 +47,7 @@
                     <li class="card-description__item">Сила: <span class="card-description__span" th:text="${card.power}"></span></li>
                     <li class="card-description__item">Выносливость: <span class="card-description__span" th:text="${card.toughness}"></span></li>
                     <li class="card-description__item">Версия: <span class="card-description__span" th:text="${card.frameVersion}"></span></li>
+
                 </ul>
                 <div class="card-description__buttons">
                     <button class="card-description__btn">
