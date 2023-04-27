@@ -8,26 +8,29 @@
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-    <script defer src="/js/script.js"></script>
+    <script defer rel="stylesheet" src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
+<!--    <script defer src="/js/script.js"></script>-->
 </head>
 <body>
 <header class="header" id="header">
     <div class="header__container">
         <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
-        <div class="header__account">
+        <div class="header__wrap">
             <div class="header__account">
-                <a class="header__btn header__btn--enter" href="/login">Войти</a>
-                <a class="header__btn header__btn--join" href="/users/registration">Зарегистрироваться</a>
+                <div class="header__account">
+                    <a class="header__btn header__btn--enter" href="/login">Войти</a>
+                    <a class="header__btn header__btn--join" href="/users/registration">Зарегистрироваться</a>
+                </div>
             </div>
-        </div>
-        <div th:fragment="locale">
-            <form action="">
-                <select name="lang" onchange="this.form.submit()">
-                    <option></option>
-                    <option value="en">EN</option>
-                    <option value="ru">RU</option>
-                </select>
-            </form>
+            <div th:fragment="locale" class="header__lang lang">
+                <form action="">
+                    <select name="lang" onchange="this.form.submit()" class="lang__select">
+                        <option selected>lang</option>
+                        <option value="en">EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </form>
+            </div>
         </div>
     </div>
 </header>

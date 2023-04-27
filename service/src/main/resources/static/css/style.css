@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&display=swap");
 body {
   font-family: "Jost", sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 300;
   line-height: 1.5;
   background-color: #fcfcfa;
   color: #211F30;
+  position: relative;
 }
 
 *, *::before, *::after {
@@ -37,6 +38,11 @@ ul {
   margin: 0 auto;
   padding: 2rem 8rem;
   display: flex;
+  justify-content: space-between;
+}
+.header__wrap {
+  display: flex;
+  gap: 2rem;
   justify-content: space-between;
 }
 .header__account {
@@ -74,6 +80,18 @@ ul {
 }
 .header__btn:hover::after, .header__btn:focus::after {
   width: 100%;
+}
+
+.lang {
+  max-width: 3%;
+}
+.lang__select {
+  background-color: #211F30;
+  color: #B7B8B6;
+  transition: border 0.4s ease;
+}
+.lang__select:hover, .lang__select:focus-visible {
+  border-color: #fcfcfa;
 }
 
 .main {
@@ -158,6 +176,7 @@ ul {
   border-bottom: 2px solid #B7B8B6;
   width: 100%;
   transition: border 0.4s ease;
+  transition: border 0.4s ease;
   font-size: 0.75rem;
 }
 .search__input:hover, .search__input:focus-visible {
@@ -194,6 +213,7 @@ ul {
   border: none;
   border-bottom: 2px solid #B7B8B6;
   width: 100%;
+  transition: border 0.4s ease;
   padding: 1rem 2rem;
   font-size: 1.5rem;
   width: 100%;
@@ -324,11 +344,27 @@ ul {
   cursor: pointer;
   font-weight: 300;
   transition: 0.4s ease;
-  font-size: 0.85rem;
+  font-size: 1rem;
   position: relative;
   color: #B7B8B6;
   border: none;
   background-color: transparent;
+}
+.user-header__btn--logout {
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 300;
+  transition: 0.4s ease;
+}
+.user-header__btn--logout::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 50%;
+  line-height: 150%;
+  border-bottom: 3px solid #B7B8B6;
+  transition: width 0.4s ease;
 }
 .user-header__btn::after {
   content: "";
@@ -336,6 +372,7 @@ ul {
   right: 0;
   bottom: -5px;
   width: 50%;
+  line-height: 150%;
   border-bottom: 3px solid #B7B8B6;
   transition: width 0.4s ease;
 }
@@ -347,6 +384,7 @@ ul {
   background-image: url(../img/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 88vh;
 }
 .user-main::after {
   content: "";
@@ -362,6 +400,88 @@ ul {
   padding: 2rem 8rem;
   position: relative;
   z-index: 5;
+}
+
+.modal {
+  position: absolute;
+  top: -100vh;
+  left: 0;
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  padding: 7rem 30rem;
+}
+.modal--active {
+  top: 0;
+  opacity: 1;
+}
+.modal__wrapper {
+  background-color: #fcfcfa;
+  color: #211F30;
+  padding: 4rem;
+  position: relative;
+}
+.modal__close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 50;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.modal__close path {
+  transition: all 0.4s ease;
+}
+.modal__close:hover path, .modal__close:focus-visible path {
+  stroke: #B7B8B6;
+  fill: #B7B8B6;
+}
+.modal__form {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal__input {
+  padding: 0.2rem 0.5rem;
+  background-color: transparent;
+  color: #211F30;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #B7B8B6;
+  width: 100%;
+  transition: border 0.4s ease;
+}
+.modal__input:hover, .modal__input:focus-visible {
+  border-bottom: 2px solid #217CA3;
+}
+.modal__input:last-child {
+  margin-bottom: 2rem;
+}
+.modal__btn {
+  position: relative;
+  z-index: 50;
+  margin: 0.5rem;
+  padding: 1rem 2rem;
+  border: 8px solid transparent;
+  outline: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  background-color: #B7B8B6;
+  color: #fcfcfa;
+  transition: border 0.6s ease;
+  margin-bottom: 1rem;
+}
+.modal__btn:hover, .modal__btn:focus-visible {
+  border-top: 8px solid #418258;
+  border-bottom: 8px solid #C92243;
+  border-left: 8px solid #217CA3;
+  border-right: 8px solid #211F30;
 }
 
 /*# sourceMappingURL=style.css.map */
