@@ -7,57 +7,76 @@
     <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
 
-    <script defer src="/js/script.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script defer rel="stylesheet" src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
+<!--    <script defer src="/js/script.js"></script>-->
 </head>
 <body>
 <div class="user">
-    <div class="header user-header">
+    <div class="header user-header" id="header">
         <div class="user-header__container">
             <div th:fragment="header" class="user-header__wrap">
                 <span th:text="${#authentication.principal.username}" class="user-header__name">Username</span>
                 <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="user-header__btn">Logout</button>
+                    <button type="submit" class="user-header__btn user-header__btn--logout">Выйти</button>
                 </form>
+                <button class="user-header__btn" id="change" onclick="openModal()">Редактировать</button>
+                <div th:fragment="locale" class="header__lang lang">
+                    <form>
+                        <select name="lang" onchange="this.form.submit()" class="lang__select">
+                            <option>lang</option>
+                            <option value="en">EN</option>
+                            <option value="ru">RU</option>
+                        </select>
+                    </form>
+                </div>
             </div>
-
-            <div th:fragment="locale">
-                <form action="">
-                    <select name="lang" onchange="this.form.submit()">
-                        <option></option>
-                        <option value="en">EN</option>
-                        <option value="ru">RU</option>
-                    </select>
-                </form>
-            </div>
-
         </div>
     </div>
-    <div class="user-main">
+    <div class="user-main" id="main">
         <div class="user-main__container">
-            .user-main__content
+            <div class="user-main__content">
+                <div th:each="deck : ${decks}">
+                    <a th:href="@{'/decks/' + ${deck.id}}" th:text="|${deck.id}.  ${deck.name}|">Deck</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
-    <label for="username"><span th:text="#{user.username}">Username:</span>
-        <input id="username" type="text" name="username" th:value="*{username}">
-    </label><br>
-    <label for="status"><span th:text="#{user.isActive}">isActive:</span>
-        <input id="status" type="text" name="isActive" th:value="${user.isActive}">
-    </label><br>
-    <div th:each="role: ${roles}">
-        <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
-        <label th:for="${role}" th:text="${role}"><span th:text="#{user.rolename}">Role:</span></label>
+
+<div class="modal" id="modal">
+    <div class="modal__wrapper">
+        <button class="modal__close" id="close" onclick="closeModal()">
+            <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                <path stroke="#211F30FF" d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
+                <path stroke="#211F30FF"  d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>
+            </svg>
+        </button>
+        <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}" class="modal__form">
+            <label for="status" th:text="#{user.isActive}">Статус:
+                <span  id="status" type="text" name="isActive" th:value="${user.isActive}"></span>
+            </label>
+            <div th:each="role: ${roles}">
+                <label th:for="${role}" th:text="${role}"><span th:text="#{user.rolename}">Роль:</span></label>
+                <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+            </div>
+
+            <label for="username"><span th:text="#{user.username}">Сменить имя пользователя:</span>
+                <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">
+            </label>
+            <label for="password"><span th:text="#{user.password}">Сменить пароль:</span>
+                <input id="password" type="text" name="password" th:value="*{password}" class="modal__input">
+            </label>
+
+            <button type="submit" class="modal__btn"><span th:text="#{user.updateBtn}">Обновить</span></button>
+        </form>
+
+        <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post" class="modal__form">
+            <button type="submit" class="modal__btn"><span th:text="#{user.removeBtn}">Удалить пользователя</span></button>
+        </form>
     </div>
-    <button type="submit"><span th:text="#{user.updateBtn}">Update</span></button>
-</form>
-
-<form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
-    <button type="submit"><span th:text="#{user.removeBtn}">Remove</span></button>
-</form>
-
-<div th:each="deck : ${decks}">
-    <a th:href="@{'/decks/' + ${deck.id}}" th:text="|${deck.id}.  ${deck.name}|">Deck</a>
 </div>
+
+
 </body>
 </html>

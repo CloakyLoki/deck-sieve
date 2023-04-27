@@ -9,11 +9,12 @@ $black: #211F30;
 
 body {
   font-family: 'Jost', sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 300;
   line-height: 1.5;
   background-color: $white;
   color: $black;
+  position: relative;
 }
 
 *, *::before, *::after {
@@ -69,6 +70,7 @@ ul {
   border: none;
   border-bottom: 2px solid $gray;
   width: 100%;
+  transition: border .4s ease;
 }
 
 
@@ -92,6 +94,12 @@ ul {
   &__container {
     @include container;
     display: flex;
+    justify-content: space-between;
+  }
+
+  &__wrap {
+    display: flex;
+    gap: 2rem;
     justify-content: space-between;
   }
 
@@ -134,6 +142,21 @@ ul {
     }
   }
 }
+
+.lang {
+  max-width: 3%;
+  &__select {
+    background-color: $black;
+    color: $gray;
+    transition: border .4s ease;
+    &:hover,
+    &:focus-visible {
+      border-color: $white;
+    }
+  }
+}
+
+
 
 .main {
   position: relative;
@@ -376,11 +399,25 @@ ul {
 
     &__btn {
       @include link;
-      font-size: .85rem;
+      font-size: 1rem;
       position: relative;
       color: $gray;
       border: none;
       background-color: transparent;
+      //margin-right: 1rem;
+      &--logout {
+        @include link;
+      }
+      &--logout::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 50%;
+        line-height: 150%;
+        border-bottom: 3px solid $gray;
+        transition: width .4s ease;
+      }
 
       &::after {
         content: '';
@@ -388,6 +425,7 @@ ul {
         right: 0;
         bottom: -5px;
         width: 50%;
+        line-height: 150%;
         border-bottom: 3px solid $gray;
         transition: width .4s ease;
       }
@@ -404,6 +442,7 @@ ul {
     background-image: url(../img/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 88vh;
 
     &::after {
       content: "";
@@ -424,3 +463,71 @@ ul {
   }
 }
 
+.modal {
+  position: absolute;
+  top: -100vh;
+  left: 0;
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .20);
+  transition: all .4s ease;
+  padding: 7rem 30rem;
+
+  &--active {
+    top: 0;
+    opacity: 1;
+  }
+
+  &__wrapper {
+    background-color: $white;
+    color: $black;
+    padding: 4rem;
+    position: relative;
+  }
+
+  &__close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 50;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    & path {
+      transition: all .4s ease;
+    }
+    &:hover path,
+    &:focus-visible path{
+      stroke: $gray;
+      fill: $gray;
+    }
+  }
+
+  &__form {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__input {
+    @include input;
+    &:hover,
+    &:focus-visible {
+      border-bottom: 2px solid $blue;
+    }
+    &:last-child {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__btn {
+    @include btn;
+    margin-bottom: 1rem;
+    &:hover,
+    &:focus-visible {
+      @include btn-effect
+    }
+  }
+}
