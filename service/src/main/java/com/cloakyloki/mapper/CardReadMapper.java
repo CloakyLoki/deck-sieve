@@ -30,7 +30,8 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getMvid(),
                 getScryfallImagePath(card.getScryfallIllustrationId()),
                 card.getFrameVersion(),
-                card.getIsBanned()
+                card.getIsBanned(),
+                card.getSetcode()
         );
     }
 

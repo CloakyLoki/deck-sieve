@@ -29,6 +29,7 @@ public class TestDataProvider {
                 .text("Whenever you cast an artifact spell, you may search your graveyard, hand, " +
                         "and/or library for a card with the same name as that spell and put it onto the battlefield. " +
                         "If you search your library this way, shuffle.")
+                .setcode("CBA")
                 .build();
     }
 
@@ -45,6 +46,7 @@ public class TestDataProvider {
                 .scryfallIllustrationId("1562793459")
                 .text("Mirage Mirror becomes a copy of target artifact, creature, enchantment, " +
                         "or land until end of turn.")
+                .setcode("ABC")
                 .build();
     }
 
@@ -92,7 +94,8 @@ public class TestDataProvider {
                 "testMvId",
                 "a3be6d48-dee7-4c86-910c-b76c155b50b9",
                 "2020",
-                Boolean.FALSE
+                Boolean.FALSE,
+                "ABC"
         );
     }
 }

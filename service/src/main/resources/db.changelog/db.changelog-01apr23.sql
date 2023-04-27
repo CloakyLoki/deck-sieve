@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS card
     mvid                     TEXT,
     scryfall_illustration_id TEXT,
     frame_version            TEXT,
-    banned                   BOOLEAN DEFAULT FALSE
+    banned                   BOOLEAN DEFAULT FALSE,
+    setcode                  VARCHAR(8) REFERENCES sets(code)
 );
 --rollback DROP TABLE IF EXISTS card;
 

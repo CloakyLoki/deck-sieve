@@ -18,5 +18,6 @@ public record CardFilter(
         String mvid,
         String scryfallIllustrationId,
         String frameVersion,
-        Boolean isBanned) {
+        Boolean isBanned,
+        String setcode) {
 }

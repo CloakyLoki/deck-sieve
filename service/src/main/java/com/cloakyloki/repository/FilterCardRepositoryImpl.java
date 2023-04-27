@@ -34,6 +34,7 @@ public class FilterCardRepositoryImpl implements FilterCardRepository {
                 .add(filter.toughness(), card.toughness::eq)
                 .add(filter.frameVersion(), card.frameVersion::eq)
                 .add(filter.isBanned(), card.isBanned::eq)
+                .add(filter.setcode(), card.setcode::eq)
                 .buildAnd();
 
         return new JPAQuery<Card>(entityManager)

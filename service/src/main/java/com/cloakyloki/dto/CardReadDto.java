@@ -28,4 +28,5 @@ public class CardReadDto {
     String scryfallIllustrationId;
     String frameVersion;
     Boolean isBanned;
+    String setcode;
 }

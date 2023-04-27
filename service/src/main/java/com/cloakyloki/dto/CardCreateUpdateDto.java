@@ -33,4 +33,5 @@ public class CardCreateUpdateDto {
     String scryfallIllustrationId;
     String frameVersion;
     Boolean isBanned;
+    String setcode;
 }

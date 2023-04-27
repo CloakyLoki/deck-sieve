@@ -26,6 +26,7 @@ import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.power;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.purchaseUrl;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.rarity;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.scryfallIllustrationId;
+import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.setcode;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.subtype;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.supertype;
 import static com.cloakyloki.dto.CardCreateUpdateDto.Fields.text;
@@ -52,7 +53,7 @@ class CardControllerIT extends IntegrationTestBase {
                 "Mirage Mirror",
                 3, null, null, null, null, null,
                 null, null, null, null, null, null,
-                null, "12", "a3be6d48-dee7-4c86-910c-b76c155b50b9", null, null));
+                null, "12", "a3be6d48-dee7-4c86-910c-b76c155b50b9", null, null, null));
         mockMvc.perform(get("/cards/" + cardReadDto.getId().toString()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("card"))
@@ -81,6 +82,7 @@ class CardControllerIT extends IntegrationTestBase {
                         .param(scryfallIllustrationId, "a3be6d48-dee7-4c86-910c-b76c155b50b9")
                         .param(frameVersion, "2020")
                         .param(isBanned, Boolean.FALSE.toString())
+                        .param(setcode, "ABC")
                         .with(csrf())
                 )
                 .andExpectAll(
@@ -112,7 +114,8 @@ class CardControllerIT extends IntegrationTestBase {
                         .param(mvid, "testMvId")
                         .param(scryfallIllustrationId, "a3be6d48-dee7-4c86-910c-b76c155b50b9")
                         .param(frameVersion, "2020")
-                        .param(isBanned, Boolean.FALSE.toString()))
+                        .param(isBanned, Boolean.FALSE.toString())
+                        .param(setcode, "ABC"))
                 .andExpectAll(
                         status().is3xxRedirection(),
                         redirectedUrl("/cards/" + cardId)

@@ -39,5 +39,6 @@ public class CardCreateUpdateMapper implements Mapper<CardCreateUpdateDto, Card>
         card.setScryfallIllustrationId(object.getScryfallIllustrationId());
         card.setFrameVersion(object.getFrameVersion());
         card.setIsBanned(object.getIsBanned());
+        card.setSetcode(object.getSetcode());
     }
 }
