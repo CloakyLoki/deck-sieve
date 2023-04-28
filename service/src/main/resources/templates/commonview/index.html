@@ -18,8 +18,9 @@
         <div class="header__wrap">
             <div class="header__account">
                 <div class="header__account">
-                    <a class="header__btn header__btn--enter" href="/login">Войти</a>
-                    <a class="header__btn header__btn--join" href="/users/registration">Зарегистрироваться</a>
+                    <a class="header__btn header__btn--enter" href="/login"><span
+                            th:text="#{login.loginBtn}">Войти</span></a>
+                    <a class="header__btn header__btn--join" href="/users/registration"><span th:text="#{login.RegBtn}">Зарегистрироваться</span></a>
                 </div>
             </div>
             <div th:fragment="locale" class="header__lang lang">
@@ -40,34 +41,36 @@
             <div class="search__wrapper search-name">
                 <div class="search__wrap search-name__wrap" id="f-n">
                     <label class="search__label search-name__label" for="name">
-                        <input class="search__input search-name__input" id="name" name="name" placeholder="Введите название карты" type="text">
+                        <input class="search__input search-name__input" id="name" name="name"
+                               th:placeholder="#{index.namePH}" type="text">
                     </label>
                 </div>
             </div>
-            <button class="search__btn" type="submit">Найти</button>
+            <button class="search__btn" type="submit"><span th:text="#{index.searchBtn}">Найти</span></button>
             <div class="search__wrapper search__wrapper--advanced">
                 <div class="search__wrap" id="f-1">
-                    <label class="search__label" for="text">Текст</label>
+                    <label class="search__label" for="text"><span th:text="#{card.cardText}">Текст</span></label>
                     <input class="search__input" id="text" name="text" type="text">
                 </div>
                 <div class="search__wrap" id="f-2">
-                    <label class="search__label" for="keywords">Ключевые слова</label>
+                    <label class="search__label" for="keywords"><span
+                            th:text="#{card.keywords}">Ключевое слово</span></label>
                     <input class="search__input" id="keywords" name="keywords" type="text">
                 </div>
                 <div class="search__wrap" id="f-3">
-                    <label class="search__label" for="artist">Художник</label>
+                    <label class="search__label" for="artist"><span th:text="#{card.artist}">Художник</span></label>
                     <input class="search__input" id="artist" name="artist" type="text">
                 </div>
                 <div class="search__wrap" id="f-4">
-                    <label class="search__label" for="manaValue">Общая мана-стоимость</label>
+                    <label class="search__label" for="manaValue"><span th:text="#{card.manavalue}"></span></label>
                     <input class="search__input" id="manaValue" name="manaValue" type="text">
                 </div>
                 <div class="search__wrap" id="f-11">
-                    <label class="search__label" for="setcode">Сет</label>
+                    <label class="search__label" for="setcode"><span th:text="#{card.set}">Выпуск</span></label>
                     <input class="search__input" id="setcode" name="setcode" type="text">
                 </div>
                 <div class="search__wrap" id="f-5">
-                    <label class="search__label" for="type">Тип</label>
+                    <label class="search__label" for="type"><span th:text="#{card.type}">Тип</span></label>
                     <select class="search__input select" id="type" name="type">
                         <option selected value> -- выберите тип --</option>
                         <option th:each="typ : ${type}"
@@ -77,7 +80,7 @@
                     </select>
                 </div>
                 <div class="search__wrap" id="f-6">
-                    <label class="search__label" for="subtype">Подтип</label>
+                    <label class="search__label" for="subtype"><span th:text="#{card.subtype}">Подтип</span></label>
                     <select class="search__input select" id="subtype" name="subtype">
                         <option selected value> -- выберите подтип --</option>
                         <option th:each="subtyp : ${subtype}"
@@ -87,7 +90,8 @@
                     </select>
                 </div>
                 <div class="search__wrap" id="f-7">
-                    <label class="search__label" for="supertype">Супертип</label>
+                    <label class="search__label" for="supertype"><span
+                            th:text="#{card.supertype}">Супертип</span></label>
                     <select class="search__input select" id="supertype" name="supertype">
                         <option selected value> -- выберите супертип --</option>
                         <option th:each="supertyp : ${supertype}"
@@ -97,7 +101,7 @@
                     </select>
                 </div>
                 <div class="search__wrap" id="f-8">
-                    <label class="search__label" for="rarity">Редкость</label>
+                    <label class="search__label" for="rarity"><span th:text="#{card.rarity}">Редкость</span></label>
                     <select class="search__input select" id="rarity" name="rarity">
                         <option selected value> -- выберите редкость карты --</option>
                         <option th:each="rar : ${rarity}"
@@ -106,7 +110,7 @@
                     </select>
                 </div>
                 <div class="search__wrap" id="f-9">
-                    <label class="search__label" for="rarity">Мана-стоимость</label>
+                    <label class="search__label" for="manaValue"><span th:text="#{card.manacost}">Мана</span></label>
                     <select aria-hidden="true" class="search__input select advanced-search-subjoiner js-advanced-search-subjoiner"
                             data-separator="">
                         <option value="">Добавьте символ маны</option>

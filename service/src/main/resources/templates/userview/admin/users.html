@@ -6,22 +6,18 @@
         <html lang="en" xmlns:th="http://www.thymeleaf.org">
         <head>
         <meta charset="UTF-8">
-        <title>Admin</title>
+        <title>Admin Tools. Users</title>
 </head>
 <body>
 <div th:insert="~{fragment :: header}"></div>
 
 <div th:each="user : ${users}">
-
-    <a th:href="@{'/users/' + ${user.id}}" th:text="|${user.id}.  ${user.username}|">User</a>
+    <a th:href="@{'/admin/users/' + ${user.id}}" th:text="|${user.id}.  ${user.username}|">User</a>
     <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
         <button type="submit">Remove</button>
     </form>
 </div>
 </body>
-</html></title>
-</head>
-<body>
 
-</body>
+
 </html>

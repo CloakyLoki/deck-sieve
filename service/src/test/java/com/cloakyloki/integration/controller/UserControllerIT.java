@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.isActive;
-import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.rawPassword;
+import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.password;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.role;
 import static com.cloakyloki.dto.UserCreateUpdateDto.Fields.username;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -55,7 +55,7 @@ class UserControllerIT extends IntegrationTestBase {
         mockMvc.perform(post("/users")
                         .with(csrf())
                         .param(username, "testNick")
-                        .param(rawPassword, "123")
+                        .param(password, "123")
                         .param(role, "USER")
                         .param(isActive, "true")
                 )
@@ -77,7 +77,7 @@ class UserControllerIT extends IntegrationTestBase {
         mockMvc.perform(post("/users/" + userId + "/update")
                         .with(csrf())
                         .param(username, "Andrey")
-                        .param(rawPassword, "111")
+                        .param(password, "111")
                         .param(role, "ADMIN")
                         .param(isActive, "true")
                 )

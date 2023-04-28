@@ -33,7 +33,7 @@ public class UserCreateUpdateMapper implements Mapper<UserCreateUpdateDto, User>
         user.setRole(object.getRole());
         user.setIsActive(object.getIsActive());
 
-        Optional.ofNullable(object.getRawPassword())
+        Optional.ofNullable(object.getPassword())
                 .filter(StringUtils::hasText)
                 .map(passwordEncoder::encode)
                 .ifPresent(user::setPassword);

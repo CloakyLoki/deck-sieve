@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Admin Tools. Edit user</title>
 
-    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../../static/css/style.css" th:href="@{/css/style.css}">
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-    <script defer rel="stylesheet" src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
+    <script defer rel="stylesheet" src="../../../static/js/script.js" th:src="@{/js/script.js}"></script>
 </head>
 <body>
 <div class="user">
@@ -54,19 +54,22 @@
                       d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>
             </svg>
         </button>
-        <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}"
+        <form th:action="@{/admin/{userId}/update(userId=${user.id})}" method="post" th:object="${user}"
               class="modal__form">
-            <label for="status">Статус:
-                <span id="status" type="text" th:text="*{isActive}">asd</span>
+            <label for="status" th:text="#{user.isActive}">Статус:
+                <span id="status" type="text" name="isActive" th:value="${user.isActive}"></span>
             </label>
-            <label for="role">Роль:
-                <span id="role" type="text" name="role" th:value="${user.role}"></span>
-            </label>
-            <label for="username">Введите новое имя пользователя:
+
+            <div th:each="role: ${roles}">
+                <label th:for="${role}" th:text="${role}"><span th:text="#{user.rolename}">Роль:</span></label>
+                <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+            </div>
+
+            <label for="username">Сменить имя пользователя:
                 <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">
             </label>
-            <label for="password">Введите новый пароль:
-                <input id="password" type="text" name="password" class="modal__input">
+            <label for="password">Сменить пароль:
+                <input id="password" type="text" name="password" th:value="*{password}" class="modal__input">
             </label>
 
             <button type="submit" class="modal__btn"><span th:text="#{user.updateBtn}">Обновить</span></button>

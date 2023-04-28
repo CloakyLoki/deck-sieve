@@ -32,11 +32,11 @@ public class UserController {
     private final UserService userService;
     private final DeckService deckService;
 
-    @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "userview/users";
-    }
+//    @GetMapping
+//    public String findAll(Model model) {
+//        model.addAttribute("users", userService.findAll());
+//        return "userview/users";
+//    }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
@@ -81,6 +81,6 @@ public class UserController {
         if (!userService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 }

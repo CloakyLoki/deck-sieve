@@ -16,7 +16,7 @@ public class UserCreateUpdateDto {
     String username;
 
     @NotBlank(groups = CreateAction.class)
-    String rawPassword;
+    String password;
     Role role;
     Boolean isActive;
 }
