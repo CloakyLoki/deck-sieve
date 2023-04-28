@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class Card implements GenericEntity<Long> {
     @OneToMany(mappedBy = "card")
     private List<CardDeck> cardDecks = new ArrayList<>();
 
+    @JoinColumn(name = "setcode")
     @ManyToOne(fetch = FetchType.LAZY)
-    private String setcode;
+    private CSet setcode;
 }

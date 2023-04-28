@@ -45,7 +45,7 @@ public class CardService {
                 .add(filter.toughness(), card.toughness::eq)
                 .add(filter.frameVersion(), card.frameVersion::eq)
                 .add(filter.isBanned(), card.isBanned::eq)
-                .add(filter.setcode(), card.setcode::containsIgnoreCase)
+                .add(filter.setcode(), card.setcode.code::eq)
                 .buildAnd();
         return cardRepository.findAll(predicate, pageable)
                 .map(cardReadMapper::map);

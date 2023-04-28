@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.cloakyloki.entity.QCard.card;
 
+
 @RequiredArgsConstructor
 public class FilterCardRepositoryImpl implements FilterCardRepository {
 
@@ -34,7 +35,7 @@ public class FilterCardRepositoryImpl implements FilterCardRepository {
                 .add(filter.toughness(), card.toughness::eq)
                 .add(filter.frameVersion(), card.frameVersion::eq)
                 .add(filter.isBanned(), card.isBanned::eq)
-                .add(filter.setcode(), card.setcode::eq)
+                .add(filter.setcode(), card.setcode.code::eq)
                 .buildAnd();
 
         return new JPAQuery<Card>(entityManager)

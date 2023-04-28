@@ -23,7 +23,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "sets")
-public class CSet {
+public class CSet implements GenericEntity<String> {
 
     @Id
     private String code;
