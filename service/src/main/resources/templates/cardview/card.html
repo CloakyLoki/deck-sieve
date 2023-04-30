@@ -36,15 +36,10 @@
             <article class="card-description__article">
                 <h2 class="card-description__title" th:text="${card.name}"></h2>
                 <ul class="card-description__list">
-                    <li><span th:text="#{card.manacost}">Manacost: </span>
-                        <div th:if="${card.manacost.common != null}">
-                            <span class="card-description__span" th:text="${card.manacost.common}"></span>
-                        </div>
-                        <div th:if="${card.manacost.colorList != null}">
-                            <div th:each="color : ${card.manacost.colorList}">
-                                <img th:src="'/img/mana/' + ${color} + '.png'">
-                            </div>
-
+                    <li class="card-description__item"><span th:text="#{card.manacost}">Manacost:</span>
+                        <span class="card-description__span" th:text="${card.manacost.common}"></span>
+                        <div th:each="color : ${card.manacost.colorList}" style="display: inline-block">
+                            <img th:src="'/img/mana/' + ${color} + '.png'">
                         </div>
                     </li>
                     <li class="card-description__item"><span th:text="#{card.rarity}">Rarity: </span><span
