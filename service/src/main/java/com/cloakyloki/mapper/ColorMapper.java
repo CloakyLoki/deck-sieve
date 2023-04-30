@@ -14,7 +14,7 @@ public class ColorMapper {
 
     public ManacostDto map(String manacost) {
         List<ColorIndicator> colors = new ArrayList<>();
-        Integer commonMana = 0;
+        String commonMana = "";
         Pattern patternColored = Pattern.compile("\\{([WUBRG])\\}");
         Pattern patternCommon = Pattern.compile("\\{(\\d+)\\}");
         Matcher matcherColored = patternColored.matcher(manacost);
@@ -26,8 +26,9 @@ public class ColorMapper {
             colors.add(color);
         }
         while (matcherCommon.find()) {
-            commonMana++;
+            commonMana = matcherCommon.group(1);
         }
+
         return new ManacostDto(commonMana, colors);
     }
 }

@@ -33,12 +33,20 @@
         <div class="card__wrapper card-description">
             <img th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}" alt="card_image"
                  class="card-description__img">
-            <!--            <img src="../../static/img/card.jpg" alt="болванка" class="card-description__img">-->
             <article class="card-description__article">
                 <h2 class="card-description__title" th:text="${card.name}"></h2>
                 <ul class="card-description__list">
-                    <li class="card-description__item"><span th:text="#{card.manacost}">Manacost: </span><span
-                            class="card-description__span" th:text="${card.manacost.toString()}"></span></li>
+                    <li><span th:text="#{card.manacost}">Manacost: </span>
+                        <div th:if="${card.manacost.common != null}">
+                            <span class="card-description__span" th:text="${card.manacost.common}"></span>
+                        </div>
+                        <div th:if="${card.manacost.colorList != null}">
+                            <div th:each="color : ${card.manacost.colorList}">
+                                <img th:src="'/img/mana/' + ${color} + '.png'">
+                            </div>
+
+                        </div>
+                    </li>
                     <li class="card-description__item"><span th:text="#{card.rarity}">Rarity: </span><span
                             class="card-description__span" th:text="${card.rarity}"></span></li>
                     <li class="card-description__item"><span th:text="#{card.type}">Type: </span><span

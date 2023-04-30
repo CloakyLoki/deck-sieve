@@ -8,6 +8,6 @@ import java.util.List;
 @Value
 public class ManacostDto {
 
-    Integer common;
+    String common;
     List<ColorIndicator> colorList;
 }
