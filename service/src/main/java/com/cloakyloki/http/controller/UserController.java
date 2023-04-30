@@ -32,12 +32,6 @@ public class UserController {
     private final UserService userService;
     private final DeckService deckService;
 
-//    @GetMapping
-//    public String findAll(Model model) {
-//        model.addAttribute("users", userService.findAll());
-//        return "userview/users";
-//    }
-
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
         UserReadDto userReadDto = userService.findById(id)

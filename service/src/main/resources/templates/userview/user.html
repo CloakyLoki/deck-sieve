@@ -57,10 +57,10 @@
         <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}"
               class="modal__form">
             <label for="status">Статус:
-                <span id="status" type="text" th:text="*{isActive}">asd</span>
+                <span id="status" th:text="${user.isActive}">asd</span>
             </label>
             <label for="role">Роль:
-                <span id="role" type="text" name="role" th:value="${user.role}"></span>
+                <span id="role" th:text="${user.role}"></span>
             </label>
             <label for="username">Введите новое имя пользователя:
                 <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">

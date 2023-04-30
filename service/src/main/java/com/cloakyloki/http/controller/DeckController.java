@@ -47,7 +47,6 @@ public class DeckController {
         var cardDeckReadDto = cardDeckService.create(cardDeckCreateUpdateDto);
         model.addAttribute("cardadd", cardDeckReadDto);
         model.addAttribute("deck", deckReadDto);
-//        return "deckview/deck";
         return "redirect:/decks/{deckId}";
     }
 

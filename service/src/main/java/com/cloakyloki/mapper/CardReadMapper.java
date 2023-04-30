@@ -2,12 +2,15 @@ package com.cloakyloki.mapper;
 
 import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.entity.Card;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CardReadMapper implements Mapper<Card, CardReadDto> {
 
     private static final String IMAGE_FORMAT = "%s/%s/%s.jpg";
+    private final ColorMapper colorMapper;
 
     @Override
     public CardReadDto map(Card card) {
@@ -15,7 +18,7 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getId(),
                 card.getName(),
                 card.getManaValue(),
-                card.getManacost(),
+                colorMapper.map(card.getManacost()),
                 card.getRarity(),
                 card.getType(),
                 card.getSubtype(),

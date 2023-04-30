@@ -12,7 +12,7 @@ public class CardReadDto {
 
     @PositiveOrZero
     Integer manaValue;
-    String manacost;
+    ManacostDto manacost;
     String rarity;
     String type;
     String subtype;

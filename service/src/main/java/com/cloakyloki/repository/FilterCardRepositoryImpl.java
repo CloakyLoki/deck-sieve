@@ -11,7 +11,6 @@ import java.util.List;
 
 import static com.cloakyloki.entity.QCard.card;
 
-
 @RequiredArgsConstructor
 public class FilterCardRepositoryImpl implements FilterCardRepository {
 
