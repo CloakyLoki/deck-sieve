@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&display=swap');
+
 $gray: #B7B8B6;
 $white: #fcfcfa;
 $red: #C92243;
@@ -6,12 +8,13 @@ $green: #418258;
 $black: #211F30;
 
 body {
-  font-family: 'Raleway', sans-serif;
-  font-size: 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 20px;
   font-weight: 300;
   line-height: 1.5;
   background-color: $white;
   color: $black;
+  position: relative;
 }
 
 *, *::before, *::after {
@@ -20,20 +23,36 @@ body {
   box-sizing: border-box;
 }
 
+ul {
+  list-style: none;
+}
+
 @mixin container {
   margin: 0 auto;
   padding: 2rem 8rem;
 }
 
 @mixin btn {
+  position: relative;
+  z-index: 50;
+  margin: .5rem;
   padding: 1rem 2rem;
-  border: 2px solid transparent;
-  transition: background-color .4s ease, color .4s ease, border .4s ease;
+  border: 8px solid transparent;
+  outline: none;
   cursor: pointer;
-  color: $blue;
   font-weight: 800;
-  font-family: 'Raleway', sans-serif;
-  border-radius: 5px;
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  background-color: $gray;
+  color: $white;
+  transition: border .6s ease;
+}
+
+@mixin btn-effect {
+  border-top: 8px solid $green;
+  border-bottom: 8px solid $red;
+  border-left: 8px solid $blue;
+  border-right: 8px solid $black;
 }
 
 @mixin link {
@@ -46,18 +65,12 @@ body {
 @mixin input {
   padding: .2rem .5rem;
   background-color: transparent;
-  color: $blue;
+  color: $black;
   outline: none;
   border: none;
   border-bottom: 2px solid $gray;
   width: 100%;
-}
-
-@mixin title {
-  font-family: 'Rubik Vinyl', cursive;
-  font-size: 2rem;
-  color: $blue;
-  margin-bottom: 1rem;
+  transition: border .4s ease;
 }
 
 
@@ -65,10 +78,29 @@ body {
   background-color: $black;
   color: $gray;
 
+  &__title {
+    font-size: 1.2rem;
+    color: $gray;
+    line-height: 1;
+    margin: 0;
+    font-style: italic;
+  }
+
+  &__span {
+    font-weight: lighter;
+    font-size: .7rem;
+  }
+
   &__container {
     @include container;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+  }
+
+  &__wrap {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
   }
 
   &__account {
@@ -111,11 +143,148 @@ body {
   }
 }
 
+.lang {
+  max-width: 3%;
+  &__select {
+    background-color: $black;
+    color: $gray;
+    transition: border .4s ease;
+    &:hover,
+    &:focus-visible {
+      border-color: $white;
+    }
+  }
+}
+
+
+
 .main {
   position: relative;
   background-image: url(../img/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 88vh;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    height: 100%;
+  }
+
+  &__container {
+    @include container;
+    position: relative;
+    z-index: 5;
+  }
+}
+
+.search {
+  font-size: .75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__btn {
+    @include btn;
+    max-width: max-content;
+    align-self: center;
+
+    &:hover,
+    &:focus-visible {
+      @include btn-effect;
+    }
+  }
+
+  &__wrapper {
+    border: 2px solid $gray;
+
+    &--advanced {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+    }
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    padding: .3rem;
+    justify-content: space-between;
+  }
+
+  &__label {
+    font-size: .75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: .5rem
+  }
+
+  &__input {
+    @include input;
+    transition: border .4s ease;
+    font-size: .75rem;
+
+    &:hover,
+    &:focus-visible {
+      border-bottom: 2px solid $blue;
+    }
+  }
+
+  &-name {
+    display: block;
+    width: 80%;
+    align-self: center;
+    position: relative;
+    margin-bottom: 1rem;
+    border: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 90%;
+      height: 80%;
+      left: 5%;
+      bottom: -15px;
+      border: 2px solid $gray;
+      background-color: $gray;
+    }
+
+    &__label {
+      width: 100%;
+      position: relative;
+      z-index: 100;
+    }
+
+    &__input {
+      @include input;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      width: 100%;
+      height: 100%;
+      border: 2px solid $gray;
+      transition: all .4s ease;
+      background-color: $white;
+
+      &:hover,
+      &:focus-visible {
+        transform: translateY(-10px);
+      }
+    }
+  }
+}
+
+.card {
+  position: relative;
+  background-image: url(../img/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  font-size: 20px;
 
   &::after {
     content: "";
@@ -133,122 +302,232 @@ body {
     z-index: 5;
   }
 
-  &__title {
-    visibility: hidden;
-    font-size: 1px;
-  }
-}
-
-.find {
-  margin-bottom: 3rem;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    z-index: -10;
-    height: 100%;
-    width: 75%;
-    bottom: -1rem;
-    left: 12.5%;
-    border: 2px solid $blue;
-    border-radius: 20px;
-    background-color: $gray;
-  }
-
-  &__form {
-    position: relative;
-    z-index: 50;
+  &__wrapper {
     display: flex;
-    gap: 1rem;
-    border: 2px solid $blue;
-    border-radius: 30px;
-    padding: 1rem 2rem;
-    transition:  .4s ease;
-    width: 80%;
-    left: 10%;
-    background-color: $white;
+    gap: 2rem;
 
-    &:hover,
-    &:focus-within {
-      transform: translatey(-3px);
+    &--top {
+      margin-bottom: 2rem;
     }
   }
 
   &__btn {
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
+    @include btn;
 
-    & path {
-      transition: .4s ease;
+    &:hover,
+    &:focus-visible {
+      @include btn-effect;
+    }
+  }
+
+  &-description {
+    width: 100%;
+    border: 2px solid $gray;
+    vertical-align: center;
+    padding: 2rem;
+    height: 75vh;
+    gap: 3rem;
+
+    &__img {
+      height: 100%;
     }
 
+    &__list {
+      margin-bottom: 1rem;
+    }
+
+    &__item {
+      font-weight: bold;
+      color: $black;
+      line-height: 200%;
+    }
+
+    &__article {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__buttons {
+      display: flex;
+      gap: 2rem;
+    }
+
+    &__span {
+      font-weight: normal;
+    }
+
+    &__btn {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      & path {
+        transition: all .4s ease;
+      }
+
+      &:hover path,
+      &:focus-visible path {
+        fill: $gray;
+      }
+    }
+  }
+}
+
+.user {
+
+  &-header {
+    background-color: $black;
+    color: $gray;
+
+    &__container {
+      @include container;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &__wrap {
+      display: flex;
+      gap: 2rem;
+      text-align: right;
+    }
+
+    &__name {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    &__btn {
+      @include link;
+      font-size: 1rem;
+      position: relative;
+      color: $gray;
+      border: none;
+      background-color: transparent;
+      //margin-right: 1rem;
+      &--logout {
+        @include link;
+      }
+      &--logout::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 50%;
+        line-height: 150%;
+        border-bottom: 3px solid $gray;
+        transition: width .4s ease;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -5px;
+        width: 50%;
+        line-height: 150%;
+        border-bottom: 3px solid $gray;
+        transition: width .4s ease;
+      }
+
+      &:hover::after,
+      &:focus::after {
+        width: 100%;
+      }
+    }
+  }
+
+  &-main {
+    position: relative;
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 88vh;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      width: 100%;
+      height: 100%;
+    }
+
+    &__container {
+      @include container;
+      position: relative;
+      z-index: 5;
+
+    }
+  }
+}
+
+.modal {
+  position: absolute;
+  top: -100vh;
+  left: 0;
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .20);
+  transition: all .4s ease;
+  padding: 7rem 30rem;
+
+  &--active {
+    top: 0;
+    opacity: 1;
+  }
+
+  &__wrapper {
+    background-color: $white;
+    color: $black;
+    padding: 4rem;
+    position: relative;
+  }
+
+  &__close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 50;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    & path {
+      transition: all .4s ease;
+    }
     &:hover path,
-    &:focus-visible path {
+    &:focus-visible path{
+      stroke: $gray;
       fill: $gray;
     }
   }
 
-  &__label {
-  width: 80%;
+  &__form {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   &__input {
     @include input;
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-left: 2px solid $blue;
-  }
-}
-
-.advanced {
-  font-size: .75rem;
-
-  &__title {
-    @include title;
-    text-align: center;
+    &:hover,
+    &:focus-visible {
+      border-bottom: 2px solid $blue;
+    }
+    &:last-child {
+      margin-bottom: 2rem;
+    }
   }
 
-  &-form {
-    font-family: inherit;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    &__btn {
-      @include btn;
-      &:hover,
-      &:focus-visible {
-        background-color: $blue;
-        color: $white;
-      }
-    }
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      border: 2px solid $gray;
-      border-radius: 5px;
-      padding: .75rem;
-      justify-content: space-between;
-    }
-    &__label {
-      font-family: inherit;
-      font-size: .75rem;
-      font-weight: 600;
-      text-align: center;
-    }
-    &__input {
-      @include input;
-      transition: border .4s ease;
-      font-size: .75rem;
-      &:hover,
-      &:focus-visible {
-        border-bottom: 2px solid $black;
-      }
+  &__btn {
+    @include btn;
+    margin-bottom: 1rem;
+    &:hover,
+    &:focus-visible {
+      @include btn-effect
     }
   }
 }

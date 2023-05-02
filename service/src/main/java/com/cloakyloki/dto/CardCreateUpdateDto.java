@@ -4,6 +4,7 @@ import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 @Value
 @FieldNameConstants
@@ -27,7 +28,10 @@ public class CardCreateUpdateDto {
     String toughness;
     String purchaseUrl;
     String mvid;
+
+    @Size(min = 2)
     String scryfallIllustrationId;
     String frameVersion;
     Boolean isBanned;
+    String setcode;
 }

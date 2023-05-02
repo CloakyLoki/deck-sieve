@@ -4,7 +4,6 @@ import com.cloakyloki.dto.UserCreateUpdateDto;
 import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,10 +31,9 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(
                         urlConfig -> urlConfig
-                                .antMatchers("/login", "/index", "/cards/**", "/users/registration").permitAll()
-                                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/js/**/", "/css/**/", "/img/**/").permitAll()
-                                .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(ADMIN.getAuthority())
                                 .antMatchers("/admin/**", "/users/{\\d+}/delete", "/cards/{\\d+}/delete").hasAuthority(ADMIN.getAuthority())
+                                .antMatchers("/login", "/index", "/cards/**", "/users/registration", "/decks/**").permitAll()
+                                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/js/**/", "/css/**/", "/img/**/").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .logout(logout -> logout

@@ -2,10 +2,15 @@ package com.cloakyloki.mapper;
 
 import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.entity.Card;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CardReadMapper implements Mapper<Card, CardReadDto> {
+
+    private static final String IMAGE_FORMAT = "%s/%s/%s.jpg";
+    private final ColorMapper colorMapper;
 
     @Override
     public CardReadDto map(Card card) {
@@ -13,7 +18,7 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getId(),
                 card.getName(),
                 card.getManaValue(),
-                card.getManacost(),
+                card.getManacost() != null ? colorMapper.map(card.getManacost()) : null,
                 card.getRarity(),
                 card.getType(),
                 card.getSubtype(),
@@ -26,18 +31,14 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getToughness(),
                 card.getPurchaseUrl(),
                 card.getMvid(),
-                getImagePrefix(card.getScryfallIllustrationId()) + card.getScryfallIllustrationId(),
+                getScryfallImagePath(card.getScryfallIllustrationId()),
                 card.getFrameVersion(),
-                card.getIsBanned()
+                card.getIsBanned(),
+                card.getSetcode().getCode()
         );
     }
 
-    private String getImagePrefix(String string) {
-        StringBuilder resultString = new StringBuilder();
-        for (int i = 0; i < 2; i++) {
-            resultString.append(string.charAt(i));
-            resultString.append('/');
-        }
-        return resultString.toString();
+    private String getScryfallImagePath(String imageId) {
+        return String.format(IMAGE_FORMAT, imageId.charAt(0), imageId.charAt(1), imageId);
     }
 }

@@ -12,7 +12,7 @@ public class CardReadDto {
 
     @PositiveOrZero
     Integer manaValue;
-    String manacost;
+    ManacostDto manacost;
     String rarity;
     String type;
     String subtype;
@@ -28,4 +28,5 @@ public class CardReadDto {
     String scryfallIllustrationId;
     String frameVersion;
     Boolean isBanned;
+    String setcode;
 }

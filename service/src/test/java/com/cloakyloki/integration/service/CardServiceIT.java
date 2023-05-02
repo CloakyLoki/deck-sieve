@@ -59,7 +59,7 @@ class CardServiceIT extends IntegrationTestBase {
 
         assertAll(
                 () -> assertEquals(userCreateUpdateDto.getUsername(), actualResult.getUsername()),
-                () -> assertEquals(userCreateUpdateDto.getRawPassword(), actualResult.getPassword()),
+                () -> assertEquals(userCreateUpdateDto.getPassword(), actualResult.getPassword()),
                 () -> assertEquals(userCreateUpdateDto.getRole(), actualResult.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), actualResult.getIsActive())
         );
@@ -82,7 +82,7 @@ class CardServiceIT extends IntegrationTestBase {
 
         actualUser.ifPresent(user -> assertAll(
                 () -> assertEquals(userCreateUpdateDto.getUsername(), user.getUsername()),
-                () -> assertEquals(userCreateUpdateDto.getRawPassword(), user.getPassword()),
+                () -> assertEquals(userCreateUpdateDto.getPassword(), user.getPassword()),
                 () -> assertEquals(userCreateUpdateDto.getRole(), user.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), user.getIsActive()))
         );

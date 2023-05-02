@@ -1,47 +1,101 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Card</title>
+
+    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/js/script.js" th:href="@{/js/script.js}">
 </head>
 <body>
-
-<table>
-    <tr>
-        <td>
-            <form action="/cards">
-                <button type="submit">Назад</button>
+<div th:fragment="locale">
+    <form action="">
+        <select name="lang" onchange="this.form.submit()">
+            <option></option>
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+        </select>
+    </form>
+</div>
+<div class="card">
+    <div class="card__container">
+        <div class="card__wrapper card__wrapper--top">
+            <form action="/cards" class="card__form">
+                <button type="submit" class="card__btn"><span th:text="#{card.returnBtn}">Return</span></button>
             </form>
-        </td>
-        <td>
-            <form action="/index">
-                <button type="submit">Вернуться к поиску</button>
+            <form action="/index" class="card__form">
+                <button type="submit" class="card__btn"><span
+                        th:text="#{card.returnToSearchBtn}">Return to search</span></button>
             </form>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId} + '.jpg'}"/>
+        </div>
 
-        </td>
-        <td>
-            <h3 th:text="${card.name}"></h3>
-            <p th:text="'Манакост: '+ ${card.manacost}"></p>
-            <p th:text="'Редкость: '+ ${card.rarity}"></p>
-            <p th:text="'Тип: '+ ${card.type}"></p>
-            <p th:text="'Подтип: '+ ${card.subtype}"></p>
-            <p th:text="'Супертип: '+ ${card.supertype}"></p>
-            <p th:text="'Текст карты: '+ ${card.text}"></p>
-            <p th:text="'Легенда: '+ ${card.flavorText}"></p>
-            <p th:text="'Художник: '+ ${card.artist}"></p>
-            <p th:text="'Супертип: '+ ${card.supertype}"></p>
-            <p th:text="'Сила: '+ ${card.power}"></p>
-            <p th:text="'Выносливость: '+ ${card.toughness}"></p>
-            <p th:text="'Версия: '+ ${card.frameVersion}"></p>
-        </td>
-    </tr>
-</table>
+        <div class="card__wrapper card-description">
+            <img th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}" alt="card_image"
+                 class="card-description__img">
+            <article class="card-description__article">
+                <h2 class="card-description__title" th:text="${card.name}"></h2>
+                <ul class="card-description__list">
+                    <li class="card-description__item"><span th:text="#{card.manacost}">Manacost:</span>
+                        <span class="card-description__span" th:text="${card.manacost?.common}"></span>
+                        <div th:each="color : ${card.manacost?.colorList}" style="display: inline-block">
+                            <img th:src="'/img/mana/' + ${color} + '.png'">
+                        </div>
+                    </li>
+                    <li class="card-description__item"><span th:text="#{card.rarity}">Rarity: </span><span
+                            class="card-description__span" th:text="${card.rarity}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.type}">Type: </span><span
+                            class="card-description__span" th:text="${card.type}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.subtype}">Subtype: </span><span
+                            class="card-description__span" th:text="${card.subtype}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.supertype}">Supertype: </span><span
+                            class="card-description__span" th:text="${card.supertype}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.cardText}">Text: </span><span
+                            class="card-description__span" th:text="${card.text}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.legend}">Legend: </span><span
+                            class="card-description__span" th:text="${card.flavorText}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.artist}">Artist: </span><span
+                            class="card-description__span" th:text="${card.artist}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.power}">Power: </span><span
+                            class="card-description__span" th:text="${card.power}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.toughness}">Toughness: </span><span
+                            class="card-description__span" th:text="${card.toughness}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.frameVersion}">Frame version: </span><span
+                            class="card-description__span" th:text="${card.frameVersion}"></span></li>
+                    <li class="card-description__item"><span th:text="#{card.set}">Set: </span><span
+                            class="card-description__span" th:text="${card.setcode}"></span>
+                        <img width="25"
+                             th:src="@{'https://svgs.scryfall.io/sets/' + ${card.setcode.toLowerCase()}+ '.svg'}"
+                             alt="card_image"
+                             class="card-description__img">
+                    </li>
 
-
+                </ul>
+                <div class="card-description__buttons">
+                    <form th:action="'/decks/1/'+ ${card.id} + '/add'" method="post" class="card__form111">
+                        <button type="submit" class="card-description__btn">
+                            <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                                <title/>
+                                <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"
+                                      stroke="#211F30"/>
+                                <path d="M90,61H67V38a3,3,0,0,0-6,0V61H38a3,3,0,0,0,0,6H61V90a3,3,0,0,0,6,0V67H90a3,3,0,0,0,0-6Z"
+                                      stroke="#211F30"/>
+                            </svg>
+                        </button>
+                    </form>
+                    <form th:action="'/decks/1/'+ ${card.id} + '/delete'" method="post" class="card__form111">
+                        <button type="submit" class="card-description__btn">Delete Card</button>
+                    </form>
+                    <button class="card-description__btn">
+                        <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><title/>
+                            <path d="M105,82a23,23,0,0,0-22.49,18.17L41.74,77.29a23,23,0,0,0,0-26.57L82.51,27.83a23,23,0,1,0-.44-6.63l-44.53,25a23,23,0,1,0,0,35.62l44.53,25A23,23,0,1,0,105,82Zm0-76A17,17,0,1,1,88,23,17,17,0,0,1,105,6ZM11,76A17,17,0,0,1,35,52h0A17,17,0,0,1,11,76Zm94,46a17,17,0,1,1,17-17A17,17,0,0,1,105,122Z"
+                                  stroke="#211F30"/>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
 </body>
 </html>

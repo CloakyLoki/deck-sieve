@@ -27,7 +27,9 @@
     rarity=${filter.rarity()},
     type=${filter.type()},
     subtype=${filter.subtype()},
-    supertype=${filter.supertype()})}"
+    supertype=${filter.supertype()},
+    setcode=${filter.setcode()}
+    )}"
 
        th:text="${pageNumber}"
        th:class="${pageNumber==cards.metadata.page + 1} ? active"></a>

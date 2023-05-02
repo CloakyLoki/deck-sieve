@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Optional;
 
 import static com.cloakyloki.entity.QCard.card;
@@ -43,11 +45,17 @@ public class CardService {
                 .add(filter.toughness(), card.toughness::eq)
                 .add(filter.frameVersion(), card.frameVersion::eq)
                 .add(filter.isBanned(), card.isBanned::eq)
+                .add(filter.setcode(), card.setcode.code::eq)
                 .buildAnd();
         return cardRepository.findAll(predicate, pageable)
                 .map(cardReadMapper::map);
     }
 
+    public List<CardReadDto> findAllByDeckId(Long deckId) {
+        return cardRepository.findAllByDeckId(deckId).stream()
+                .map(cardReadMapper::map)
+                .toList();
+    }
 
     public Optional<CardReadDto> findById(Long id) {
         return cardRepository.findById(id)
@@ -80,5 +88,18 @@ public class CardService {
                     return true;
                 })
                 .orElse(false);
+    }
+//TODO как добавить ifPresent?
+    public String getAverageManaValue(List<CardReadDto> cards) {
+        DecimalFormat df = new DecimalFormat("0.000");
+//        Float average = 0F;
+//        for (CardReadDto card : cards) {
+//            average += card.getManaValue();
+//        }
+//        return df.format(average / cards.size());
+        return df.format(cards.stream()
+                .mapToDouble(CardReadDto::getManaValue)
+                .average()
+                .getAsDouble());
     }
 }

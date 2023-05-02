@@ -8,5 +8,5 @@ public class DeckReadDto {
     Long id;
     String name;
     Boolean favourite;
-    Long userIdCreatedBy;
+    Long userId;
 }
