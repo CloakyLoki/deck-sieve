@@ -18,7 +18,7 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 card.getId(),
                 card.getName(),
                 card.getManaValue(),
-                colorMapper.map(card.getManacost()),
+                card.getManacost() != null ? colorMapper.map(card.getManacost()) : null,
                 card.getRarity(),
                 card.getType(),
                 card.getSubtype(),

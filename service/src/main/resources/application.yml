@@ -16,8 +16,6 @@ spring:
     open-in-view: false
   liquibase:
     change-log: db.changelog/db.changelog-master.yaml
-  messages:
-    basename: messages
   security:
     user:
       roles: USER

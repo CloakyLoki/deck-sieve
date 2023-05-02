@@ -12,11 +12,14 @@ import java.util.regex.Pattern;
 @Component
 public class ColorMapper {
 
+    private final String COLORED_MANA_REGEX = "\\{([WUBRG])\\}";
+    private final String COMMON_MANA_REGEX = "\\{(\\d+)\\}";
+
     public ManacostDto map(String manacost) {
         List<ColorIndicator> colors = new ArrayList<>();
         String commonMana = "";
-        Pattern patternColored = Pattern.compile("\\{([WUBRG])\\}");
-        Pattern patternCommon = Pattern.compile("\\{(\\d+)\\}");
+        Pattern patternColored = Pattern.compile(COLORED_MANA_REGEX);
+        Pattern patternCommon = Pattern.compile(COMMON_MANA_REGEX);
         Matcher matcherColored = patternColored.matcher(manacost);
         Matcher matcherCommon = patternCommon.matcher(manacost);
 
