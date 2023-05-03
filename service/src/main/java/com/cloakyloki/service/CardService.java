@@ -89,17 +89,13 @@ public class CardService {
                 })
                 .orElse(false);
     }
-//TODO как добавить ifPresent?
+
     public String getAverageManaValue(List<CardReadDto> cards) {
         DecimalFormat df = new DecimalFormat("0.000");
-//        Float average = 0F;
-//        for (CardReadDto card : cards) {
-//            average += card.getManaValue();
-//        }
-//        return df.format(average / cards.size());
-        return df.format(cards.stream()
+        double averageManavalue = cards.stream()
                 .mapToDouble(CardReadDto::getManaValue)
                 .average()
-                .getAsDouble());
+                .orElse(0);
+        return df.format(averageManavalue);
     }
 }
