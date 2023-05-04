@@ -3,6 +3,7 @@ package com.cloakyloki.aop;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Component
-public class ServicesLoggingAspect {
+public class ServicesLoggingInOutAspect {
 
     @Pointcut("@within(org.springframework.stereotype.Service)")
     public void isServiceLayer() {
@@ -33,5 +34,15 @@ public class ServicesLoggingAspect {
                 joinPoint.getSignature().getName(),
                 serviceClass,
                 result);
+    }
+
+    @AfterThrowing(value = "isServiceLayer() && target(serviceClass)",
+            throwing = "ex")
+    public void addLoggingAfterThrowing(JoinPoint joinPoint, Throwable ex, Object serviceClass) {
+        log.error("Method {} in {} threw {}. Message: {}",
+                joinPoint.getSignature().getName(),
+                serviceClass,
+                ex.getClass(),
+                ex.getMessage());
     }
 }
