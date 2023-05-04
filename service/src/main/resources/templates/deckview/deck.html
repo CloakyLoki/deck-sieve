@@ -14,5 +14,9 @@
     <a th:text="${color.key}">keyvalue</a>
     <a th:text="${color.value}">num</a>
 </div>
+<div th:each="manavalue : ${manacurve}">
+    <a th:text="${manavalue.key}">keyvalue</a>
+    <a th:text="${manavalue.value}">num</a>
+</div>
 </body>
 </html>

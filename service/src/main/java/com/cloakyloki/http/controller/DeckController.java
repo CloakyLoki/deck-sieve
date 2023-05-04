@@ -34,10 +34,12 @@ public class DeckController {
         List<CardReadDto> cardsInDeck = cardService.findAllByDeckId(id);
         var numberOfEachColor = cardService.getNumberOfEachColor(cardsInDeck);
         String averageManaValue = cardService.getAverageManaValue(cardsInDeck);
+        var manaCurve = cardService.getManaCurve(cardsInDeck);
         model.addAttribute("deck", deckReadDto);
         model.addAttribute("cards", cardsInDeck);
         model.addAttribute("averageManaValue", averageManaValue);
         model.addAttribute("numberOfEachColor", numberOfEachColor);
+        model.addAttribute("manacurve", manaCurve);
         return "deckview/deck";
     }
 

@@ -118,4 +118,17 @@ public class CardService {
         }
         return colorNumbers;
     }
+
+    public Map<Integer, Integer> getManaCurve(List<CardReadDto> cards) {
+        Map<Integer, Integer> manaCurve = new HashMap<>();
+        for (CardReadDto card : cards) {
+            var manaValue = card.getManaValue();
+            if (manaCurve.containsKey(manaValue)) {
+                manaCurve.put(manaValue, manaCurve.get(manaValue) + 1);
+            } else {
+                manaCurve.put(manaValue, 1);
+            }
+        }
+        return manaCurve;
+    }
 }
