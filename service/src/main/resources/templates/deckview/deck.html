@@ -10,10 +10,12 @@
     <a th:text="${card.name}">Card</a>
 </div>
 <a th:text="|Средний манакост: ${averageManaValue}|"></a>
+<br>Color distribution:
 <div th:each="color : ${numberOfEachColor}">
     <a th:text="${color.key}">keyvalue</a>
     <a th:text="${color.value}">num</a>
 </div>
+Mana curve:
 <div th:each="manavalue : ${manacurve}">
     <a th:text="${manavalue.key}">keyvalue</a>
     <a th:text="${manavalue.value}">num</a>
