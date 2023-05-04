@@ -32,10 +32,12 @@ public class DeckController {
         DeckReadDto deckReadDto = deckService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         List<CardReadDto> cardsInDeck = cardService.findAllByDeckId(id);
+        var numberOfEachColor = cardService.getNumberOfEachColor(cardsInDeck);
         String averageManaValue = cardService.getAverageManaValue(cardsInDeck);
         model.addAttribute("deck", deckReadDto);
         model.addAttribute("cards", cardsInDeck);
         model.addAttribute("averageManaValue", averageManaValue);
+        model.addAttribute("numberOfEachColor", numberOfEachColor);
         return "deckview/deck";
     }
 

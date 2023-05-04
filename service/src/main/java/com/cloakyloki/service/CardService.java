@@ -3,8 +3,10 @@ package com.cloakyloki.service;
 import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.dto.CardReadDto;
+import com.cloakyloki.entity.enumerated.ColorIndicator;
 import com.cloakyloki.mapper.CardCreateUpdateMapper;
 import com.cloakyloki.mapper.CardReadMapper;
+import com.cloakyloki.mapper.ColorMapper;
 import com.cloakyloki.repository.CardRepository;
 import com.cloakyloki.repository.predicate.QPredicate;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.cloakyloki.entity.QCard.card;
@@ -27,6 +31,7 @@ public class CardService {
     private final CardRepository cardRepository;
     private final CardReadMapper cardReadMapper;
     private final CardCreateUpdateMapper cardCreateUpdateMapper;
+    private final ColorMapper colorMapper;
 
     public Page<CardReadDto> findAll(CardFilter filter, Pageable pageable) {
         var predicate = QPredicate.builder()
@@ -97,5 +102,20 @@ public class CardService {
                 .average()
                 .orElse(0);
         return df.format(averageManavalue);
+    }
+
+    public Map<ColorIndicator, Integer> getNumberOfEachColor(List<CardReadDto> cards) {
+        Map<ColorIndicator, Integer> colorNumbers = new HashMap<>();
+        for (CardReadDto card : cards) {
+            var colorList = card.getManacost().getColorList();
+            for (ColorIndicator color : colorList) {
+                if (colorNumbers.containsKey(color)) {
+                    colorNumbers.put(color, colorNumbers.get(color) + 1);
+                } else {
+                    colorNumbers.put(color, 1);
+                }
+            }
+        }
+        return colorNumbers;
     }
 }
