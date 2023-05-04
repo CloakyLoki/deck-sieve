@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.cloakyloki.entity.QCard.card;
 
@@ -107,14 +109,17 @@ public class CardService {
     public Map<ColorIndicator, Integer> getNumberOfEachColor(List<CardReadDto> cards) {
         Map<ColorIndicator, Integer> colorNumbers = new HashMap<>();
         for (CardReadDto card : cards) {
-            var colorList = card.getManacost().getColorList();
-            for (ColorIndicator color : colorList) {
-                if (colorNumbers.containsKey(color)) {
-                    colorNumbers.put(color, colorNumbers.get(color) + 1);
-                } else {
-                    colorNumbers.put(color, 1);
+            if (card.getManacost() != null) {
+                var colorList = card.getManacost().getColorList();
+                for (ColorIndicator color : colorList) {
+                    if (colorNumbers.containsKey(color)) {
+                        colorNumbers.put(color, colorNumbers.get(color) + 1);
+                    } else {
+                        colorNumbers.put(color, 1);
+                    }
                 }
             }
+
         }
         return colorNumbers;
     }
@@ -130,5 +135,26 @@ public class CardService {
             }
         }
         return manaCurve;
+    }
+
+    public Map<ColorIndicator, Integer> getCardManaProduction(String cardtext) {
+        Map<ColorIndicator, Integer> manaProduction = new HashMap<>();
+
+        Pattern pattern = Pattern.compile("\\{T\\}: Add ((\\{\\w+\\},?)+)\\.");
+        Matcher matcher = pattern.matcher(cardtext);
+
+        if (matcher.find()) {
+            String manaSymbols = matcher.group(1);
+            Pattern colorPattern = Pattern.compile("\\{(\\w+)\\}");
+            Matcher colorMatcher = colorPattern.matcher(manaSymbols);
+
+            while (colorMatcher.find()) {
+                String manaSymbol = colorMatcher.group(1);
+                ColorIndicator color = ColorIndicator.valueOf(manaSymbol);
+                manaProduction.merge(color, 1, Integer::sum);
+            }
+            return manaProduction;
+        }
+        return null;
     }
 }

@@ -20,5 +20,10 @@ Mana curve:
     <a th:text="${manavalue.key}">keyvalue</a>
     <a th:text="${manavalue.value}">num</a>
 </div>
+<br>Mana production:
+<div th:each="mana : ${manaProduction}">
+    <a th:text="${mana.key}">keyvalue</a>
+    <a th:text="${mana.value}">num</a>
+</div>
 </body>
 </html>
