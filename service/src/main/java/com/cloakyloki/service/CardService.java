@@ -140,7 +140,7 @@ public class CardService {
     public Map<ColorIndicator, Integer> getCardManaProduction(String cardtext) {
         Map<ColorIndicator, Integer> manaProduction = new HashMap<>();
 
-        Pattern pattern = Pattern.compile("\\{T\\}: Add ((\\{\\w+\\},?)+)\\.");
+        Pattern pattern = Pattern.compile("\\{T\\}: Add ((\\{\\w+\\},?)+)");
         Matcher matcher = pattern.matcher(cardtext);
 
         if (matcher.find()) {

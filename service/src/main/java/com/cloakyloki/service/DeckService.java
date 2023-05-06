@@ -79,7 +79,7 @@ public class DeckService {
         }
         return deckManaProduction;
     }
-
+//TODO изменить подход на проверку getDeckManaProduction != null & manacost = null
     public Map<String, Integer> getLands(List<CardReadDto> cards) {
         Map<String, Integer> lands = new HashMap<>();
         for (CardReadDto card : cards) {
