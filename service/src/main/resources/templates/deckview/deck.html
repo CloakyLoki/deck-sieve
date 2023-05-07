@@ -37,20 +37,20 @@
             <h1 class="deck__title" th:text="${deck.name}"></h1>
             <div class="deck-stat">
                 <div class="deck-stat__wrap deck-stat__wrap--manacost">
-                    <div class="deck-stat__value" th:text="Средний манакост: ${averageManaValue}|"></div>
+                    <div class="deck-stat__value" th:text="${averageManaValue}"></div>
                     <h2 class="deck-stat__title">Средний манакост</h2>
                 </div>
-                <div class="deck-stat__wrap deck-stat__wrap--manaprod">
+                <div class="deck-stat__wrap deck-stat__wrap--manaprod" th:each="mana : ${manaProduction}">
                     <div class="deck-stat__value" th:text="${mana.value}"></div>
                     <div class="deck-stat__value" th:text="${mana.key}"></div>
                     <h2 class="deck-stat__title">Производство маны</h2>
                 </div>
-                <div class="deck-stat__wrap deck-stat__wrap--manacurve">
+                <div class="deck-stat__wrap deck-stat__wrap--manacurve" th:each="manavalue : ${manacurve}">
                     <div class="deck-stat__value" th:text="${manavalue.value}"></div>
                     <div class="deck-stat__value" th:text="${manavalue.key}"></div>
                     <h2 class="deck-stat__title">Мана-кривая</h2>
                 </div>
-                <div class="deck-stat__wrap deck-stat__wrap--color">
+                <div class="deck-stat__wrap deck-stat__wrap--color" th:each="color : ${numberOfEachColor}">
                     <div class="deck-stat__value" th:text="${color.value}"></div>
                     <div class="deck-stat__value" th:text="${color.key}"></div>
                     <h2 class="deck-stat__title">Распределение цветов</h2>
