@@ -74,10 +74,11 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .map(user -> new User(
-                        user.getUsername(),
-                        user.getPassword(),
-                        Collections.singleton(user.getRole())
-                ))
+                                user.getUsername(),
+                                user.getPassword(),
+                                Collections.singleton(user.getRole())
+                        )
+                )
                 .orElseThrow(() -> new UsernameNotFoundException("User with nickname " + username + " is not found"));
     }
 }

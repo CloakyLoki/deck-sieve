@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -27,13 +28,23 @@ public class CSet implements GenericEntity<String> {
 
     @Id
     private String code;
+
+    @Column(name = "basesetsize")
     private Integer baseSetSize;
+
+    @Column(name = "totalsetsize")
     private Integer totalSetSize;
     private String name;
     private String languages;
+
+    @Column(name = "releasedate")
     private LocalDate releaseDate;
     private String type;
+
+    @Column(name = "isfoilonly")
     private Integer isFoilOnly;
+
+    @Column(name = "isonlineonly")
     private Integer isOnlineOnly;
     private String block;
 
