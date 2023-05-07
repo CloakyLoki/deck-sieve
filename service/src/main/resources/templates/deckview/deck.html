@@ -18,8 +18,11 @@
                     <a class="header__btn header__btn--left"
                        th:href="@{'/users/' + ${#authentication.principal.getId()}}"><span
                             th:text="${#authentication.getName()}">Имя пользователя</span></a>
-                    <a class="header__btn header__btn--right" href="/logout"><span
-                            th:action="@{/logout}">Выйти</span></a>
+                    <a class="header__btn header__btn--right" href="javascript: document.logoutForm.submit()"><span
+                            th:text="#{header.logOutBtn}">Выйти</span></a>
+                    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                        <input hidden type="submit" value="Logout"/>
+                    </form>
                 </div>
             </div>
             <div th:fragment="locale" class="header__lang lang">
@@ -43,20 +46,23 @@
                     <div class="deck-stat__value" th:text="${averageManaValue}"></div>
                     <h2 class="deck-stat__title">Средний манакост</h2>
                 </div>
+                <h2 class="deck-stat__title">Производство маны</h2>
                 <div class="deck-stat__wrap deck-stat__wrap--manaprod" th:each="mana : ${manaProduction}">
                     <div class="deck-stat__value" th:text="${mana.value}"></div>
                     <div class="deck-stat__value" th:text="${mana.key}"></div>
-                    <h2 class="deck-stat__title">Производство маны</h2>
+
                 </div>
+                <h2 class="deck-stat__title">Мана-кривая</h2>
                 <div class="deck-stat__wrap deck-stat__wrap--manacurve" th:each="manavalue : ${manacurve}">
                     <div class="deck-stat__value" th:text="${manavalue.value}"></div>
                     <div class="deck-stat__value" th:text="${manavalue.key}"></div>
-                    <h2 class="deck-stat__title">Мана-кривая</h2>
+
                 </div>
+                <h2 class="deck-stat__title">Распределение цветов</h2>
                 <div class="deck-stat__wrap deck-stat__wrap--color" th:each="color : ${numberOfEachColor}">
                     <div class="deck-stat__value" th:text="${color.value}"></div>
                     <div class="deck-stat__value" th:text="${color.key}"></div>
-                    <h2 class="deck-stat__title">Распределение цветов</h2>
+
                 </div>
             </div>
             <table class="deck-table"></table>

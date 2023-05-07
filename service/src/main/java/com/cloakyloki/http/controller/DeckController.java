@@ -2,6 +2,7 @@ package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.CardDeckCreateUpdateDto;
 import com.cloakyloki.dto.CardReadDto;
+import com.cloakyloki.dto.DeckCreateUpdateDto;
 import com.cloakyloki.dto.DeckReadDto;
 import com.cloakyloki.service.CardDeckService;
 import com.cloakyloki.service.CardService;
@@ -57,14 +58,15 @@ public class DeckController {
     }
 
     @PostMapping("/{deckId}/{cardId}/delete")
-    public String removeCardFromDeck(@PathVariable("deckId") Long deckId, @PathVariable("cardId") Long cardId, Model model) {
+    public String removeCardFromDeck(@PathVariable("deckId") Long deckId, @PathVariable("cardId") Long cardId) {
         cardDeckService.delete(deckId, cardId);
         return "redirect:/decks/{deckId}";
     }
 
-//    @PostMapping
-//    public String createDeck(){
-//
-//
-//    }
+    @PostMapping("/{userid}/add")
+    public String addDeck(@PathVariable("userid") Long userid, DeckCreateUpdateDto deck) {
+
+        deckService.create(deck);
+        return "redirect:/users/{id}";
+    }
 }

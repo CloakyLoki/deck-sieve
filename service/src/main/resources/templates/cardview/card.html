@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns="http://www.w3.org/1999/html">
+<html lang="ru" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Card</title>
@@ -13,13 +13,25 @@
     <div class="header__container">
         <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
         <div class="header__wrap">
-            <div class="header__account">
-                <div class="header__account">
-                    <a class="header__btn header__btn--left" href="/login"><span th:text="#{login.loginBtn}">Войти</span></a>
-                    <a class="header__btn header__btn--right" href="/users/registration"><span th:text="#{login.RegBtn}">Зарегистрироваться</span></a>
-                    <a class="header__btn header__btn--left" href="/login"><span th:text="${#authentication.principal.username}">Имя пользователя</span></a>
-                    <a class="header__btn header__btn--right" href="/login"><span th:action="@{/logout}">Выйти</span></a>
-                </div>
+            <div sec:authorize="hasAuthority('ADMIN')" class="header__account">
+                <a class="header__btn header__btn--left" href="/admin/users"><span
+                        th:text="#{admin.tools}">Панель администратора</span></a>
+            </div>
+            <div sec:authorize="isAnonymous()" class="header__account">
+                <a class="header__btn header__btn--left" href="/login"><span
+                        th:text="#{login.loginBtn}">Войти</span></a>
+                <a class="header__btn header__btn--right" href="/users/registration"><span
+                        th:text="#{login.RegBtn}">Зарегистрироваться</span></a>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="header__account">
+                <a class="header__btn header__btn--left"
+                   th:href="@{'/users/' + ${#authentication.principal.getId()}}"><span
+                        th:text="${#authentication.principal.username}">Имя пользователя</span></a>
+                <a class="header__btn header__btn--right" href="javascript: document.logoutForm.submit()"><span
+                        th:text="#{header.logOutBtn}">Выйти</span></a>
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Logout"/>
+                </form>
             </div>
             <div th:fragment="locale" class="header__lang lang">
                 <form action="">
@@ -53,34 +65,43 @@
             <article class="card-description__article">
                 <h2 class="card-description__title" th:text="${card.name}"></h2>
                 <ul class="card-description__list">
-                    <li class="card-description__item"><span th:text="#{card.manacost}">Manacost:</span>
+                    <li th:if="${card.manacost}" class="card-description__item"><span th:text="#{card.manacost}">Manacost:</span>
                         <img th:src="'/img/mana/' + ${card.manacost?.common} + '.svg'" width="25" height=auto>
                         <!--                        <span class="card-description__span" th:text="${card.manacost?.common}"></span>-->
                         <div th:each="color : ${card.manacost?.colorList}" style="display: inline-block">
                             <img th:src="'/img/mana/' + ${color} + '.svg'" width="25" height=auto>
                         </div>
                     </li>
-                    <li class="card-description__item"><span th:text="#{card.rarity}">Rarity: </span><span
+                    <li th:if="${card.rarity}" class="card-description__item"><span
+                            th:text="#{card.rarity}">Rarity: </span><span
                             class="card-description__span" th:text="${card.rarity}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.type}">Type: </span><span
+                    <li th:if="${card.type}" class="card-description__item"><span
+                            th:text="#{card.type}">Type: </span><span
                             class="card-description__span" th:text="${card.type}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.subtype}">Subtype: </span><span
+                    <li th:if="${card.subtype}" class="card-description__item"><span
+                            th:text="#{card.subtype}">Subtype: </span><span
                             class="card-description__span" th:text="${card.subtype}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.supertype}">Supertype: </span><span
+                    <li th:if="${card.supertype}" class="card-description__item"><span th:text="#{card.supertype}">Supertype: </span><span
                             class="card-description__span" th:text="${card.supertype}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.cardText}">Text: </span><span
+                    <li th:if="${card.text}" class="card-description__item"><span
+                            th:text="#{card.cardText}">Text: </span><span
                             class="card-description__span" th:text="${card.text}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.legend}">Legend: </span><span
+                    <li th:if="${card.flavorText}" class="card-description__item"><span
+                            th:text="#{card.legend}">Legend: </span><span
                             class="card-description__span" th:text="${card.flavorText}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.artist}">Artist: </span><span
+                    <li th:if="${card.artist}" class="card-description__item"><span
+                            th:text="#{card.artist}">Artist: </span><span
                             class="card-description__span" th:text="${card.artist}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.power}">Power: </span><span
+                    <li th:if="${card.power}" class="card-description__item"><span
+                            th:text="#{card.power}">Power: </span><span
                             class="card-description__span" th:text="${card.power}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.toughness}">Toughness: </span><span
+                    <li th:if="${card.toughness}" class="card-description__item"><span th:text="#{card.toughness}">Toughness: </span><span
                             class="card-description__span" th:text="${card.toughness}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.frameVersion}">Frame version: </span><span
+                    <li th:if="${card.frameVersion}" class="card-description__item"><span
+                            th:text="#{card.frameVersion}">Frame version: </span><span
                             class="card-description__span" th:text="${card.frameVersion}"></span></li>
-                    <li class="card-description__item"><span th:text="#{card.set}">Set: </span><span
+                    <li th:if="${card.setcode}" class="card-description__item"><span
+                            th:text="#{card.set}">Set: </span><span
                             class="card-description__span" th:text="${card.setcode}"></span>
                         <img width="25"
                              th:src="@{'https://svgs.scryfall.io/sets/' + ${card.setcode.toLowerCase()}+ '.svg'}"
@@ -89,7 +110,8 @@
                     </li>
                 </ul>
                 <div class="card-description__buttons">
-                    <form th:action="'/decks/1/'+ ${card.id} + '/add'" method="post" class="card__form111">
+                    <form sec:authorize="isAuthenticated()" th:action="'/decks/1/'+ ${card.id} + '/add'" method="post"
+                          class="card__form111">
                         <button type="submit" class="card-description__btn">
                             <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"
@@ -99,9 +121,10 @@
                             </svg>
                         </button>
                     </form>
-                    <form th:action="'/decks/1/'+ ${card.id} + '/delete'" method="post" class="card__form111">
+                    <form sec:authorize="isAuthenticated()" th:action="'/decks/1/'+ ${card.id} + '/delete'"
+                          method="post" class="card__form111">
                         <button type="submit" class="card-description__btn">
-                            <svg width="30" height="30"  viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
                                 <path d="M90,61H38a3,3,0,0,0,0,6H90a3,3,0,0,0,0-6Z"/>
                             </svg>
