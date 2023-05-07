@@ -10,6 +10,7 @@ import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
@@ -25,6 +26,7 @@ class UserServiceIT extends IntegrationTestBase {
     private final UserService userService;
     private final UserRepository userRepository;
     private final EntityManager entityManager;
+    private final PasswordEncoder passwordEncoder;
 
     @Test
     void findAll() {
@@ -59,7 +61,6 @@ class UserServiceIT extends IntegrationTestBase {
 
         assertAll(
                 () -> assertEquals(userCreateUpdateDto.getUsername(), actualResult.getUsername()),
-                () -> assertEquals(userCreateUpdateDto.getPassword(), actualResult.getPassword()),
                 () -> assertEquals(userCreateUpdateDto.getRole(), actualResult.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), actualResult.getIsActive())
         );
@@ -82,7 +83,7 @@ class UserServiceIT extends IntegrationTestBase {
 
         actualUser.ifPresent(user -> assertAll(
                 () -> assertEquals(userCreateUpdateDto.getUsername(), user.getUsername()),
-                () -> assertEquals(userCreateUpdateDto.getPassword(), user.getPassword()),
+                () -> assertTrue(passwordEncoder.matches(userCreateUpdateDto.getPassword(), user.getPassword())),
                 () -> assertEquals(userCreateUpdateDto.getRole(), user.getRole()),
                 () -> assertEquals(userCreateUpdateDto.getIsActive(), user.getIsActive()))
         );

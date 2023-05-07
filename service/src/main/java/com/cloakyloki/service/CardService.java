@@ -3,8 +3,10 @@ package com.cloakyloki.service;
 import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.dto.CardReadDto;
+import com.cloakyloki.entity.enumerated.ColorIndicator;
 import com.cloakyloki.mapper.CardCreateUpdateMapper;
 import com.cloakyloki.mapper.CardReadMapper;
+import com.cloakyloki.mapper.ColorMapper;
 import com.cloakyloki.repository.CardRepository;
 import com.cloakyloki.repository.predicate.QPredicate;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.cloakyloki.entity.QCard.card;
 
@@ -27,6 +33,7 @@ public class CardService {
     private final CardRepository cardRepository;
     private final CardReadMapper cardReadMapper;
     private final CardCreateUpdateMapper cardCreateUpdateMapper;
+    private final ColorMapper colorMapper;
 
     public Page<CardReadDto> findAll(CardFilter filter, Pageable pageable) {
         var predicate = QPredicate.builder()
@@ -97,5 +104,57 @@ public class CardService {
                 .average()
                 .orElse(0);
         return df.format(averageManavalue);
+    }
+
+    public Map<ColorIndicator, Integer> getNumberOfEachColor(List<CardReadDto> cards) {
+        Map<ColorIndicator, Integer> colorNumbers = new HashMap<>();
+        for (CardReadDto card : cards) {
+            if (card.getManacost() != null) {
+                var colorList = card.getManacost().getColorList();
+                for (ColorIndicator color : colorList) {
+                    if (colorNumbers.containsKey(color)) {
+                        colorNumbers.put(color, colorNumbers.get(color) + 1);
+                    } else {
+                        colorNumbers.put(color, 1);
+                    }
+                }
+            }
+
+        }
+        return colorNumbers;
+    }
+
+    public Map<Integer, Integer> getManaCurve(List<CardReadDto> cards) {
+        Map<Integer, Integer> manaCurve = new HashMap<>();
+        for (CardReadDto card : cards) {
+            var manaValue = card.getManaValue();
+            if (manaCurve.containsKey(manaValue)) {
+                manaCurve.put(manaValue, manaCurve.get(manaValue) + 1);
+            } else {
+                manaCurve.put(manaValue, 1);
+            }
+        }
+        return manaCurve;
+    }
+
+    public Map<ColorIndicator, Integer> getCardManaProduction(String cardtext) {
+        Map<ColorIndicator, Integer> manaProduction = new HashMap<>();
+
+        Pattern pattern = Pattern.compile("\\{T\\}: Add ((\\{\\w+\\},?)+)");
+        Matcher matcher = pattern.matcher(cardtext);
+
+        if (matcher.find()) {
+            String manaSymbols = matcher.group(1);
+            Pattern colorPattern = Pattern.compile("\\{(\\w+)\\}");
+            Matcher colorMatcher = colorPattern.matcher(manaSymbols);
+
+            while (colorMatcher.find()) {
+                String manaSymbol = colorMatcher.group(1);
+                ColorIndicator color = ColorIndicator.valueOf(manaSymbol);
+                manaProduction.merge(color, 1, Integer::sum);
+            }
+            return manaProduction;
+        }
+        return null;
     }
 }

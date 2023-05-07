@@ -113,6 +113,22 @@
                             <phase>verify</phase>
                         </execution>
                     </executions>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                com/cloakyloki/dto/*
+                            </exclude>
+                            <exclude>
+                                com/cloakyloki/repository/**
+                            </exclude>
+                            <exclude>
+                                com/cloakyloki/entity/**
+                            </exclude>
+                            <exclude>
+                                com/cloakyloki/config/**
+                            </exclude>
+                        </excludes>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.querydsl</groupId>

@@ -2,23 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deck</title>
-
-    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="../../static/js/script.js" th:href="@{/js/script.js}">
+    <title>Title</title>
 </head>
 <body>
-<section class="deck">
-    <div class="deck__container">
-        <div class="deck__content">
-            <h2 th:text="${deck.name}" class="deck__title">Deck</h2>
-            <div th:each="card : ${cards}">
-                <h3 th:text="${card.name}" class="deck__subtitle">Card</h3>
-            </div>
-            <h3 th:text="|Средний манакост: ${averageManaValue}|" class="deck__subtitle">Средний манакост</h3>
-        </div>
-    </div>
-</section>
+<a th:text="${deck.name}">Deck</a>
+<div th:each="card : ${cards}">
+    <a th:text="${card.name}">Card</a>
+</div>
+<a th:text="|Средний манакост: ${averageManaValue}|"></a>
+<br>Color distribution:
+<div th:each="color : ${numberOfEachColor}">
+    <a th:text="${color.key}">keyvalue</a>
+    <a th:text="${color.value}">num</a>
+</div>
+Mana curve:
+<div th:each="manavalue : ${manacurve}">
+    <a th:text="${manavalue.key}">keyvalue</a>
+    <a th:text="${manavalue.value}">num</a>
+</div>
+<br>Mana production:
+<div th:each="mana : ${manaProduction}">
+    <a th:text="${mana.key}">keyvalue</a>
+    <a th:text="${mana.value}">num</a>
+</div>
 </body>
 </html>
