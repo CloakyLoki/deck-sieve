@@ -15,8 +15,11 @@
         <div class="header__wrap">
             <div class="header__account">
                 <div class="header__account">
-                    <a class="header__btn header__btn--left" href="/login"><span th:text="${#authentication.principal.username}">Имя пользователя</span></a>
-                    <a class="header__btn header__btn--right" href="/login"><span th:action="@{/logout}">Выйти</span></a>
+                    <a class="header__btn header__btn--left"
+                       th:href="@{'/users/' + ${#authentication.principal.getId()}}"><span
+                            th:text="${#authentication.getName()}">Имя пользователя</span></a>
+                    <a class="header__btn header__btn--right" href="/logout"><span
+                            th:action="@{/logout}">Выйти</span></a>
                 </div>
             </div>
             <div th:fragment="locale" class="header__lang lang">

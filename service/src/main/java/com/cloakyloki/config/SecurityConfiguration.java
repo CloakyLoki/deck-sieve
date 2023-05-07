@@ -1,12 +1,12 @@
 package com.cloakyloki.config;
 
+import com.cloakyloki.dto.CustomUser;
 import com.cloakyloki.dto.UserCreateUpdateDto;
 import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
@@ -56,12 +56,12 @@ public class SecurityConfiguration {
             if (userService.findByUsername(name).isEmpty()) {
                 userService.create(new UserCreateUpdateDto(name, LocalTime.now().toString(), USER, true));
             }
-            UserDetails userDetails = userService.loadUserByUsername(name);
+            CustomUser userDetails = userService.loadUserByUsername(name);
             DefaultOidcUser oidcUser = new DefaultOidcUser(userDetails.getAuthorities(), userRequest.getIdToken());
 
-            var userDetailsMethods = Set.of(UserDetails.class.getMethods());
+            var userDetailsMethods = Set.of(CustomUser.class.getMethods());
             return (OidcUser) Proxy.newProxyInstance(SecurityConfiguration.class.getClassLoader(),
-                    new Class[]{UserDetails.class, OidcUser.class},
+                    new Class[]{CustomUser.class, OidcUser.class},
                     (proxy, method, args) -> userDetailsMethods.contains(method)
                             ? method.invoke(userDetails, args)
                             : method.invoke(oidcUser, args));

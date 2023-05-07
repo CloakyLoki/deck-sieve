@@ -1,13 +1,12 @@
 package com.cloakyloki.service;
 
+import com.cloakyloki.dto.CustomUser;
 import com.cloakyloki.dto.UserCreateUpdateDto;
 import com.cloakyloki.dto.UserReadDto;
 import com.cloakyloki.mapper.UserCreateUpdateMapper;
 import com.cloakyloki.mapper.UserReadMapper;
 import com.cloakyloki.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -71,9 +70,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CustomUser loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
-                .map(user -> new User(
+                .map(user -> new CustomUser(
+                                user.getId(),
                                 user.getUsername(),
                                 user.getPassword(),
                                 Collections.singleton(user.getRole())
