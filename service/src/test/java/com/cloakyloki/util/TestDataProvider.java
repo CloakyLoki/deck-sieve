@@ -109,7 +109,7 @@ public class TestDataProvider {
     }
 
     public static CardFilter createCardFilter() {
-        return new CardFilter("testFilter",
+        return new CardFilter("Mishra, Artificer Prodigy",
                 1,
                 "testManacost",
                 "testRarity",

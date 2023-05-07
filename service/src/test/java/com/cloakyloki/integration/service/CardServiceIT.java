@@ -1,12 +1,15 @@
 package com.cloakyloki.integration.service;
 
+import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.integration.IntegrationTestBase;
 import com.cloakyloki.repository.CardRepository;
 import com.cloakyloki.service.CardService;
 import com.cloakyloki.util.TestDataProvider;
 import lombok.RequiredArgsConstructor;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageRequest;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
@@ -32,20 +35,20 @@ class CardServiceIT extends IntegrationTestBase {
 //        Assertions.assertThat(cardService.findAll(filter, pageRequest).getContent().size()).isEqualTo(1);
 //    }
 //
-//    @Test
-//    void findAllContent() {
-//        var testCard = TestDataProvider.createMishraCard();
-//        CardFilter filter = TestDataProvider.createCardFilter();
-//        PageRequest pageRequest = PageRequest.of(0, 20);
-//        cardRepository.save(testCard);
-//        entityManager.clear();
-//
-//        Assertions.assertThat(cardService.findAll(filter, pageRequest)
-//                .getContent()
-//                .get(0)
-//                .getId())
-//                .isEqualTo(testCard.getId());
-//    }
+@Test
+void findAllContent() {
+    var testCard = TestDataProvider.createMishraCard();
+    CardFilter filter = TestDataProvider.createCardFilter();
+    PageRequest pageRequest = PageRequest.of(0, 20);
+    cardRepository.save(testCard);
+    entityManager.clear();
+
+    Assertions.assertThat(cardService.findAll(filter, pageRequest)
+                    .getContent()
+                    .get(1)
+                    .getId())
+            .isEqualTo(testCard.getId());
+}
 
     @Test
     void findById() {
