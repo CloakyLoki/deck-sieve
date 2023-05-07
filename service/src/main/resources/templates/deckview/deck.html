@@ -2,28 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Deck</title>
+
+    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/js/script.js" th:href="@{/js/script.js}">
 </head>
 <body>
-<a th:text="${deck.name}">Deck</a>
-<div th:each="card : ${cards}">
-    <a th:text="${card.name}">Card</a>
-</div>
-<a th:text="|Средний манакост: ${averageManaValue}|"></a>
-<br>Color distribution:
-<div th:each="color : ${numberOfEachColor}">
-    <a th:text="${color.key}">keyvalue</a>
-    <a th:text="${color.value}">num</a>
-</div>
-Mana curve:
-<div th:each="manavalue : ${manacurve}">
-    <a th:text="${manavalue.key}">keyvalue</a>
-    <a th:text="${manavalue.value}">num</a>
-</div>
-<br>Mana production:
-<div th:each="mana : ${manaProduction}">
-    <a th:text="${mana.key}">keyvalue</a>
-    <a th:text="${mana.value}">num</a>
-</div>
+<header class="header" id="header">
+    <div class="header__container">
+        <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
+        <div class="header__wrap">
+            <div class="header__account">
+                <div class="header__account">
+                    <a class="header__btn header__btn--left" href="/login"><span th:text="${#authentication.principal.username}">Имя пользователя</span></a>
+                    <a class="header__btn header__btn--right" href="/login"><span th:action="@{/logout}">Выйти</span></a>
+                </div>
+            </div>
+            <div th:fragment="locale" class="header__lang lang">
+                <form action="">
+                    <select name="lang" onchange="this.form.submit()" class="lang__select">
+                        <option selected>lang</option>
+                        <option value="en">EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main deck">
+    <div class="deck__container">
+        <div class="deck__content">
+            <h1 class="deck__title" th:text="${deck.name}"></h1>
+            <div class="deck-stat">
+                <div class="deck-stat__wrap deck-stat__wrap--manacost">
+                    <div class="deck-stat__value" th:text="Средний манакост: ${averageManaValue}|"></div>
+                    <h2 class="deck-stat__title">Средний манакост</h2>
+                </div>
+                <div class="deck-stat__wrap deck-stat__wrap--manaprod">
+                    <div class="deck-stat__value" th:text="${mana.value}"></div>
+                    <div class="deck-stat__value" th:text="${mana.key}"></div>
+                    <h2 class="deck-stat__title">Производство маны</h2>
+                </div>
+                <div class="deck-stat__wrap deck-stat__wrap--manacurve">
+                    <div class="deck-stat__value" th:text="${manavalue.value}"></div>
+                    <div class="deck-stat__value" th:text="${manavalue.key}"></div>
+                    <h2 class="deck-stat__title">Мана-кривая</h2>
+                </div>
+                <div class="deck-stat__wrap deck-stat__wrap--color">
+                    <div class="deck-stat__value" th:text="${color.value}"></div>
+                    <div class="deck-stat__value" th:text="${color.key}"></div>
+                    <h2 class="deck-stat__title">Распределение цветов</h2>
+                </div>
+            </div>
+            <table class="deck-table"></table>
+        </div>
+    </div>
+</main>
+<!--<a th:text="${deck.name}">Deck</a>-->!
+<!--<div th:each="card : ${cards}">-->
+<!--    <a th:text="${card.name}">Card</a>-->
+<!--</div>-->
+<!--<a th:text="|Средний манакост: ${averageManaValue}|"></a>-->
+<!--<br>Color distribution:-->
+<!--<div th:each="color : ${numberOfEachColor}">-->
+<!--    <a th:text="${color.key}">keyvalue</a>-->
+<!--    <a th:text="${color.value}">num</a>-->
+<!--</div>-->
+<!--Mana curve:-->
+<!--<div th:each="manavalue : ${manacurve}">-->
+<!--    <a th:text="${manavalue.key}">keyvalue</a>-->
+<!--    <a th:text="${manavalue.value}">num</a>-->
+<!--</div>-->
+<!--<br>Mana production:-->
+<!--<div th:each="mana : ${manaProduction}">-->
+<!--    <a th:text="${mana.key}">keyvalue</a>-->
+<!--    <a th:text="${mana.value}">num</a>-->
+<!--</div>-->
 </body>
 </html>

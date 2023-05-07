@@ -17,9 +17,10 @@
         <div class="header__wrap">
             <div class="header__account">
                 <div class="header__account">
-                    <a class="header__btn header__btn--enter" href="/login"><span
-                            th:text="#{login.loginBtn}">Войти</span></a>
-                    <a class="header__btn header__btn--join" href="/users/registration"><span th:text="#{login.RegBtn}">Зарегистрироваться</span></a>
+                    <a class="header__btn header__btn--left" href="/login"><span th:text="#{login.loginBtn}">Войти</span></a>
+                    <a class="header__btn header__btn--right" href="/users/registration"><span th:text="#{login.RegBtn}">Зарегистрироваться</span></a>
+                    <a class="header__btn header__btn--left" href="/login"><span th:text="${#authentication.principal.username}">Имя пользователя</span></a>
+                    <a class="header__btn header__btn--right" href="/login"><span th:action="@{/logout}">Выйти</span></a>
                 </div>
             </div>
             <div th:fragment="locale" class="header__lang lang">
@@ -40,8 +41,7 @@
             <div class="search__wrapper search-name">
                 <div class="search__wrap search-name__wrap" id="f-n">
                     <label class="search__label search-name__label" for="name">
-                        <input class="search__input search-name__input" id="name" name="name"
-                               th:placeholder="#{index.namePH}" type="text">
+                        <input class="search__input search-name__input" id="name" name="name" th:placeholder="#{index.namePH}" type="text">
                     </label>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     <input class="search__input" id="artist" name="artist" type="text">
                 </div>
                 <div class="search__wrap" id="f-4">
-                    <label class="search__label" for="manaValue"><span th:text="#{card.manavalue}"></span></label>
+                    <label class="search__label" for="manaValue"><span th:text="#{card.manavalue}">Стоимость</span></label>
                     <input class="search__input" id="manaValue" name="manaValue" type="text">
                 </div>
                 <div class="search__wrap" id="f-11">
@@ -108,79 +108,79 @@
                                 th:value="${rar}"></option>
                     </select>
                 </div>
-                <div class="search__wrap" id="f-9">
-                    <label class="search__label" for="manaValue"><span th:text="#{card.manacost}">Мана</span></label>
-                    <select aria-hidden="true" class="search__input select advanced-search-subjoiner js-advanced-search-subjoiner"
-                            data-separator="">
-                        <option value="">Добавьте символ маны</option>
-                        <option value="{T}">{T} – tap this permanent</option>
-                        <option value="{W}">{W} – one white mana</option>
-                        <option value="{U}">{U} – one blue mana</option>
-                        <option value="{B}">{B} – one black mana</option>
-                        <option value="{R}">{R} – one red mana</option>
-                        <option value="{G}">{G} – one green mana</option>
-                        <option value="{C}">{C} – one colorless mana</option>
-                        <option value="{Q}">{Q} – untap this permanent</option>
-                        <option value="{E}">{E} – an energy counter</option>
-                        <option value="{PW}">{PW} – planeswalker</option>
-                        <option value="{CHAOS}">{CHAOS} – chaos</option>
-                        <option value="{TK}">{TK} – a ticket counter</option>
-                        <option value="{X}">{X} – X generic mana</option>
-                        <option value="{0}">{0} – zero mana</option>
-                        <option value="{1}">{1} – one generic mana</option>
-                        <option value="{2}">{2} – two generic mana</option>
-                        <option value="{3}">{3} – three generic mana</option>
-                        <option value="{4}">{4} – four generic mana</option>
-                        <option value="{5}">{5} – five generic mana</option>
-                        <option value="{6}">{6} – six generic mana</option>
-                        <option value="{7}">{7} – seven generic mana</option>
-                        <option value="{8}">{8} – eight generic mana</option>
-                        <option value="{9}">{9} – nine generic mana</option>
-                        <option value="{10}">{10} – ten generic mana</option>
-                        <option value="{11}">{11} – eleven generic mana</option>
-                        <option value="{12}">{12} – twelve generic mana</option>
-                        <option value="{13}">{13} – thirteen generic mana</option>
-                        <option value="{14}">{14} – fourteen generic mana</option>
-                        <option value="{15}">{15} – fifteen generic mana</option>
-                        <option value="{16}">{16} – sixteen generic mana</option>
-                        <option value="{17}">{17} – seventeen generic mana</option>
-                        <option value="{18}">{18} – eighteen generic mana</option>
-                        <option value="{19}">{19} – nineteen generic mana</option>
-                        <option value="{20}">{20} – twenty generic mana</option>
-                        <option value="{W/U}">{W/U} – one white or blue mana</option>
-                        <option value="{W/B}">{W/B} – one white or black mana</option>
-                        <option value="{B/R}">{B/R} – one black or red mana</option>
-                        <option value="{B/G}">{B/G} – one black or green mana</option>
-                        <option value="{U/B}">{U/B} – one blue or black mana</option>
-                        <option value="{U/R}">{U/R} – one blue or red mana</option>
-                        <option value="{R/G}">{R/G} – one red or green mana</option>
-                        <option value="{R/W}">{R/W} – one red or white mana</option>
-                        <option value="{G/W}">{G/W} – one green or white mana</option>
-                        <option value="{G/U}">{G/U} – one green or blue mana</option>
-                        <option value="{B/G/P}">{B/G/P} – one black mana, one green mana, or 2 life</option>
-                        <option value="{B/R/P}">{B/R/P} – one black mana, one red mana, or 2 life</option>
-                        <option value="{G/U/P}">{G/U/P} – one green mana, one blue mana, or 2 life</option>
-                        <option value="{G/W/P}">{G/W/P} – one green mana, one white mana, or 2 life</option>
-                        <option value="{R/G/P}">{R/G/P} – one red mana, one green mana, or 2 life</option>
-                        <option value="{R/W/P}">{R/W/P} – one red mana, one white mana, or 2 life</option>
-                        <option value="{U/B/P}">{U/B/P} – one blue mana, one black mana, or 2 life</option>
-                        <option value="{U/R/P}">{U/R/P} – one blue mana, one red mana, or 2 life</option>
-                        <option value="{W/B/P}">{W/B/P} – one white mana, one black mana, or 2 life</option>
-                        <option value="{W/U/P}">{W/U/P} – one white mana, one blue mana, or 2 life</option>
-                        <option value="{2/W}">{2/W} – two generic mana or one white mana</option>
-                        <option value="{2/U}">{2/U} – two generic mana or one blue mana</option>
-                        <option value="{2/B}">{2/B} – two generic mana or one black mana</option>
-                        <option value="{2/R}">{2/R} – two generic mana or one red mana</option>
-                        <option value="{2/G}">{2/G} – two generic mana or one green mana</option>
-                        <option value="{P}">{P} – one colored mana or two life</option>
-                        <option value="{W/P}">{W/P} – one white mana or two life</option>
-                        <option value="{U/P}">{U/P} – one blue mana or two life</option>
-                        <option value="{B/P}">{B/P} – one black mana or two life</option>
-                        <option value="{R/P}">{R/P} – one red mana or two life</option>
-                        <option value="{G/P}">{G/P} – one green mana or two life</option>
-                        <option value="{S}">{S} – one snow mana</option>
-                    </select>
-                </div>
+<!--                <div class="search__wrap" id="f-9">-->
+<!--                    <label class="search__label" for="manaValue"><span th:text="#{card.manacost}">Мана</span></label>-->
+<!--                    <select aria-hidden="true" class="search__input select advanced-search-subjoiner js-advanced-search-subjoiner"-->
+<!--                            data-separator="">-->
+<!--                        <option value="">Добавьте символ маны</option>-->
+<!--                        <option value="{T}">{T} – tap this permanent</option>-->
+<!--                        <option value="{W}">{W} – one white mana</option>-->
+<!--                        <option value="{U}">{U} – one blue mana</option>-->
+<!--                        <option value="{B}">{B} – one black mana</option>-->
+<!--                        <option value="{R}">{R} – one red mana</option>-->
+<!--                        <option value="{G}">{G} – one green mana</option>-->
+<!--                        <option value="{C}">{C} – one colorless mana</option>-->
+<!--                        <option value="{Q}">{Q} – untap this permanent</option>-->
+<!--                        <option value="{E}">{E} – an energy counter</option>-->
+<!--                        <option value="{PW}">{PW} – planeswalker</option>-->
+<!--                        <option value="{CHAOS}">{CHAOS} – chaos</option>-->
+<!--                        <option value="{TK}">{TK} – a ticket counter</option>-->
+<!--                        <option value="{X}">{X} – X generic mana</option>-->
+<!--                        <option value="{0}">{0} – zero mana</option>-->
+<!--                        <option value="{1}">{1} – one generic mana</option>-->
+<!--                        <option value="{2}">{2} – two generic mana</option>-->
+<!--                        <option value="{3}">{3} – three generic mana</option>-->
+<!--                        <option value="{4}">{4} – four generic mana</option>-->
+<!--                        <option value="{5}">{5} – five generic mana</option>-->
+<!--                        <option value="{6}">{6} – six generic mana</option>-->
+<!--                        <option value="{7}">{7} – seven generic mana</option>-->
+<!--                        <option value="{8}">{8} – eight generic mana</option>-->
+<!--                        <option value="{9}">{9} – nine generic mana</option>-->
+<!--                        <option value="{10}">{10} – ten generic mana</option>-->
+<!--                        <option value="{11}">{11} – eleven generic mana</option>-->
+<!--                        <option value="{12}">{12} – twelve generic mana</option>-->
+<!--                        <option value="{13}">{13} – thirteen generic mana</option>-->
+<!--                        <option value="{14}">{14} – fourteen generic mana</option>-->
+<!--                        <option value="{15}">{15} – fifteen generic mana</option>-->
+<!--                        <option value="{16}">{16} – sixteen generic mana</option>-->
+<!--                        <option value="{17}">{17} – seventeen generic mana</option>-->
+<!--                        <option value="{18}">{18} – eighteen generic mana</option>-->
+<!--                        <option value="{19}">{19} – nineteen generic mana</option>-->
+<!--                        <option value="{20}">{20} – twenty generic mana</option>-->
+<!--                        <option value="{W/U}">{W/U} – one white or blue mana</option>-->
+<!--                        <option value="{W/B}">{W/B} – one white or black mana</option>-->
+<!--                        <option value="{B/R}">{B/R} – one black or red mana</option>-->
+<!--                        <option value="{B/G}">{B/G} – one black or green mana</option>-->
+<!--                        <option value="{U/B}">{U/B} – one blue or black mana</option>-->
+<!--                        <option value="{U/R}">{U/R} – one blue or red mana</option>-->
+<!--                        <option value="{R/G}">{R/G} – one red or green mana</option>-->
+<!--                        <option value="{R/W}">{R/W} – one red or white mana</option>-->
+<!--                        <option value="{G/W}">{G/W} – one green or white mana</option>-->
+<!--                        <option value="{G/U}">{G/U} – one green or blue mana</option>-->
+<!--                        <option value="{B/G/P}">{B/G/P} – one black mana, one green mana, or 2 life</option>-->
+<!--                        <option value="{B/R/P}">{B/R/P} – one black mana, one red mana, or 2 life</option>-->
+<!--                        <option value="{G/U/P}">{G/U/P} – one green mana, one blue mana, or 2 life</option>-->
+<!--                        <option value="{G/W/P}">{G/W/P} – one green mana, one white mana, or 2 life</option>-->
+<!--                        <option value="{R/G/P}">{R/G/P} – one red mana, one green mana, or 2 life</option>-->
+<!--                        <option value="{R/W/P}">{R/W/P} – one red mana, one white mana, or 2 life</option>-->
+<!--                        <option value="{U/B/P}">{U/B/P} – one blue mana, one black mana, or 2 life</option>-->
+<!--                        <option value="{U/R/P}">{U/R/P} – one blue mana, one red mana, or 2 life</option>-->
+<!--                        <option value="{W/B/P}">{W/B/P} – one white mana, one black mana, or 2 life</option>-->
+<!--                        <option value="{W/U/P}">{W/U/P} – one white mana, one blue mana, or 2 life</option>-->
+<!--                        <option value="{2/W}">{2/W} – two generic mana or one white mana</option>-->
+<!--                        <option value="{2/U}">{2/U} – two generic mana or one blue mana</option>-->
+<!--                        <option value="{2/B}">{2/B} – two generic mana or one black mana</option>-->
+<!--                        <option value="{2/R}">{2/R} – two generic mana or one red mana</option>-->
+<!--                        <option value="{2/G}">{2/G} – two generic mana or one green mana</option>-->
+<!--                        <option value="{P}">{P} – one colored mana or two life</option>-->
+<!--                        <option value="{W/P}">{W/P} – one white mana or two life</option>-->
+<!--                        <option value="{U/P}">{U/P} – one blue mana or two life</option>-->
+<!--                        <option value="{B/P}">{B/P} – one black mana or two life</option>-->
+<!--                        <option value="{R/P}">{R/P} – one red mana or two life</option>-->
+<!--                        <option value="{G/P}">{G/P} – one green mana or two life</option>-->
+<!--                        <option value="{S}">{S} – one snow mana</option>-->
+<!--                    </select>-->
+<!--                </div>-->
                 <div class="search__wrap" id="f-10">
                 </div>
             </div>
