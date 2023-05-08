@@ -15,7 +15,7 @@
     <div class="header user-header" id="header">
         <div class="user-header__container">
             <div th:fragment="header" class="user-header__wrap">
-                <span th:text="${#authentication.principal.username}" class="user-header__name">Username</span>
+                <span th:text="${#authentication.getName()}" class="user-header__name">Username</span>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="user-header__btn user-header__btn--logout"><span
                             th:text="#{header.logOutBtn}">Выйти</span></button>
@@ -58,8 +58,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="modal" id="modal">
     <div class="modal__wrapper">
         <button class="modal__close" id="close" onclick="closeModal()">

@@ -119,7 +119,6 @@ public class CardService {
                     }
                 }
             }
-
         }
         return colorNumbers;
     }
