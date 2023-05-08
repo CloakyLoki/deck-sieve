@@ -1,5 +1,6 @@
 package com.cloakyloki.http.controller;
 
+import com.cloakyloki.dto.DeckCreateUpdateDto;
 import com.cloakyloki.dto.DeckReadDto;
 import com.cloakyloki.dto.UserCreateUpdateDto;
 import com.cloakyloki.dto.UserReadDto;
@@ -76,5 +77,11 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/admin/users";
+    }
+
+    @PostMapping("/{id}/add")
+    public String addDeck(@PathVariable("id") Long id, DeckCreateUpdateDto deck) {
+        deckService.create(deck);
+        return "redirect:/users/{id}";
     }
 }

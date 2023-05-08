@@ -7,7 +7,7 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 public class DeckCreateUpdateDto {
 
-    String name;
+    String deckname;
     Long userIdCreatedBy;
     Boolean favourite;
 }

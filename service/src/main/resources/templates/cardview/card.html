@@ -121,15 +121,6 @@
                             </svg>
                         </button>
                     </form>
-                    <form sec:authorize="isAuthenticated()" th:action="'/decks/1/'+ ${card.id} + '/delete'"
-                          method="post" class="card__form111">
-                        <button type="submit" class="card-description__btn">
-                            <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
-                                <path d="M90,61H38a3,3,0,0,0,0,6H90a3,3,0,0,0,0-6Z"/>
-                            </svg>
-                        </button>
-                    </form>
                     <button class="card-description__btn">
                         <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><title/>
                             <path d="M105,82a23,23,0,0,0-22.49,18.17L41.74,77.29a23,23,0,0,0,0-26.57L82.51,27.83a23,23,0,1,0-.44-6.63l-44.53,25a23,23,0,1,0,0,35.62l44.53,25A23,23,0,1,0,105,82Zm0-76A17,17,0,1,1,88,23,17,17,0,0,1,105,6ZM11,76A17,17,0,0,1,35,52h0A17,17,0,0,1,11,76Zm94,46a17,17,0,1,1,17-17A17,17,0,0,1,105,122Z"

@@ -41,16 +41,24 @@
                     <a th:href="@{'/decks/' + ${deck.id}}" th:text="|${deck.id}.  ${deck.name}|">Deck</a>
                 </div>
             </div>
+
+            <form th:action="@{${#authentication.principal.getId()} + '/add'}" method="post">
+                <label for="deckname">Название колоды:
+                    <input id="deckname" type="text" name="deckname">
+                </label><br>
+                <label for="userIdCreatedBy">
+                    <input id="userIdCreatedBy" type="hidden" name="userIdCreatedBy"
+                           th:value="${#authentication.principal.getId()}">
+                </label><br>
+                <label for="favourite">
+                    <input id="favourite" type="hidden" name="favourite" th:value="false">
+                </label><br>
+                <button type="submit">Создать колоду</button>
+            </form>
         </div>
     </div>
 </div>
 
-<!--<form th:action="@{/add}" method="post" th:object="${decks}">-->
-<!--    <label for="deckname">Название колоды:-->
-<!--        <input id="deckname" type="text" name="deckname" th:value="*{deck}">-->
-<!--    </label><br>-->
-<!--    <button type="submit">Register</button>-->
-<!--</form>-->
 
 <div class="modal" id="modal">
     <div class="modal__wrapper">
