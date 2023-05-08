@@ -61,31 +61,35 @@
             <button class="search__btn" type="submit"><span th:text="#{index.searchBtn}">Найти</span></button>
             <div class="search__wrapper search__wrapper--advanced">
                 <div class="search__wrap" id="f-1">
-                    <label class="search__label" for="text"><span th:text="#{card.cardText}">Текст</span></label>
-                    <input class="search__input" id="text" name="text" type="text">
+                    <label class="search__label" for="text"><span th:text="#{index.text}">Текст</span></label>
+                    <input class="search__input" id="text" name="text" th:placeholder="#{index.textPH}" type="text">
                 </div>
                 <div class="search__wrap" id="f-2">
                     <label class="search__label" for="keywords"><span
-                            th:text="#{card.keywords}">Ключевое слово</span></label>
-                    <input class="search__input" id="keywords" name="keywords" type="text">
+                            th:text="#{index.keyword}">Ключевое слово</span></label>
+                    <input class="search__input" id="keywords" name="keywords" th:placeholder="#{index.keywordPH}"
+                           type="text">
                 </div>
                 <div class="search__wrap" id="f-3">
-                    <label class="search__label" for="artist"><span th:text="#{card.artist}">Художник</span></label>
-                    <input class="search__input" id="artist" name="artist" type="text">
+                    <label class="search__label" for="artist"><span th:text="#{index.artist}">Художник</span></label>
+                    <input class="search__input" id="artist" name="artist" th:placeholder="#{index.artistPH}"
+                           type="text">
                 </div>
                 <div class="search__wrap" id="f-4">
                     <label class="search__label" for="manaValue"><span
-                            th:text="#{card.manavalue}">Стоимость</span></label>
-                    <input class="search__input" id="manaValue" name="manaValue" type="text">
+                            th:text="#{index.manavalue}">Стоимость</span></label>
+                    <input class="search__input" id="manaValue" name="manaValue" th:placeholder="#{index.manavaluePH}"
+                           type="text">
                 </div>
                 <div class="search__wrap" id="f-11">
-                    <label class="search__label" for="setcode"><span th:text="#{card.set}">Выпуск</span></label>
-                    <input class="search__input" id="setcode" name="setcode" type="text">
+                    <label class="search__label" for="setcode"><span th:text="#{index.set}">Выпуск</span></label>
+                    <input class="search__input" id="setcode" name="setcode" th:placeholder="#{index.setPH}"
+                           type="text">
                 </div>
                 <div class="search__wrap" id="f-5">
-                    <label class="search__label" for="type"><span th:text="#{card.type}">Тип</span></label>
+                    <label class="search__label" for="type"><span th:text="#{index.type}">Тип</span></label>
                     <select class="search__input select" id="type" name="type">
-                        <option selected th:text="#{index.chooseType}"></option>
+                        <option selected value></option>
                         <option th:each="typ : ${type}"
                                 th:text="${typ}"
                                 th:value="${typ}">
@@ -93,9 +97,9 @@
                     </select>
                 </div>
                 <div class="search__wrap" id="f-6">
-                    <label class="search__label" for="subtype"><span th:text="#{card.subtype}">Подтип</span></label>
+                    <label class="search__label" for="subtype"><span th:text="#{index.subtype}">Подтип</span></label>
                     <select class="search__input select" id="subtype" name="subtype">
-                        <option selected th:text="#{index.chooseSubType}"></option>
+                        <option selected value></option>
                         <option th:each="subtyp : ${subtype}"
                                 th:text="${subtyp}"
                                 th:value="${subtyp}">
@@ -104,9 +108,9 @@
                 </div>
                 <div class="search__wrap" id="f-7">
                     <label class="search__label" for="supertype"><span
-                            th:text="#{card.supertype}">Супертип</span></label>
+                            th:text="#{index.supertype}">Супертип</span></label>
                     <select class="search__input select" id="supertype" name="supertype">
-                        <option selected th:text="#{index.chooseSupertype}"></option>
+                        <option selected value></option>
                         <option th:each="supertyp : ${supertype}"
                                 th:text="${supertyp}"
                                 th:value="${supertyp}">
@@ -114,9 +118,9 @@
                     </select>
                 </div>
                 <div class="search__wrap" id="f-8">
-                    <label class="search__label" for="rarity"><span th:text="#{card.rarity}">Редкость</span></label>
+                    <label class="search__label" for="rarity"><span th:text="#{index.rarity}">Редкость</span></label>
                     <select class="search__input select" id="rarity" name="rarity">
-                        <option selected th:text="#{index.chooseRarity}"></option>
+                        <option selected value></option>
                         <option th:each="rar : ${rarity}"
                                 th:text="${rar}"
                                 th:value="${rar}"></option>
