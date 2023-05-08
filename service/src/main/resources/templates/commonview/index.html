@@ -85,7 +85,7 @@
                 <div class="search__wrap" id="f-5">
                     <label class="search__label" for="type"><span th:text="#{card.type}">Тип</span></label>
                     <select class="search__input select" id="type" name="type">
-                        <option selected value> -- выберите тип --</option>
+                        <option selected th:text="#{index.chooseType}"></option>
                         <option th:each="typ : ${type}"
                                 th:text="${typ}"
                                 th:value="${typ}">
@@ -95,7 +95,7 @@
                 <div class="search__wrap" id="f-6">
                     <label class="search__label" for="subtype"><span th:text="#{card.subtype}">Подтип</span></label>
                     <select class="search__input select" id="subtype" name="subtype">
-                        <option selected value> -- выберите подтип --</option>
+                        <option selected th:text="#{index.chooseSubType}"></option>
                         <option th:each="subtyp : ${subtype}"
                                 th:text="${subtyp}"
                                 th:value="${subtyp}">
@@ -106,7 +106,7 @@
                     <label class="search__label" for="supertype"><span
                             th:text="#{card.supertype}">Супертип</span></label>
                     <select class="search__input select" id="supertype" name="supertype">
-                        <option selected value> -- выберите супертип --</option>
+                        <option selected th:text="#{index.chooseSupertype}"></option>
                         <option th:each="supertyp : ${supertype}"
                                 th:text="${supertyp}"
                                 th:value="${supertyp}">
@@ -116,7 +116,7 @@
                 <div class="search__wrap" id="f-8">
                     <label class="search__label" for="rarity"><span th:text="#{card.rarity}">Редкость</span></label>
                     <select class="search__input select" id="rarity" name="rarity">
-                        <option selected value> -- выберите редкость карты --</option>
+                        <option selected th:text="#{index.chooseRarity}"></option>
                         <option th:each="rar : ${rarity}"
                                 th:text="${rar}"
                                 th:value="${rar}"></option>
