@@ -7,17 +7,62 @@
         <head>
         <meta charset="UTF-8">
         <title>Admin Tools. Users</title>
+
+    <link rel="stylesheet" href="../../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../../static/css/style.css" th:href="@{/css/style.css}">
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script defer rel="stylesheet" src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
 </head>
+
 <body>
-<header th:insert="~{fragment :: header}"></header>
-
-<div th:each="user : ${users}">
-    <a th:href="@{'/admin/users/' + ${user.id}}" th:text="|${user.id}.  ${user.username}|">User</a>
-    <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
-        <button type="submit">Remove</button>
-    </form>
-</div>
+<header class="header" id="header">
+    <div class="header__container">
+        <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
+        <div class="header__wrap">
+            <div sec:authorize="hasAuthority('ADMIN')" class="header__account">
+                <a class="header__btn header__btn--left" href="/admin/users"><span
+                        th:text="#{admin.tools}">Панель администратора</span></a>
+            </div>
+            <div sec:authorize="isAnonymous()" class="header__account">
+                <a class="header__btn header__btn--left" href="/login"><span
+                        th:text="#{login.loginBtn}">Войти</span></a>
+                <a class="header__btn header__btn--right" href="/users/registration"><span
+                        th:text="#{login.RegBtn}">Зарегистрироваться</span></a>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="header__account">
+                <a class="header__btn header__btn--left"
+                   th:href="@{'/users/' + ${#authentication.principal.getId()}}">
+                    <span th:text="${#authentication.getName()}">Имя пользователя</span></a>
+                <a class="header__btn header__btn--right" href="javascript: document.logoutForm.submit()"><span
+                        th:text="#{header.logOutBtn}">Выйти</span></a>
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Logout"/>
+                </form>
+            </div>
+            <div th:fragment="locale" class="header__lang lang">
+                <form action="">
+                    <select name="lang" onchange="this.form.submit()" class="lang__select">
+                        <option selected>lang</option>
+                        <option value="en">EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="users main">
+    <div class="users__container">
+        <div class="users__content">
+            <div th:each="user : ${users}" class="users__info">
+                <a th:href="@{'/admin/users/' + ${user.id}}" th:text="|${user.id}.  ${user.username}|" class="users__title">User</a>
+                <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post" class="users__form">
+                    <button type="submit" class="users__btn">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
-
-
 </html>
