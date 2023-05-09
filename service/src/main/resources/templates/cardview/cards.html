@@ -21,10 +21,10 @@
                         th:text="#{admin.tools}">Панель администратора</span></a>
             </div>
             <div sec:authorize="isAnonymous()" class="header__account">
-                <button class="header__btn header__btn--left" onclick="openModalEnter()"><span
-                        th:text="#{login.loginBtn}">Войти</span></button>
-                <button class="header__btn header__btn--right" onclick="openModalRegister()"><span
-                        th:text="#{login.RegBtn}">Зарегистрироваться</span></button>
+                <a class="header__btn header__btn--left" href="/login"><span
+                        th:text="#{login.loginBtn}">Войти</span></a>
+                <a class="header__btn header__btn--right" href="/users/registration"><span
+                        th:text="#{login.RegBtn}">Зарегистрироваться</span></a>
             </div>
             <div sec:authorize="isAuthenticated()" class="header__account">
                 <a class="header__btn header__btn--left"
@@ -86,55 +86,55 @@
     </div>
 </main>
 
-<div class="modal" id="modalRegister">
-    <div class="modal__wrapper">
-        <button class="modal__close" id="close" onclick="closeModalRegister()">
-            <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path stroke="#211F30FF"
-                      d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
-                <path stroke="#211F30FF"
-                      d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>
-            </svg>
-        </button>
-        <form th:action="@{/users}" enctype="multipart/form-data" method="post" th:object="${user}" class="modal__form">
-            <label for="username">Username:
-                <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">
-            </label>
-            <label for="rawPassword">Password:
-                <input id="rawPassword" type="password" name="rawPassword" class="modal__input">
-            </label>
-            <button type="submit" class="modal__btn">Register</button>
-        </form>
-    </div>
-</div>
-<div class="modal" id="modalEnter">
-    <div class="modal__wrapper">
-        <button class="modal__close" id="close" onclick="closeModalEnter()">
-            <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path stroke="#211F30FF"
-                      d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
-                <path stroke="#211F30FF"
-                      d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>
-            </svg>
-        </button>
-        <form th:action="@{/login}" method="post" class="modal__form">
-            <div style="color: #e05858" th:if="${param.error}">
-                Bad credentials
-            </div>
-            <label for="username"><span th:text="#{login.username}">Username:</span>
-                <input id="username" type="text" name="username" class="modal__input">
-            </label>
-            <label for="password"><span th:text="#{login.password}">Password:</span>
-                <input id="password" type="password" name="password" class="modal__input">
-            </label>
-            <button type="submit" class="modal__btn">Login</button>
-        </form>
+<!--<div class="modal" id="modalRegister">-->
+<!--    <div class="modal__wrapper">-->
+<!--        <button class="modal__close" id="close" onclick="closeModalRegister()">-->
+<!--            <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"-->
+<!--                 xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>-->
+<!--            </svg>-->
+<!--        </button>-->
+<!--        <form th:action="@{/users}" enctype="multipart/form-data" method="post" th:object="${user}" class="modal__form">-->
+<!--            <label for="username">Username:-->
+<!--                <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">-->
+<!--            </label>-->
+<!--            <label for="rawPassword">Password:-->
+<!--                <input id="rawPassword" type="password" name="rawPassword" class="modal__input">-->
+<!--            </label>-->
+<!--            <button type="submit" class="modal__btn">Register</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="modal" id="modalEnter">-->
+<!--    <div class="modal__wrapper">-->
+<!--        <button class="modal__close" id="close" onclick="closeModalEnter()">-->
+<!--            <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"-->
+<!--                 xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>-->
+<!--            </svg>-->
+<!--        </button>-->
+<!--        <form th:action="@{/login}" method="post" class="modal__form">-->
+<!--            <div style="color: #e05858" th:if="${param.error}">-->
+<!--                Bad credentials-->
+<!--            </div>-->
+<!--            <label for="username"><span th:text="#{login.username}">Username:</span>-->
+<!--                <input id="username" type="text" name="username" class="modal__input">-->
+<!--            </label>-->
+<!--            <label for="password"><span th:text="#{login.password}">Password:</span>-->
+<!--                <input id="password" type="password" name="password" class="modal__input">-->
+<!--            </label>-->
+<!--            <button type="submit" class="modal__btn">Login</button>-->
+<!--        </form>-->
 
-        <p class="modal__text">Login with</p>
-        <a href="/oauth2/authorization/google" class="modal__google">Google</a>
-    </div>
-</div>
+<!--        <p class="modal__text">Login with</p>-->
+<!--        <a href="/oauth2/authorization/google" class="modal__google">Google</a>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>
