@@ -5,12 +5,14 @@ import com.cloakyloki.dto.DeckCreateUpdateDto;
 import com.cloakyloki.entity.Deck;
 import com.cloakyloki.entity.User;
 import com.cloakyloki.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class DeckCreateUpdateMapper implements Mapper<DeckCreateUpdateDto, Deck> {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Deck map(DeckCreateUpdateDto fromObject, Deck toObject) {
@@ -26,7 +28,7 @@ public class DeckCreateUpdateMapper implements Mapper<DeckCreateUpdateDto, Deck>
     }
 
     private void copy(DeckCreateUpdateDto object, Deck deck) {
-        deck.setName(object.getName());
+        deck.setName(object.getDeckname());
         deck.setFavourite(object.getFavourite());
         deck.setUser(userRepository.findById(object.getUserIdCreatedBy()).orElse(new User()));
     }

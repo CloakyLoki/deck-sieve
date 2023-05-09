@@ -29,9 +29,9 @@ class UserControllerIT extends IntegrationTestBase {
 
     @Test
     void findAll() throws Exception {
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("/admin/users"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("userview/users"))
+                .andExpect(view().name("userview/admin/users"))
                 .andExpect(model().attributeExists("users"));
     }
 
@@ -102,7 +102,7 @@ class UserControllerIT extends IntegrationTestBase {
                 )
                 .andExpectAll(
                         status().is3xxRedirection(),
-                        redirectedUrl("/users")
+                        redirectedUrl("/admin/users")
                 );
     }
 }

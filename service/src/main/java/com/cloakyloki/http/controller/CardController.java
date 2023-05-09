@@ -1,28 +1,35 @@
 package com.cloakyloki.http.controller;
 
-import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
+import com.cloakyloki.dto.CustomUser;
 import com.cloakyloki.dto.PageResponse;
 import com.cloakyloki.service.CardService;
+import com.cloakyloki.service.DeckService;
+import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
+@SessionAttributes("cardfilter")
 @Controller
 @RequestMapping("/cards")
 public class CardController {
 
     private final CardService cardService;
+    private final DeckService deckService;
+    private final UserService userService;
 
     @GetMapping
     public String findAll(Model model, CardFilter filter, Pageable pageable) {
@@ -34,31 +41,18 @@ public class CardController {
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
+        var maybeUser = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                .map(authentication -> (UserDetails) authentication.getPrincipal())
+                .map(UserDetails::getUsername)
+                .orElseThrow();
+        var customUser = (CustomUser) userService.loadUserByUsername(maybeUser);
+        var decks = deckService.findAllByUserId(customUser.getId());
         return cardService.findById(id)
                 .map(card -> {
                     model.addAttribute("card", card);
+                    model.addAttribute("decks", decks);
                     return "cardview/card";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
-    @PostMapping
-    public String create(CardCreateUpdateDto card) {
-        return "redirect:/cards/" + cardService.create(card).getId();
-    }
-
-    @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute @Validated CardCreateUpdateDto card) {
-        return cardService.update(id, card)
-                .map(it -> "redirect:/cards/{id}")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
-    @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") Long id) {
-        if (!cardService.delete(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return "redirect:/cards";
     }
 }

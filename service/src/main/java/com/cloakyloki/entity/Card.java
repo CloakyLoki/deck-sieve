@@ -36,8 +36,6 @@ public class Card implements GenericEntity<Long> {
     @Column(name = "mana_value")
     private Integer manaValue;
     private String manacost;
-
-
     private String rarity;
     private String type;
     private String subtype;

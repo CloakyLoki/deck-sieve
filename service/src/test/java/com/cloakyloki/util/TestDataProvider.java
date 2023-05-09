@@ -1,6 +1,8 @@
 package com.cloakyloki.util;
 
 import com.cloakyloki.dto.CardCreateUpdateDto;
+import com.cloakyloki.dto.CardFilter;
+import com.cloakyloki.entity.CSet;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.CardDeck;
 import com.cloakyloki.entity.Deck;
@@ -29,6 +31,7 @@ public class TestDataProvider {
                 .text("Whenever you cast an artifact spell, you may search your graveyard, hand, " +
                         "and/or library for a card with the same name as that spell and put it onto the battlefield. " +
                         "If you search your library this way, shuffle.")
+                .setcode(createCardset())
                 .build();
     }
 
@@ -45,6 +48,14 @@ public class TestDataProvider {
                 .scryfallIllustrationId("1562793459")
                 .text("Mirage Mirror becomes a copy of target artifact, creature, enchantment, " +
                         "or land until end of turn.")
+                .setcode(createCardset())
+                .build();
+    }
+
+    public static CSet createCardset() {
+        return CSet.builder()
+                .code("AER")
+                .name("Test cardset")
                 .build();
     }
 
@@ -95,5 +106,27 @@ public class TestDataProvider {
                 Boolean.FALSE,
                 "ABC"
         );
+    }
+
+    public static CardFilter createCardFilter() {
+        return new CardFilter("Mishra, Artificer Prodigy",
+                1,
+                "testManacost",
+                "testRarity",
+                "testType",
+                "testSubtype",
+                "testSupertype",
+                "testText",
+                "testFlafovorText",
+                "testKeyword",
+                "testPower",
+                "testArtist",
+                "testToughness",
+                "testUrl",
+                "testMvid",
+                "testIllId",
+                "testFrame",
+                false,
+                "testSetcode");
     }
 }

@@ -2,13 +2,102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Deck</title>
+
+    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/js/script.js" th:href="@{/js/script.js}">
 </head>
 <body>
-<a th:text="${deck.name}">Deck</a>
-<div th:each="card : ${cards}">
-    <a th:text="${card.name}">Card</a>
-</div>
-<a th:text="|Средний манакост: ${averageManaValue}|"></a>
+<header class="header" id="header">
+    <div class="header__container">
+        <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
+        <div class="header__wrap">
+            <div class="header__account">
+                <div class="header__account">
+                    <a class="header__btn header__btn--left"
+                       th:href="@{'/users/' + ${#authentication.principal.getId()}}"><span
+                            th:text="${#authentication.getName()}">Имя пользователя</span></a>
+                    <a class="header__btn header__btn--right" href="javascript: document.logoutForm.submit()"><span
+                            th:text="#{header.logOutBtn}">Выйти</span></a>
+                    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                        <input hidden type="submit" value="Logout"/>
+                    </form>
+                </div>
+            </div>
+            <div th:fragment="locale" class="header__lang lang">
+                <form action="">
+                    <select name="lang" onchange="this.form.submit()" class="lang__select">
+                        <option selected>lang</option>
+                        <option value="en">EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main deck">
+    <div class="deck__container">
+        <div class="deck__content">
+            <h1 class="deck__title" th:text="${deck.name}"></h1>
+            <div class="deck-stat">
+                <div class="deck-stat__wrap deck-stat__wrap--manacost">
+                    <div class="deck-stat__value" th:text="${averageManaValue}"></div>
+                    <h2 class="deck-stat__title">Средний манакост</h2>
+                </div>
+                <h2 class="deck-stat__title">Производство маны</h2>
+                <div class="deck-stat__wrap deck-stat__wrap--manaprod" th:each="mana : ${manaProduction}">
+                    <div class="deck-stat__value" th:text="${mana.value}"></div>
+                    <div class="deck-stat__value" th:text="${mana.key}"></div>
+
+                </div>
+                <h2 class="deck-stat__title">Мана-кривая</h2>
+                <div class="deck-stat__wrap deck-stat__wrap--manacurve" th:each="manavalue : ${manacurve}">
+                    <div class="deck-stat__value" th:text="${manavalue.value}"></div>
+                    <div class="deck-stat__value" th:text="${manavalue.key}"></div>
+
+                </div>
+                <h2 class="deck-stat__title">Распределение цветов</h2>
+                <div class="deck-stat__wrap deck-stat__wrap--color" th:each="color : ${numberOfEachColor}">
+                    <div class="deck-stat__value" th:text="${color.value}"></div>
+                    <div class="deck-stat__value" th:text="${color.key}"></div>
+
+                </div>
+            </div>
+            <table class="deck-table"></table>
+            <div th:each="card : ${cards}">
+                <a th:text="${card.name}">Card</a>
+                <form th:action="'/decks/1/'+ ${card.id} + '/delete'"
+                      method="post" class="card__form111">
+                    <button type="submit" class="card-description__btn">
+                        <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
+                            <path d="M90,61H38a3,3,0,0,0,0,6H90a3,3,0,0,0,0-6Z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!--<a th:text="${deck.name}">Deck</a>-->!
+
+<!--<a th:text="|Средний манакост: ${averageManaValue}|"></a>-->
+<!--<br>Color distribution:-->
+<!--<div th:each="color : ${numberOfEachColor}">-->
+<!--    <a th:text="${color.key}">keyvalue</a>-->
+<!--    <a th:text="${color.value}">num</a>-->
+<!--</div>-->
+<!--Mana curve:-->
+<!--<div th:each="manavalue : ${manacurve}">-->
+<!--    <a th:text="${manavalue.key}">keyvalue</a>-->
+<!--    <a th:text="${manavalue.value}">num</a>-->
+<!--</div>-->
+<!--<br>Mana production:-->
+<!--<div th:each="mana : ${manaProduction}">-->
+<!--    <a th:text="${mana.key}">keyvalue</a>-->
+<!--    <a th:text="${mana.value}">num</a>-->
+<!--</div>-->
 </body>
 </html>

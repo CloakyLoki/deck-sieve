@@ -1,5 +1,6 @@
 package com.cloakyloki.config;
 
+import com.cloakyloki.dto.CustomUserDetails;
 import com.cloakyloki.dto.UserCreateUpdateDto;
 import com.cloakyloki.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -52,18 +53,22 @@ public class SecurityConfiguration {
 
     private OAuth2UserService<OidcUserRequest, OidcUser> oidUserService() {
         return userRequest -> {
+
             String name = userRequest.getIdToken().getClaim("email");
             if (userService.findByUsername(name).isEmpty()) {
                 userService.create(new UserCreateUpdateDto(name, LocalTime.now().toString(), USER, true));
             }
-            UserDetails userDetails = userService.loadUserByUsername(name);
-            DefaultOidcUser oidcUser = new DefaultOidcUser(userDetails.getAuthorities(), userRequest.getIdToken());
+            UserDetails user = userService.loadUserByUsername(name);
+            DefaultOidcUser oidcUser = new DefaultOidcUser(user.getAuthorities(), userRequest.getIdToken());
 
-            var userDetailsMethods = Set.of(UserDetails.class.getMethods());
+            var userDetailsMethods = new java.util.HashSet<>(Set.of(UserDetails.class.getMethods()));
+//            userDetailsMethods.addAll(Set.of(UserDetails.class.getMethods()));
+            userDetailsMethods.addAll(Set.of(CustomUserDetails.class.getMethods()));
+
             return (OidcUser) Proxy.newProxyInstance(SecurityConfiguration.class.getClassLoader(),
-                    new Class[]{UserDetails.class, OidcUser.class},
+                    new Class[]{CustomUserDetails.class, OidcUser.class},
                     (proxy, method, args) -> userDetailsMethods.contains(method)
-                            ? method.invoke(userDetails, args)
+                            ? method.invoke(user, args)
                             : method.invoke(oidcUser, args));
         };
     }

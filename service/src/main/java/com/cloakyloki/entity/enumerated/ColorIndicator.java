@@ -6,5 +6,6 @@ public enum ColorIndicator {
     B,
     G,
     U,
-    W
+    W,
+    C
 }

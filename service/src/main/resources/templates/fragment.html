@@ -5,11 +5,11 @@
     <title>Fragments</title>
 </head>
 <body>
-<div th:fragment="header">
+<header th:fragment="header">
     <span th:text="${#authentication.principal.username}">Username</span>
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>
-</div>
+</header>
 </body>
 </html>
