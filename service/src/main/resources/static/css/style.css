@@ -334,6 +334,52 @@ ul {
   fill: #9a9eab;
 }
 
+.cards__container {
+  margin: 0 auto;
+  padding: 1.2rem 8rem;
+}
+.cards__content {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.cards__btn {
+  position: relative;
+  z-index: 50;
+  margin: 0.5rem;
+  padding: 1rem 2rem;
+  border: 8px solid transparent;
+  outline: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  background-color: #9a9eab;
+  color: #fcfcfa;
+  transition: border 0.6s ease;
+  padding: 0.25rem 1rem;
+  font-weight: normal;
+}
+.cards__btn:hover, .cards__btn:focus-visible {
+  border-top: 8px solid #5da104;
+  border-bottom: 8px solid #e05858;
+  border-left: 8px solid #336b87;
+  border-right: 8px solid #453c41;
+}
+.cards__result {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+.cards__link {
+  max-width: 25%;
+}
+.cards__link img {
+  object-fit: cover;
+}
+
 .user-header {
   background-color: #453c41;
   color: #9a9eab;
@@ -467,6 +513,42 @@ ul {
   color: #9a9eab;
 }
 
+.users__container {
+  margin: 0 auto;
+  padding: 1.2rem 8rem;
+  position: relative;
+}
+.users__content {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 100;
+}
+.users__info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.users__title {
+  font-size: 1.2rem;
+  color: #9a9eab;
+  line-height: 1;
+  margin: 0;
+  font-style: italic;
+}
+.users__btn {
+  background-color: transparent;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid #9a9eab;
+  transition: color 0.4s ease;
+  cursor: pointer;
+}
+.users__btn:hover, .users__btn:focus-visible {
+  color: #9a9eab;
+}
+
 .modal {
   position: absolute;
   top: -100vh;
@@ -477,6 +559,7 @@ ul {
   background-color: rgba(0, 0, 0, 0.2);
   transition: all 0.4s ease;
   padding: 7rem 30rem;
+  z-index: 1000;
 }
 .modal--active {
   top: 0;
@@ -547,6 +630,23 @@ ul {
   border-bottom: 8px solid #e05858;
   border-left: 8px solid #336b87;
   border-right: 8px solid #453c41;
+}
+.modal__text {
+  font-weight: normal;
+  padding-top: 1rem;
+  display: inline-block;
+}
+.modal__google {
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 300;
+  transition: 0.4s ease;
+  color: #453c41;
+  vertical-align: center;
+  font-weight: bold;
+}
+.modal__google:hover, .modal__google:focus-visible {
+  color: #9a9eab;
 }
 
 /*# sourceMappingURL=style.css.map */
