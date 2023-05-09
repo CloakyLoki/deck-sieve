@@ -30,6 +30,9 @@ import static com.cloakyloki.entity.QCard.card;
 @RequiredArgsConstructor
 public class CardService {
 
+    private static final String MANA_PRODUCER_PATTERN = "\\{T\\}: Add ((\\{\\w+\\},?)+)";
+    private static final String MANA_COLOR_PATTERN = "\\{(\\w+)\\}";
+
     private final CardRepository cardRepository;
     private final CardReadMapper cardReadMapper;
     private final CardCreateUpdateMapper cardCreateUpdateMapper;
@@ -120,6 +123,10 @@ public class CardService {
                 }
             }
         }
+//        return cards.stream()
+//                .filter(card -> card.getManacost() != null)
+//                .flatMap(card -> card.getManacost().getColorList().stream())
+//                .collect(groupingBy(identity(), counting()));
         return colorNumbers;
     }
 
@@ -139,12 +146,12 @@ public class CardService {
     public Map<ColorIndicator, Integer> getCardManaProduction(String cardtext) {
         Map<ColorIndicator, Integer> manaProduction = new HashMap<>();
 
-        Pattern pattern = Pattern.compile("\\{T\\}: Add ((\\{\\w+\\},?)+)");
+        Pattern pattern = Pattern.compile(MANA_PRODUCER_PATTERN);
         Matcher matcher = pattern.matcher(cardtext);
 
         if (matcher.find()) {
             String manaSymbols = matcher.group(1);
-            Pattern colorPattern = Pattern.compile("\\{(\\w+)\\}");
+            Pattern colorPattern = Pattern.compile(MANA_COLOR_PATTERN);
             Matcher colorMatcher = colorPattern.matcher(manaSymbols);
 
             while (colorMatcher.find()) {

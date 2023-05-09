@@ -119,9 +119,6 @@
                                 com/cloakyloki/dto/*
                             </exclude>
                             <exclude>
-                                com/cloakyloki/repository/**
-                            </exclude>
-                            <exclude>
                                 com/cloakyloki/entity/**
                             </exclude>
                             <exclude>

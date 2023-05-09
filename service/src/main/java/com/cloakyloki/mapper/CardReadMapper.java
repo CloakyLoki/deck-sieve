@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class CardReadMapper implements Mapper<Card, CardReadDto> {
 
     private static final String IMAGE_FORMAT = "%s/%s/%s.jpg";
+    private static final String NO_CODE = "No code";
     private final ColorMapper colorMapper;
 
     @Override
@@ -34,7 +35,7 @@ public class CardReadMapper implements Mapper<Card, CardReadDto> {
                 getScryfallImagePath(card.getScryfallIllustrationId()),
                 card.getFrameVersion(),
                 card.getIsBanned(),
-                card.getSetcode() != null ? card.getSetcode().getCode() : "No code"
+                card.getSetcode() != null ? card.getSetcode().getCode() : NO_CODE
         );
     }
 

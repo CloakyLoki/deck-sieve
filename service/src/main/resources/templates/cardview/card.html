@@ -110,8 +110,20 @@
                     </li>
                 </ul>
                 <div class="card-description__buttons">
-                    <form sec:authorize="isAuthenticated()" th:action="'/decks/1/'+ ${card.id} + '/add'" method="post"
+                    <form sec:authorize="isAuthenticated()" th:action="'/decks/' + ${deck} + '/'+ ${card.id} + '/add'"
+                          method="post"
                           class="card__form111">
+                        <div>
+                            <label for="deck">Select deck:
+                                <select id="deck" name="deck">
+                                    <option th:each="deck : ${decks}"
+                                            th:value="${deck.getId()}"
+                                            th:text="${deck.name}">Deck name
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+
                         <button type="submit" class="card-description__btn">
                             <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"
