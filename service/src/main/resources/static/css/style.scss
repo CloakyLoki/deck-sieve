@@ -417,12 +417,15 @@ ul {
   &__result {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
   &__link {
     max-width: 25%;
+    display: inline;
+
     & img {
       object-fit: cover;
+      max-width: 100%;
     }
   }
 }

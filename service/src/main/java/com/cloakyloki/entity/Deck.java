@@ -14,8 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -39,6 +41,9 @@ public class Deck implements GenericEntity<Long> {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @Version
+    private Long version;
 
     public void setUser(User user) {
         this.user = user;

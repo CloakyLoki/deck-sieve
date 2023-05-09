@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ru" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Card</title>
@@ -70,7 +71,6 @@
                 <ul class="card-description__list">
                     <li th:if="${card.manacost}" class="card-description__item"><span th:text="#{card.manacost}">Manacost:</span>
                         <img th:src="'/img/mana/' + ${card.manacost?.common} + '.svg'" width="25" height=auto>
-                        <!--                        <span class="card-description__span" th:text="${card.manacost?.common}"></span>-->
                         <div th:each="color : ${card.manacost?.colorList}" style="display: inline-block">
                             <img th:src="'/img/mana/' + ${color} + '.svg'" width="25" height=auto>
                         </div>
@@ -113,12 +113,13 @@
                     </li>
                 </ul>
                 <div class="card-description__buttons">
-                    <form sec:authorize="isAuthenticated()" th:action="'/decks/' + ${deck} + '/'+ ${card.id} + '/add'"
+                    <form sec:authorize="isAuthenticated()"
+                          th:action="@{'/decks/' + ${selectedDeckId} + '/' + ${card.id} + '/add'}"
                           method="post"
                           class="card__form111">
                         <div>
                             <label for="deck">Select deck:
-                                <select id="deck" name="deck">
+                                <select id="deck" name="deck" onchange="updateActionUrl()">
                                     <option th:each="deck : ${decks}"
                                             th:value="${deck.getId()}"
                                             th:text="${deck.name}">Deck name
@@ -126,7 +127,6 @@
                                 </select>
                             </label>
                         </div>
-
                         <button type="submit" class="card-description__btn">
                             <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"
@@ -135,7 +135,17 @@
                                       stroke="#211F30"/>
                             </svg>
                         </button>
+                        <input type="hidden" id="selectedDeckId" th:value="${decks[0].getId()}"/>
                     </form>
+                    <script th:inline="javascript">
+                        function updateActionUrl() {
+                            var selectedDeckId = document.getElementById('deck').value;
+                            var form = document.getElementsByClassName('card__form111')[0];
+                            form.action = '/decks/' + selectedDeckId + '/' + [[${card.id}]] + '/add';
+                            document.getElementById('selectedDeckId').value = selectedDeckId;
+                            document.getElementById('selectedDeckId').setAttribute('data-selected-deck-id', selectedDeckId);
+                        }
+                    </script>
                     <button class="card-description__btn">
                         <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><title/>
                             <path d="M105,82a23,23,0,0,0-22.49,18.17L41.74,77.29a23,23,0,0,0,0-26.57L82.51,27.83a23,23,0,1,0-.44-6.63l-44.53,25a23,23,0,1,0,0,35.62l44.53,25A23,23,0,1,0,105,82Zm0-76A17,17,0,1,1,88,23,17,17,0,0,1,105,6ZM11,76A17,17,0,0,1,35,52h0A17,17,0,0,1,11,76Zm94,46a17,17,0,1,1,17-17A17,17,0,0,1,105,122Z"

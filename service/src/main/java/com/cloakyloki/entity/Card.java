@@ -28,6 +28,7 @@ import java.util.List;
 @Entity
 public class Card implements GenericEntity<Long> {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

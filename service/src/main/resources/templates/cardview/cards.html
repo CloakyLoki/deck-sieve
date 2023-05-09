@@ -54,16 +54,18 @@
             <form action="/index">
                 <button type="submit" class="cards__btn">Вернуться к поиску</button>
             </form>
-            <div th:each="card : ${cards.content}" class="cards__result">
-                <a th:href="@{'/cards/' + ${card.id}}" class="cards__link">
-                    <img th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}" alt="card_image"
-                         class="card-description__img">
-                </a>
+            <div class="cards__result">
+                <div th:each="card : ${cards.content}" class="cards__wrap">
+                    <a th:href="@{'/cards/' + ${card.id}}" class="cards__link">
+                        <img th:src="@{'https://cards.scryfall.io/normal/front/' + ${card.scryfallIllustrationId}}"
+                             alt="card__image">
+                    </a>
+                </div>
             </div>
-
-            <div th:if="${cards.metadata.totalPages > 0}" class="pagination"
-                 th:each="pageNumber : ${cards.metadata.pageNumbers}" style="display: inline-block">
-                <a th:href="@{/cards(
+            <div class="pagination">
+                <div th:if="${cards.metadata.totalPages > 0}" class="pagination__wrap"
+                     th:each="pageNumber : ${cards.metadata.pageNumbers}">
+                    <a th:href="@{/cards(
     size=${cards.metadata.size},
     page=${pageNumber},
 
@@ -79,9 +81,11 @@
     setcode=${filter.setcode()}
     )}"
 
-                   th:text="${pageNumber}"
-                   th:class="${pageNumber==cards.metadata.page + 1} ? active"></a>
+                       th:text="${pageNumber}"
+                       th:class="${pageNumber==cards.metadata.page + 1} ? active"></a>
+                </div>
             </div>
+
         </div>
     </div>
 </main>

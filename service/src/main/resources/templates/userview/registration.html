@@ -9,9 +9,11 @@
     <label for="username">Username:
         <input id="username" type="text" name="username" th:value="*{username}">
     </label>
-    <label for="rawPassword">Password:
-        <input id="rawPassword" type="password" name="rawPassword">
+    <label for="password">Password:
+        <input id="password" type="password" name="password">
     </label>
+    <input id="isActive" type="hidden" name="isActive" value="true">
+    <input id="role" type="hidden" name="role" value="USER">
     <button type="submit">Register</button>
 </form>
 </body>
