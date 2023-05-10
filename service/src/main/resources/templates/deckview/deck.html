@@ -67,8 +67,8 @@
             </div>
             <table class="deck-table"></table>
             <div th:each="card : ${cards}">
-                <a th:text="${card.name}">Card</a>
-                <form th:action="'/decks/1/'+ ${card.id} + '/delete'"
+                <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>
+                <form th:action="'/decks/' + ${deck.id} + '/'+ ${card.id} + '/delete'"
                       method="post" class="card__form111">
                     <button type="submit" class="card-description__btn">
                         <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">

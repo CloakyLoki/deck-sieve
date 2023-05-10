@@ -29,6 +29,7 @@
                 <a class="header__btn header__btn--left"
                    th:href="@{'/users/' + ${#authentication.principal.getId()}}">
                     <span th:text="${#authentication.getName()}">Имя пользователя</span></a>
+                <!--                    <span th:if="${#authentication.principal.email == null}"th:text="${#authentication.getName()}">Имя пользователя</span></a>-->
                 <a class="header__btn header__btn--right" href="javascript: document.logoutForm.submit()"><span
                         th:text="#{header.logOutBtn}">Выйти</span></a>
                 <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
