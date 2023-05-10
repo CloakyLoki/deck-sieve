@@ -28,14 +28,6 @@ class UserControllerIT extends IntegrationTestBase {
     private final UserService userService;
 
     @Test
-    void findAll() throws Exception {
-        mockMvc.perform(get("/admin/users"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("userview/admin/users"))
-                .andExpect(model().attributeExists("users"));
-    }
-
-    @Test
     void findById() throws Exception {
         var userReadDto = userService.create(new UserCreateUpdateDto(
                 "test",

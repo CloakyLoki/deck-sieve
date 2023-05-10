@@ -65,7 +65,6 @@ public class SecurityConfiguration {
             DefaultOidcUser oidcUser = new DefaultOidcUser(user.getAuthorities(), userRequest.getIdToken());
 
             var userDetailsMethods = new java.util.HashSet<>(Set.of(UserDetails.class.getMethods()));
-//            userDetailsMethods.addAll(Set.of(UserDetails.class.getMethods()));
             userDetailsMethods.addAll(Set.of(CustomUserDetails.class.getMethods()));
 
             return (OidcUser) Proxy.newProxyInstance(SecurityConfiguration.class.getClassLoader(),

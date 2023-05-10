@@ -42,36 +42,44 @@
         <div class="deck__content">
             <h1 class="deck__title" th:text="${deck.name}"></h1>
             <div class="deck-stat">
-                <div class="deck-stat__wrap deck-stat__wrap--manacost">
-                    <div class="deck-stat__value" th:text="${averageManaValue}"></div>
+                <div class="deck-stat__wrapper deck-stat__wrap--manacost">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__value" th:text="${averageManaValue}"></div>
+                    </div>
                     <h2 class="deck-stat__title">Средний манакост</h2>
                 </div>
-                <h2 class="deck-stat__title">Производство маны</h2>
-                <div class="deck-stat__wrap deck-stat__wrap--manaprod" th:each="mana : ${manaProduction}">
-                    <div class="deck-stat__value" th:text="${mana.value}"></div>
-                    <div class="deck-stat__value" th:text="${mana.key}"></div>
 
+                <div class="deck-stat__wrapper deck-stat__wrap--manaprod">
+                    <div class="deck-stat__wrap" th:each="mana : ${manaProduction}">
+                        <div class="deck-stat__value" th:text="${mana.value}"></div>
+                        <div class="deck-stat__value" th:text="${mana.key}"></div>
+                    </div>
+                    <h2 class="deck-stat__title">Производство маны</h2>
                 </div>
-                <h2 class="deck-stat__title">Мана-кривая</h2>
-                <div class="deck-stat__wrap deck-stat__wrap--manacurve" th:each="manavalue : ${manacurve}">
-                    <div class="deck-stat__value" th:text="${manavalue.value}"></div>
-                    <div class="deck-stat__value" th:text="${manavalue.key}"></div>
 
+                <div class="deck-stat__wrapper deck-stat__wrap--manacurve">
+                    <div class="deck-stat__wrap" th:each="manavalue : ${manacurve}">
+                        <div class="deck-stat__value" th:text="${manavalue.value}"></div>
+                        <div class="deck-stat__value" th:text="${manavalue.key}"></div>
+                    </div>
+                    <h2 class="deck-stat__title">Мана-кривая</h2>
                 </div>
-                <h2 class="deck-stat__title">Распределение цветов</h2>
-                <div class="deck-stat__wrap deck-stat__wrap--color" th:each="color : ${numberOfEachColor}">
-                    <div class="deck-stat__value" th:text="${color.value}"></div>
-                    <div class="deck-stat__value" th:text="${color.key}"></div>
 
+                <div class="deck-stat__wrapper deck-stat__wrap--color">
+                    <div class="deck-stat__wrap" th:each="color : ${numberOfEachColor}">
+                        <div class="deck-stat__value" th:text="${color.value}"></div>
+                        <div class="deck-stat__value" th:text="${color.key}"></div>
+                    </div>
+                    <h2 class="deck-stat__title">Распределение цветов</h2>
                 </div>
             </div>
             <table class="deck-table"></table>
-            <div th:each="card : ${cards}">
+            <div th:each="card : ${cards}" class="deck-del">
                 <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>
                 <form th:action="'/decks/' + ${deck.id} + '/'+ ${card.id} + '/delete'"
                       method="post" class="card__form111">
-                    <button type="submit" class="card-description__btn">
-                        <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                    <button type="submit" class="deck-del__btn card-description__btn">
+                        <svg width="20" height="20" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                             <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
                             <path d="M90,61H38a3,3,0,0,0,0,6H90a3,3,0,0,0,0-6Z"/>
                         </svg>

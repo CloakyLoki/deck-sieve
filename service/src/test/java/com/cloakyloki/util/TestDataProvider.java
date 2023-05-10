@@ -2,6 +2,7 @@ package com.cloakyloki.util;
 
 import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
+import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.entity.CSet;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.CardDeck;
@@ -105,6 +106,30 @@ public class TestDataProvider {
                 "2020",
                 Boolean.FALSE,
                 "ABC"
+        );
+    }
+
+    public static CardReadDto createCardReadDto() {
+        return new CardReadDto(1L,
+                "testCard",
+                0,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
         );
     }
 

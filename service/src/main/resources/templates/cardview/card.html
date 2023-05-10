@@ -120,6 +120,7 @@
                         <div>
                             <label for="deck">Select deck:
                                 <select id="deck" name="deck" onchange="updateActionUrl()">
+                                    <option selected value></option>
                                     <option th:each="deck : ${decks}"
                                             th:value="${deck.getId()}"
                                             th:text="${deck.name}">Deck name
@@ -140,6 +141,9 @@
                     <script th:inline="javascript">
                         function updateActionUrl() {
                             var selectedDeckId = document.getElementById('deck').value;
+                            if (!selectedDeckId) {
+                                selectedDeckId = document.getElementById('deck').options[0].value;
+                            }
                             var form = document.getElementsByClassName('card__form111')[0];
                             form.action = '/decks/' + selectedDeckId + '/' + [[${card.id}]] + '/add';
                             document.getElementById('selectedDeckId').value = selectedDeckId;

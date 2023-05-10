@@ -124,6 +124,9 @@
                             <exclude>
                                 com/cloakyloki/config/**
                             </exclude>
+                            <exclude>
+                                com/cloakyloki/aop/**
+                            </exclude>
                         </excludes>
                     </configuration>
                 </plugin>

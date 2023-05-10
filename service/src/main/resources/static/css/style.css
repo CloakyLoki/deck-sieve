@@ -670,14 +670,55 @@ ul {
 .modal__google {
   text-decoration: none;
   cursor: pointer;
-  font-weight: 300;
   transition: 0.4s ease;
-  color: #453c41;
-  vertical-align: center;
-  font-weight: bold;
+    color: #453c41;
+    vertical-align: center;
+    font-weight: bold;
 }
+
 .modal__google:hover, .modal__google:focus-visible {
-  color: #9a9eab;
+    color: #9a9eab;
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.deck-stat {
+    margin-bottom: 2rem;
+}
+
+.deck-stat__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.deck-stat__wrap {
+    display: inline-block;
+}
+
+.deck-del {
+    display: flex;
+    gap: 1rem;
+}
+
+.deck-del a {
+    text-decoration: none;
+    color: #453c41;
+    transition: color .4s ease;
+}
+
+.deck-del a:hover,
+.deck-del a:focus-visible {
+    color: #336b87;
+}
+
+.deck-del__btn path {
+    transition: all .4s ease;
+}
+
+.deck-del__btn path:hover,
+.deck-del__btn path:focus-visible {
+    stroke: #336b87;
+}
