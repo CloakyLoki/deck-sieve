@@ -36,12 +36,14 @@ public class DeckController {
         String averageManaValue = cardService.getAverageManaValue(cardsInDeck);
         var manaCurve = cardService.getManaCurve(cardsInDeck);
         var deckManaProduction = deckService.getDeckManaProduction(cardsInDeck);
+        var colorsByManacost = cardService.getColorsByManacost(cardsInDeck);
         model.addAttribute("deck", deckReadDto);
         model.addAttribute("cards", cardsInDeck);
         model.addAttribute("averageManaValue", averageManaValue);
         model.addAttribute("numberOfEachColor", numberOfEachColor);
         model.addAttribute("manacurve", manaCurve);
         model.addAttribute("manaProduction", deckManaProduction);
+        model.addAttribute("colorsByManacost", colorsByManacost);
         return "deckview/deck";
     }
 

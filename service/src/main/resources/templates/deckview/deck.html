@@ -87,6 +87,22 @@
                     </div>
                     <h2 class="deck-stat__title">Распределение цветов</h2>
                 </div>
+
+                <!--                Тест расширенного манакоста-->
+
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="color : ${colorsByManacost.entrySet()}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${color.value}"></div>
+                            <!--                            <div class="deck-stat__value" th:text="${color.key}"></div>-->
+                            <img th:src="'/img/mana/' + ${color.key} + '.svg'" width="25" height=auto>
+                        </div>
+                    </div>
+                    <h2 class="deck-stat__title">Цвета по манакосту</h2>
+                </div>
+
+                <!--                Тест расширенного манакоста-->
+
             </div>
             <table class="deck-table"></table>
             <div th:each="card : ${cards}" class="deck-del">

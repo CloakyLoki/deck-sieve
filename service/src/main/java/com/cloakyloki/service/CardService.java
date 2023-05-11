@@ -3,6 +3,7 @@ package com.cloakyloki.service;
 import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.dto.CardReadDto;
+import com.cloakyloki.dto.ManacostDto;
 import com.cloakyloki.entity.enumerated.ColorIndicator;
 import com.cloakyloki.mapper.CardCreateUpdateMapper;
 import com.cloakyloki.mapper.CardReadMapper;
@@ -158,5 +159,21 @@ public class CardService {
             return manaProduction;
         }
         return null;
+    }
+
+    public Map<Integer, Map<ColorIndicator, Integer>> getColorsByManacost(List<CardReadDto> cards) {
+        Map<Integer, Map<ColorIndicator, Integer>> resultMap = new HashMap<>();
+        for (CardReadDto card : cards) {
+            ManacostDto manacostDto = card.getManacost();
+            if (manacostDto != null) {
+                int manavalue = card.getManaValue();
+                Map<ColorIndicator, Integer> colorCountMap = resultMap.getOrDefault(manavalue, new HashMap<>());
+                for (ColorIndicator color : manacostDto.getColorList()) {
+                    colorCountMap.put(color, colorCountMap.getOrDefault(color, 0) + 1);
+                }
+                resultMap.put(manavalue, colorCountMap);
+            }
+        }
+        return resultMap;
     }
 }
