@@ -1,6 +1,5 @@
 package com.cloakyloki.service;
 
-import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.entity.enumerated.ColorIndicator;
@@ -72,33 +71,33 @@ public class CardService {
                 .map(cardReadMapper::map);
     }
 
-    @Transactional
-    public CardReadDto create(CardCreateUpdateDto card) {
-        return Optional.of(card)
-                .map(cardCreateUpdateMapper::map)
-                .map(cardRepository::saveAndFlush)
-                .map(cardReadMapper::map)
-                .orElseThrow();
-    }
-
-    @Transactional
-    public Optional<CardReadDto> update(Long id, CardCreateUpdateDto cardCreateUpdateDto) {
-        return cardRepository.findById(id)
-                .map(userEntity -> cardCreateUpdateMapper.map(cardCreateUpdateDto, userEntity))
-                .map(cardRepository::saveAndFlush)
-                .map(cardReadMapper::map);
-    }
-
-    @Transactional
-    public boolean delete(Long id) {
-        return cardRepository.findById(id)
-                .map(card -> {
-                    cardRepository.delete(card);
-                    cardRepository.flush();
-                    return true;
-                })
-                .orElse(false);
-    }
+//    @Transactional
+//    public CardReadDto create(CardCreateUpdateDto card) {
+//        return Optional.of(card)
+//                .map(cardCreateUpdateMapper::map)
+//                .map(cardRepository::saveAndFlush)
+//                .map(cardReadMapper::map)
+//                .orElseThrow();
+//    }
+//
+//    @Transactional
+//    public Optional<CardReadDto> update(Long id, CardCreateUpdateDto cardCreateUpdateDto) {
+//        return cardRepository.findById(id)
+//                .map(userEntity -> cardCreateUpdateMapper.map(cardCreateUpdateDto, userEntity))
+//                .map(cardRepository::saveAndFlush)
+//                .map(cardReadMapper::map);
+//    }
+//
+//    @Transactional
+//    public boolean delete(Long id) {
+//        return cardRepository.findById(id)
+//                .map(card -> {
+//                    cardRepository.delete(card);
+//                    cardRepository.flush();
+//                    return true;
+//                })
+//                .orElse(false);
+//    }
 
     public String getAverageManaValue(List<CardReadDto> cards) {
         DecimalFormat df = new DecimalFormat("0.000");
