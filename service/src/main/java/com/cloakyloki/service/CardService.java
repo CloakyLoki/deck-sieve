@@ -123,10 +123,6 @@ public class CardService {
                 }
             }
         }
-//        return cards.stream()
-//                .filter(card -> card.getManacost() != null)
-//                .flatMap(card -> card.getManacost().getColorList().stream())
-//                .collect(groupingBy(identity(), counting()));
         return colorNumbers;
     }
 

@@ -38,10 +38,6 @@ public class CardController {
         model.addAttribute("filter", filter);
         return "cardview/cards";
     }
-
-    //TODO java.lang.ClassCastException: class org.springframework.security.core.userdetails.
-// User cannot be cast to class com.cloakyloki.dto.CustomUserDetails (org.springframework.security.core.userdetails.User
-// and com.cloakyloki.dto.CustomUserDetails are in unnamed module of loader 'app')
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
         var maybeUser = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())

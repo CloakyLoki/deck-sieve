@@ -1,8 +1,10 @@
 package com.cloakyloki.service;
 
+import com.cloakyloki.dto.CustomUser;
 import com.cloakyloki.dto.UserCreateUpdateDto;
 import com.cloakyloki.dto.UserReadDto;
 import com.cloakyloki.entity.User;
+import com.cloakyloki.entity.enumerated.Role;
 import com.cloakyloki.mapper.UserCreateUpdateMapper;
 import com.cloakyloki.mapper.UserReadMapper;
 import com.cloakyloki.repository.UserRepository;
@@ -12,7 +14,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -39,8 +44,22 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
+    public void findAll() {
+        var user = new User(USER_ID, USERNAME, null, null, null, Collections.emptyList(), null);
+        var expectedResult = new UserReadDto(USER_ID, USERNAME, null, null, null);
+
+        doReturn(expectedResult).when(userReadMapper).map(user);
+        doReturn(List.of(user)).when(userRepository).findAll();
+
+        var actualResultsList = userService.findAll();
+
+        assertEquals(List.of(expectedResult), actualResultsList);
+    }
+
+    @Test
     public void findById() {
         var user = new User(USER_ID, USERNAME, null, null, null, null, null);
+
         doReturn(Optional.of(user))
                 .when(userRepository).findById(USER_ID);
         doReturn(new UserReadDto(USER_ID, USERNAME, null, null, null)).when(userReadMapper)
@@ -54,21 +73,10 @@ public class UserServiceTest {
         actualUser.ifPresent(actual -> Assertions.assertEquals(Optional.of(expectedUser), actualUser));
     }
 
-//    @Test
-//    public void findAll() {
-//        var userReadDto = new UserReadDto(USER_ID, USERNAME, null, null, null);
-//        var expectedResult = List.of(userReadDto);
-//        doReturn(List.of(Stream.of(userReadDto))).when(userRepository).findAll();
-//
-//
-//        var actualResult = userService.findAll();
-//
-//        Assertions.assertEquals(expectedResult, actualResult);
-//    }
-
     @Test
     public void findByUsername() {
         var user = new User(USER_ID, USERNAME, null, null, null, null, null);
+
         doReturn(Optional.of(user))
                 .when(userRepository).findByUsername(USERNAME);
         doReturn(new UserReadDto(USER_ID, USERNAME, null, null, null)).when(userReadMapper)
@@ -128,17 +136,16 @@ public class UserServiceTest {
         assertFalse(userService.delete(Long.MAX_VALUE));
     }
 
-//    @Test
-//    public void loadUserByUsername(){
-//        var user = new User(USER_ID, USERNAME, "123", null, null, null, null);
-//        List<GrantedAuthority> authorities = List.of("USER", "ADMIN");
-//        var expectedUser = new CustomUser(USER_ID, USERNAME, "123", authorities);
-//
-//        doReturn(Optional.of(user)).when(userRepository).findByUsername(USERNAME);
-//
-//        var actualUser = userService.loadUserByUsername(USERNAME);
-//
-//        assertEquals(expectedUser, actualUser);
-//
-//    }
+    @Test
+    public void loadUserByUsername() {
+        var user = new User(USER_ID, USERNAME, "123", Role.USER, null, null, null);
+        var expectedREsult = new CustomUser(USER_ID, USERNAME, user.getPassword(), Collections.singleton(Role.USER));
+
+        doReturn(Optional.of(user)).when(userRepository).findByUsername(USERNAME);
+
+        var actualResult = userService.loadUserByUsername(USERNAME);
+
+        assertEquals(expectedREsult, actualResult);
+        assertThrows(UsernameNotFoundException.class, () -> userService.loadUserByUsername("notUser"));
+    }
 }

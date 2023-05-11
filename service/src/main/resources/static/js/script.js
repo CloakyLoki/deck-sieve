@@ -26,3 +26,25 @@ function closeModalEnter() {
 }
 
 
+let modalEdit = document.getElementById('modalEdit');
+
+function openModalEdit(e) {
+    modalEdit.classList.add('modal--active');
+}
+
+function closeModalEdit() {
+    modalEdit.classList.remove('modal--active');
+}
+
+
+let modalEditAdmin = document.getElementById('modalEditAdmin');
+
+function openModalEditAdmin(e) {
+    modalEditAdmin.classList.add('modal--active');
+}
+
+function closeModalEditAdmin() {
+    modalEditAdmin.classList.remove('modal--active');
+}
+
+

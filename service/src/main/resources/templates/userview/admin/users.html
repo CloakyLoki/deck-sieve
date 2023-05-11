@@ -18,7 +18,11 @@
 <body>
 <header class="header" id="header">
     <div class="header__container">
-        <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
+        <h1 class="header__title">
+            <a th:href="@{/index}">
+                Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+            </a>
+        </h1>
         <div class="header__wrap">
             <div sec:authorize="hasAuthority('ADMIN')" class="header__account">
                 <a class="header__btn header__btn--left" href="/admin/users"><span

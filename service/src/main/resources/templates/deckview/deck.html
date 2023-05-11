@@ -11,7 +11,11 @@
 <body>
 <header class="header" id="header">
     <div class="header__container">
-        <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
+        <h1 class="header__title">
+            <a th:href="@{/index}">
+                Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+            </a>
+        </h1>
         <div class="header__wrap">
             <div class="header__account">
                 <div class="header__account">
@@ -44,31 +48,42 @@
             <div class="deck-stat">
                 <div class="deck-stat__wrapper deck-stat__wrap--manacost">
                     <div class="deck-stat__wrap">
-                        <div class="deck-stat__value" th:text="${averageManaValue}"></div>
+                        <div class="deck-stat__values">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${averageManaValue}"></div>
+                        </div>
                     </div>
                     <h2 class="deck-stat__title">Средний манакост</h2>
                 </div>
 
-                <div class="deck-stat__wrapper deck-stat__wrap--manaprod">
-                    <div class="deck-stat__wrap" th:each="mana : ${manaProduction}">
-                        <div class="deck-stat__value" th:text="${mana.value}"></div>
-                        <div class="deck-stat__value" th:text="${mana.key}"></div>
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="mana : ${manaProduction}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${mana.value}"></div>
+                            <!--                            <div class="deck-stat__value" th:text="${mana.key}"></div>-->
+                            <img th:src="'/img/mana/' + ${mana.key} + '.svg'" width="25" height=auto>
+                        </div>
                     </div>
                     <h2 class="deck-stat__title">Производство маны</h2>
                 </div>
 
-                <div class="deck-stat__wrapper deck-stat__wrap--manacurve">
-                    <div class="deck-stat__wrap" th:each="manavalue : ${manacurve}">
-                        <div class="deck-stat__value" th:text="${manavalue.value}"></div>
-                        <div class="deck-stat__value" th:text="${manavalue.key}"></div>
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="manavalue : ${manacurve}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${manavalue.value}"></div>
+                            <!--                            <div class="deck-stat__value" th:text="${manavalue.key}"></div>-->
+                            <img th:src="'/img/mana/' + ${manavalue.key} + '.svg'" width="25" height=auto>
+                        </div>
                     </div>
                     <h2 class="deck-stat__title">Мана-кривая</h2>
                 </div>
 
-                <div class="deck-stat__wrapper deck-stat__wrap--color">
-                    <div class="deck-stat__wrap" th:each="color : ${numberOfEachColor}">
-                        <div class="deck-stat__value" th:text="${color.value}"></div>
-                        <div class="deck-stat__value" th:text="${color.key}"></div>
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="color : ${numberOfEachColor}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${color.value}"></div>
+                            <!--                            <div class="deck-stat__value" th:text="${color.key}"></div>-->
+                            <img th:src="'/img/mana/' + ${color.key} + '.svg'" width="25" height=auto>
+                        </div>
                     </div>
                     <h2 class="deck-stat__title">Распределение цветов</h2>
                 </div>

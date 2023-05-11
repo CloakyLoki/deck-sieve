@@ -14,12 +14,17 @@
 <div class="user">
     <div class="header user-header" id="header">
         <div class="user-header__container">
+            <h1 class="header__title">
+                <a th:href="@{/index}">
+                    Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+                </a>
+            </h1>
             <div th:fragment="header" class="user-header__wrap">
                 <span th:text="${#authentication.principal.username}" class="user-header__name">Username</span>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="user-header__btn user-header__btn--logout">Выйти</button>
                 </form>
-                <button class="user-header__btn" id="change" onclick="openModal()">Редактировать</button>
+                <button class="user-header__btn" id="change" onclick="openModalEditAdmin()">Редактировать</button>
                 <div th:fragment="locale" class="header__lang lang">
                     <form>
                         <select name="lang" onchange="this.form.submit()" class="lang__select">
@@ -43,9 +48,9 @@
     </div>
 </div>
 
-<div class="modal" id="modal">
+<div class="modal" id="modalEditAdmin">
     <div class="modal__wrapper">
-        <button class="modal__close" id="close" onclick="closeModal()">
+        <button class="modal__close" id="close" onclick="closeModalEditAdmin()">
             <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"
                  xmlns="http://www.w3.org/2000/svg">
                 <path stroke="#211F30FF"
@@ -69,7 +74,7 @@
                 <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">
             </label>
             <label for="password">Сменить пароль:
-                <input id="password" type="text" name="password" th:value="*{password}" class="modal__input">
+                <input id="password" type="text" name="password" class="modal__input">
             </label>
 
             <button type="submit" class="modal__btn"><span th:text="#{user.updateBtn}">Обновить</span></button>

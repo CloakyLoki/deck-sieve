@@ -52,15 +52,16 @@ ul {
   gap: 2rem;
 }
 .header__btn {
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 300;
-  transition: 0.4s ease;
-  font-size: 0.85rem;
-  position: relative;
-  color: #fcfcfa;
-  border: none;
-  background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    transition: 0.4s ease;
+    font-size: 0.85rem;
+    position: relative;
+    color: #fcfcfa;
+    border: none;
+    background-color: transparent;
+    line-height: 100%;
 }
 .header__btn--left::after {
   content: "";
@@ -419,33 +420,41 @@ ul {
     margin: 0 auto;
     padding: 1.2rem 8rem;
     display: flex;
-  justify-content: flex-end;
+    justify-content: space-between;
 }
 .user-header__wrap {
-  display: flex;
-  gap: 2rem;
-  text-align: right;
+    display: flex;
+    align-items: end;
+    gap: 2rem;
+    text-align: right;
 }
 .user-header__name {
   font-weight: bold;
   font-size: 1rem;
 }
 .user-header__btn {
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 300;
-  transition: 0.4s ease;
-  font-size: 1rem;
-  position: relative;
-  color: #9a9eab;
-  border: none;
-  background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    transition: 0.4s ease;
+    font-size: 1rem;
+    position: relative;
+    color: #9a9eab;
+    border: none;
+    background-color: transparent;
+    padding-bottom: .3rem;
 }
 .user-header__btn--logout {
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 300;
-  transition: 0.4s ease;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    transition: 0.4s ease;
+    font-size: 1rem;
+    position: relative;
+    color: #9a9eab;
+    border: none;
+    background-color: transparent;
+    line-height: 1.15;
 }
 .user-header__btn--logout::after {
   content: "";
@@ -550,34 +559,43 @@ ul {
   position: relative;
 }
 .users__content {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 100;
 }
 .users__info {
   display: flex;
-  gap: 1rem;
-  align-items: center;
+    gap: 1rem;
+    align-items: center;
 }
+
 .users__title {
-  font-size: 1.2rem;
-  color: #9a9eab;
-  line-height: 1;
-  margin: 0;
-  font-style: italic;
+    font-size: 1.2rem;
+    color: #9a9eab;
+    line-height: 1;
+    margin: 0;
+    font-style: italic;
 }
+
+.header__title a {
+    text-decoration: none;
+    color: #9a9eab;
+}
+
 .users__btn {
-  background-color: transparent;
-  font-size: 1rem;
-  border: none;
-  border-bottom: 1px solid #9a9eab;
-  transition: color 0.4s ease;
-  cursor: pointer;
+    background-color: transparent;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #9a9eab;
+    transition: color 0.4s ease;
+    cursor: pointer;
 }
+
 .users__btn:hover, .users__btn:focus-visible {
-  color: #9a9eab;
+    color: #9a9eab;
 }
 
 .modal {
@@ -688,15 +706,32 @@ ul {
 
 .deck-stat__wrapper {
     display: flex;
+    gap: .5rem;
     flex-direction: column;
-    gap: 1rem;
-    justify-content: space-between;
+    justify-content: end;
+    align-items: center;
     text-align: center;
 }
 
 .deck-stat__wrap {
+    display: flex;
+    gap: 1rem;
+}
+
+.deck-stat__values {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.deck-stat__value {
     display: inline-block;
 }
+
+.deck-stat__value--value {
+    font-weight: bold;
+}
+
 
 .deck-del {
     display: flex;
@@ -721,4 +756,34 @@ ul {
 .deck-del__btn path:hover,
 .deck-del__btn path:focus-visible {
     stroke: #336b87;
+}
+
+.registration-main__content,
+.login-main__content {
+    padding: 5rem 20rem;
+}
+
+.deck__link {
+    text-decoration: none;
+    color: #453c41;
+    font-weight: bolder;
+    transition: color .4s ease;
+}
+
+.deck__link:hover,
+.deck__link:focus-visible {
+    color: #9a9eab;
+}
+
+.user__list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.user__form {
+    display: flex;
+    flex-direction: column;
 }
