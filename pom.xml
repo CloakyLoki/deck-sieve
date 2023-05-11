@@ -127,6 +127,9 @@
                             <exclude>
                                 com/cloakyloki/aop/**
                             </exclude>
+                            <exclude>
+                                com/cloakyloki/mapper/**
+                            </exclude>
                         </excludes>
                     </configuration>
                 </plugin>

@@ -4,7 +4,6 @@ import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.dto.ManacostDto;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.enumerated.ColorIndicator;
-import com.cloakyloki.mapper.CardCreateUpdateMapper;
 import com.cloakyloki.mapper.CardReadMapper;
 import com.cloakyloki.repository.CardRepository;
 import org.junit.jupiter.api.Test;
@@ -36,8 +35,6 @@ class CardServiceTest {
     private CardRepository cardRepository;
     @Mock
     private CardReadMapper cardReadMapper;
-    @Mock
-    private CardCreateUpdateMapper cardCreateUpdateMapper;
     @InjectMocks
     private CardService cardService;
 
@@ -63,7 +60,9 @@ class CardServiceTest {
 //                null,
 //                null,
 //                null);
-//
+//        QPredicate.builder()
+//                .add(filter.name(), it-> it)
+//                .buildAnd();
 //        Mockito.doReturn(List.of(cardReadDto)).when(cardRepository).findAll();
 //    }
 
