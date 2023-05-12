@@ -2,27 +2,70 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>User</title>
+
+    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script defer rel="stylesheet" src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
 </head>
 <body>
-<form th:action="@{/login}" method="post">
-    <div style="color: red" th:if="${param.error}">
-        Bad credentials
+<header class="header user-header" id="header">
+    <div class="user-header__container">
+        <h1 class="header__title">
+            <a th:href="@{/index}">
+                Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+            </a>
+        </h1>
     </div>
-    <label for="username"><span th:text="#{login.username}">Username:</span>
-        <input id="username" type="text" name="username">
-    </label><br>
-    <label for="password"><span th:text="#{login.password}">Password:</span>
-        <input id="password" type="password" name="password">
-    </label><br>
-    <button type="submit">Login</button>
-</form>
+</header>
+<main class="user__main login__main">
+    <div class="user-main__container login-main__container">
+        <div class="user-main__content login-main__content">
+            <form th:action="@{/login}" method="post" class="modal__form">
+                <div style="color: #e05858" th:if="${param.error}">
+                    Bad credentials
+                </div>
+                <label for="username"><span th:text="#{login.username}">Username:</span>
+                    <input id="username" type="text" name="username" class="modal__input">
+                </label>
+                <label for="password"><span th:text="#{login.password}">Password:</span>
+                    <input id="password" type="password" name="password" class="modal__input">
+                </label>
+                <button type="submit" class="modal__btn">Login</button>
+            </form>
 
-<div>Login with:</div>
-<a href="/oauth2/authorization/google">Google</a>
+            <p class="modal__text">Login with</p>
+            <a href="/oauth2/authorization/google" class="modal__google">Google</a>
+            <br>
+            <hr>
+            <br>
+            <br>
+            <span style="padding: 2rem 0; margin-top: 2rem">Впервые у нас?</span>
+            <a th:href="@{/users/registration}" class="modal__btn" style="text-decoration: none">Зарегистрироваться</a>
+            <!--    <form th:action="@{/login}" method="post">-->
+            <!--        <div style="color: red" th:if="${param.error}">-->
+            <!--            Bad credentials-->
+            <!--        </div>-->
+            <!--        <label for="username"><span th:text="#{login.username}">Username:</span>-->
+            <!--            <input id="username" type="text" name="username">-->
+            <!--        </label><br>-->
+            <!--        <label for="password"><span th:text="#{login.password}">Password:</span>-->
+            <!--            <input id="password" type="password" name="password">-->
+            <!--        </label><br>-->
+            <!--        <button type="submit">Login</button>-->
+            <!--    </form>-->
 
-<form action="/users/registration">
-    <button type="submit">Registration</button>
-</form>
+            <!--    <div>Login with:</div>-->
+            <!--    <a href="/oauth2/authorization/google">Google</a>-->
+
+            <!--    <form action="/users/registration">-->
+            <!--        <button type="submit">Registration</button>-->
+            <!--    </form>-->
+        </div>
+    </div>
+</main>
+
 </body>
 </html>

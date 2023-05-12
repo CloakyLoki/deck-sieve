@@ -24,31 +24,20 @@ class CardServiceIT extends IntegrationTestBase {
     private final CardRepository cardRepository;
     private final EntityManager entityManager;
 
-//    @Test
-//    void findAllPageSize() {
-//        var testCard = TestDataProvider.createMishraCard();
-//        CardFilter filter = TestDataProvider.createCardFilter();
-//        PageRequest pageRequest = PageRequest.of(0, 20);
-//        cardRepository.save(testCard);
-//        entityManager.clear();
-//
-//        Assertions.assertThat(cardService.findAll(filter, pageRequest).getContent().size()).isEqualTo(1);
-//    }
-//
-@Test
-void findAllContent() {
-    var testCard = TestDataProvider.createMishraCard();
-    CardFilter filter = TestDataProvider.createCardFilter();
-    PageRequest pageRequest = PageRequest.of(0, 20);
-    cardRepository.save(testCard);
-    entityManager.clear();
+    @Test
+    void findAllContent() {
+        var testCard = TestDataProvider.createMishraCard();
+        CardFilter filter = TestDataProvider.createCardFilter();
+        PageRequest pageRequest = PageRequest.of(0, 20);
+        cardRepository.save(testCard);
+        entityManager.clear();
 
-    Assertions.assertThat(cardService.findAll(filter, pageRequest)
-                    .getContent()
-                    .get(1)
-                    .getId())
-            .isEqualTo(testCard.getId());
-}
+        Assertions.assertThat(cardService.findAll(filter, pageRequest)
+                        .getContent()
+                        .get(0)
+                        .getId())
+                .isEqualTo(testCard.getId());
+    }
 
     @Test
     void findById() {

@@ -2,6 +2,7 @@ package com.cloakyloki.util;
 
 import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
+import com.cloakyloki.dto.CardReadDto;
 import com.cloakyloki.entity.CSet;
 import com.cloakyloki.entity.Card;
 import com.cloakyloki.entity.CardDeck;
@@ -108,25 +109,32 @@ public class TestDataProvider {
         );
     }
 
+    public static CardReadDto createCardReadDto() {
+        var card = TestDataProvider.createMishraCard();
+        return new CardReadDto(null,
+                card.getName(),
+                card.getManaValue(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
     public static CardFilter createCardFilter() {
-        return new CardFilter("Mishra, Artificer Prodigy",
-                1,
-                "testManacost",
-                "testRarity",
-                "testType",
-                "testSubtype",
-                "testSupertype",
-                "testText",
-                "testFlafovorText",
-                "testKeyword",
-                "testPower",
-                "testArtist",
-                "testToughness",
-                "testUrl",
-                "testMvid",
-                "testIllId",
-                "testFrame",
-                false,
-                "testSetcode");
+        return new CardFilter("Mishra, Artificer Prodigy", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 }

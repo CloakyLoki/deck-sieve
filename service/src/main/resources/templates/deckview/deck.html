@@ -11,7 +11,11 @@
 <body>
 <header class="header" id="header">
     <div class="header__container">
-        <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
+        <h1 class="header__title">
+            <a th:href="@{/index}">
+                Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+            </a>
+        </h1>
         <div class="header__wrap">
             <div class="header__account">
                 <div class="header__account">
@@ -42,36 +46,66 @@
         <div class="deck__content">
             <h1 class="deck__title" th:text="${deck.name}"></h1>
             <div class="deck-stat">
-                <div class="deck-stat__wrap deck-stat__wrap--manacost">
-                    <div class="deck-stat__value" th:text="${averageManaValue}"></div>
-                    <h2 class="deck-stat__title">Средний манакост</h2>
+                <div class="deck-stat__wrapper deck-stat__wrap--manacost">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${averageManaValue}"></div>
+                        </div>
+                    </div>
+                    <h2 class="deck-stat__title"><span th:text="#{deck.average_manacost}">Средний манакост</span></h2>
                 </div>
-                <h2 class="deck-stat__title">Производство маны</h2>
-                <div class="deck-stat__wrap deck-stat__wrap--manaprod" th:each="mana : ${manaProduction}">
-                    <div class="deck-stat__value" th:text="${mana.value}"></div>
-                    <div class="deck-stat__value" th:text="${mana.key}"></div>
 
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="mana : ${manaProduction}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${mana.value}"></div>
+                            <img th:src="'/img/mana/' + ${mana.key} + '.svg'" width="25" height=auto>
+                        </div>
+                    </div>
+                    <h2 class="deck-stat__title"><span th:text="#{deck.manaproduction}">Производство маны</span></h2>
                 </div>
-                <h2 class="deck-stat__title">Мана-кривая</h2>
-                <div class="deck-stat__wrap deck-stat__wrap--manacurve" th:each="manavalue : ${manacurve}">
-                    <div class="deck-stat__value" th:text="${manavalue.value}"></div>
-                    <div class="deck-stat__value" th:text="${manavalue.key}"></div>
 
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="manavalue : ${manacurve}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${manavalue.value}"></div>
+                            <img th:src="'/img/mana/' + ${manavalue.key} + '.svg'" width="25" height=auto>
+                        </div>
+                    </div>
+                    <h2 class="deck-stat__title"><span th:text="#{deck.manacurve}">Мана-кривая</span></h2>
                 </div>
-                <h2 class="deck-stat__title">Распределение цветов</h2>
-                <div class="deck-stat__wrap deck-stat__wrap--color" th:each="color : ${numberOfEachColor}">
-                    <div class="deck-stat__value" th:text="${color.value}"></div>
-                    <div class="deck-stat__value" th:text="${color.key}"></div>
 
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="color : ${numberOfEachColor}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${color.value}"></div>
+                            <img th:src="'/img/mana/' + ${color.key} + '.svg'" width="25" height=auto>
+                        </div>
+                    </div>
+                    <h2 class="deck-stat__title"><span th:text="#{deck.color_distr}">Распределение цветов</span></h2>
                 </div>
+
+                <div class="deck-stat__wrapper">
+                    <div class="deck-stat__wrap">
+                        <div class="deck-stat__values" th:each="entry : ${colorsByManacost.entrySet()}">
+                            <div class="deck-stat__value deck-stat__value--value" th:text="${entry.key}"></div>
+                            <div class="deck-stat__value" th:each="key : ${entry.value}">
+                                <img th:src="'/img/mana/' + ${key.key} + '.svg'" width="25" height=auto>
+                                <div class="deck-stat__values" th:text="'/ ' + ${key.value}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="deck-stat__title"><span th:text="#{deck.color_manacost}">Цвета по манакосту</span></h2>
+                </div>
+
             </div>
             <table class="deck-table"></table>
-            <div th:each="card : ${cards}">
-                <a th:text="${card.name}">Card</a>
-                <form th:action="'/decks/1/'+ ${card.id} + '/delete'"
+            <div th:each="card : ${cards}" class="deck-del">
+                <a th:href="@{'/cards/' + ${card.id}}" th:text="${card.name}">Card</a>
+                <form th:action="'/decks/' + ${deck.id} + '/'+ ${card.id} + '/delete'"
                       method="post" class="card__form111">
-                    <button type="submit" class="card-description__btn">
-                        <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                    <button type="submit" class="deck-del__btn card-description__btn">
+                        <svg width="20" height="20" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                             <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>
                             <path d="M90,61H38a3,3,0,0,0,0,6H90a3,3,0,0,0,0-6Z"/>
                         </svg>
@@ -81,23 +115,5 @@
         </div>
     </div>
 </main>
-<!--<a th:text="${deck.name}">Deck</a>-->!
-
-<!--<a th:text="|Средний манакост: ${averageManaValue}|"></a>-->
-<!--<br>Color distribution:-->
-<!--<div th:each="color : ${numberOfEachColor}">-->
-<!--    <a th:text="${color.key}">keyvalue</a>-->
-<!--    <a th:text="${color.value}">num</a>-->
-<!--</div>-->
-<!--Mana curve:-->
-<!--<div th:each="manavalue : ${manacurve}">-->
-<!--    <a th:text="${manavalue.key}">keyvalue</a>-->
-<!--    <a th:text="${manavalue.value}">num</a>-->
-<!--</div>-->
-<!--<br>Mana production:-->
-<!--<div th:each="mana : ${manaProduction}">-->
-<!--    <a th:text="${mana.key}">keyvalue</a>-->
-<!--    <a th:text="${mana.value}">num</a>-->
-<!--</div>-->
 </body>
 </html>

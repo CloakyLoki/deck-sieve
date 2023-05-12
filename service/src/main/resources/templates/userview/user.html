@@ -12,15 +12,20 @@
 </head>
 <body>
 <div class="user">
-    <div class="header user-header" id="header">
+    <header class="header user-header" id="header">
         <div class="user-header__container">
+            <h1 class="header__title">
+                <a th:href="@{/index}">
+                    Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+                </a>
+            </h1>
             <div th:fragment="header" class="user-header__wrap">
                 <span th:text="${#authentication.getName()}" class="user-header__name">Username</span>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="user-header__btn user-header__btn--logout"><span
                             th:text="#{header.logOutBtn}">Выйти</span></button>
                 </form>
-                <button class="user-header__btn" id="change" onclick="openModal()"><span
+                <button class="user-header__btn" id="change" onclick="openModalEdit()"><span
                         th:text="#{user.editBtn}">Редактировать</span></button>
                 <div th:fragment="locale" class="header__lang lang">
                     <form>
@@ -33,34 +38,36 @@
                 </div>
             </div>
         </div>
-    </div>
+    </header>
     <div class="user-main" id="main">
         <div class="user-main__container">
             <div class="user-main__content">
-                <div th:each="deck : ${decks}">
-                    <a th:href="@{'/decks/' + ${deck.id}}" th:text="|${deck.id}.  ${deck.name}|">Deck</a>
-                </div>
+                <ul class="user__list">
+                    <li th:each="deck : ${decks}" class="user__item">
+                        <a th:href="@{'/decks/' + ${deck.id}}" th:text="|${deck.id}.  ${deck.name}|" class="deck__link">Deck</a>
+                    </li>
+                </ul>
+                <form th:action="@{${#authentication.principal.getId()} + '/add'}" method="post"
+                      class="modal__form user__form">
+                    <label for="deckname">Название колоды:
+                        <input id="deckname" type="text" name="deckname">
+                    </label>
+                    <label for="userIdCreatedBy">
+                        <input id="userIdCreatedBy" type="hidden" name="userIdCreatedBy"
+                               th:value="${#authentication.principal.getId()}">
+                    </label>
+                    <label for="favourite">
+                        <input id="favourite" type="hidden" name="favourite" th:value="false">
+                    </label>
+                    <button type="submit" class="modal__btn user__btn">Создать новую колоду</button>
+                </form>
             </div>
-
-            <form th:action="@{${#authentication.principal.getId()} + '/add'}" method="post">
-                <label for="deckname">Название колоды:
-                    <input id="deckname" type="text" name="deckname">
-                </label><br>
-                <label for="userIdCreatedBy">
-                    <input id="userIdCreatedBy" type="hidden" name="userIdCreatedBy"
-                           th:value="${#authentication.principal.getId()}">
-                </label><br>
-                <label for="favourite">
-                    <input id="favourite" type="hidden" name="favourite" th:value="false">
-                </label><br>
-                <button type="submit">Создать колоду</button>
-            </form>
         </div>
     </div>
 </div>
-<div class="modal" id="modal">
+<div class="modal" id="modalEdit">
     <div class="modal__wrapper">
-        <button class="modal__close" id="close" onclick="closeModal()">
+        <button class="modal__close" id="close" onclick="closeModalEdit()">
             <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"
                  xmlns="http://www.w3.org/2000/svg">
                 <path stroke="#211F30FF"

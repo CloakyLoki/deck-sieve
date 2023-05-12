@@ -394,6 +394,42 @@ ul {
   }
 }
 
+.cards {
+  &__container {
+    @include container;
+  }
+  &__content {
+    position: relative;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  &__btn {
+    @include btn;
+    padding: .25rem 1rem;
+    font-weight: normal;
+    &:hover,
+    &:focus-visible {
+      @include btn-effect;
+    }
+  }
+  &__result {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  &__link {
+    max-width: 25%;
+    display: inline;
+
+    & img {
+      object-fit: cover;
+      max-width: 100%;
+    }
+  }
+}
+
 //user
 .user {
 
@@ -544,6 +580,45 @@ ul {
   }
 }
 
+//users
+.users {
+  &__container {
+    @include container;
+    position: relative;
+  }
+
+  &__content {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 100;
+  }
+
+  &__info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  &__title {
+    @include title;
+  }
+
+  &__btn {
+    background-color: transparent;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid $gray;
+    transition: color .4s ease;
+    cursor: pointer;
+    &:hover,
+    &:focus-visible {
+      color: $gray;
+    }
+  }
+}
+
 //modal
 .modal {
   position: absolute;
@@ -555,6 +630,7 @@ ul {
   background-color: rgba(0, 0, 0, .20);
   transition: all .4s ease;
   padding: 7rem 30rem;
+  z-index: 1000;
 
   &--active {
     top: 0;
@@ -612,4 +688,22 @@ ul {
       @include btn-effect
     }
   }
+
+  &__text {
+    font-weight: normal;
+    padding-top: 1rem;
+    display: inline-block;
+  }
+
+  &__google {
+    @include link;
+    color: $black;
+    vertical-align: center;
+    font-weight: bold;
+    &:hover,
+    &:focus-visible {
+      color: $gray;
+    }
+  }
 }
+

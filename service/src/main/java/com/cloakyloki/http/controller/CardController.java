@@ -1,7 +1,7 @@
 package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.CardFilter;
-import com.cloakyloki.dto.CustomUser;
+import com.cloakyloki.dto.CustomUserDetails;
 import com.cloakyloki.dto.PageResponse;
 import com.cloakyloki.service.CardService;
 import com.cloakyloki.service.DeckService;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,14 +37,13 @@ public class CardController {
         model.addAttribute("filter", filter);
         return "cardview/cards";
     }
-
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
         var maybeUser = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .map(authentication -> (UserDetails) authentication.getPrincipal())
-                .map(UserDetails::getUsername)
+                .map(authentication -> (CustomUserDetails) authentication.getPrincipal())
+                .map(CustomUserDetails::getUsername)
                 .orElseThrow();
-        var customUser = (CustomUser) userService.loadUserByUsername(maybeUser);
+        var customUser = userService.loadUserByUsername(maybeUser);
         var decks = deckService.findAllByUserId(customUser.getId());
         return cardService.findById(id)
                 .map(card -> {

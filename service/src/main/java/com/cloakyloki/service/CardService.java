@@ -3,10 +3,10 @@ package com.cloakyloki.service;
 import com.cloakyloki.dto.CardCreateUpdateDto;
 import com.cloakyloki.dto.CardFilter;
 import com.cloakyloki.dto.CardReadDto;
+import com.cloakyloki.dto.ManacostDto;
 import com.cloakyloki.entity.enumerated.ColorIndicator;
 import com.cloakyloki.mapper.CardCreateUpdateMapper;
 import com.cloakyloki.mapper.CardReadMapper;
-import com.cloakyloki.mapper.ColorMapper;
 import com.cloakyloki.repository.CardRepository;
 import com.cloakyloki.repository.predicate.QPredicate;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,6 @@ public class CardService {
     private final CardRepository cardRepository;
     private final CardReadMapper cardReadMapper;
     private final CardCreateUpdateMapper cardCreateUpdateMapper;
-    private final ColorMapper colorMapper;
 
     public Page<CardReadDto> findAll(CardFilter filter, Pageable pageable) {
         var predicate = QPredicate.builder()
@@ -123,10 +122,6 @@ public class CardService {
                 }
             }
         }
-//        return cards.stream()
-//                .filter(card -> card.getManacost() != null)
-//                .flatMap(card -> card.getManacost().getColorList().stream())
-//                .collect(groupingBy(identity(), counting()));
         return colorNumbers;
     }
 
@@ -162,5 +157,21 @@ public class CardService {
             return manaProduction;
         }
         return null;
+    }
+
+    public Map<Integer, Map<ColorIndicator, Integer>> getColorsByManacost(List<CardReadDto> cards) {
+        Map<Integer, Map<ColorIndicator, Integer>> resultMap = new HashMap<>();
+        for (CardReadDto card : cards) {
+            ManacostDto manacostDto = card.getManacost();
+            if (manacostDto != null) {
+                int manavalue = card.getManaValue();
+                Map<ColorIndicator, Integer> colorCountMap = resultMap.getOrDefault(manavalue, new HashMap<>());
+                for (ColorIndicator color : manacostDto.getColorList()) {
+                    colorCountMap.put(color, colorCountMap.getOrDefault(color, 0) + 1);
+                }
+                resultMap.put(manavalue, colorCountMap);
+            }
+        }
+        return resultMap;
     }
 }

@@ -80,13 +80,14 @@ public class DeckService {
         return deckManaProduction;
     }
 //TODO изменить подход на проверку getDeckManaProduction != null & manacost = null
-    public Map<String, Integer> getLands(List<CardReadDto> cards) {
-        Map<String, Integer> lands = new HashMap<>();
-        for (CardReadDto card : cards) {
-            if (card.getSubtype().equals("Lands")) {
-                lands.merge(card.getSubtype(), 1, Integer::sum);
-            }
-        }
-        return lands;
-    }
+
+//    public Map<String, Integer> getLands(List<CardReadDto> cards) {
+//        Map<String, Integer> lands = new HashMap<>();
+//        for (CardReadDto card : cards) {
+//            if (card.getSubtype().equals("Lands")) {
+//                lands.merge(card.getSubtype(), 1, Integer::sum);
+//            }
+//        }
+//        return lands;
+//    }
 }

@@ -52,15 +52,16 @@ ul {
   gap: 2rem;
 }
 .header__btn {
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 300;
-  transition: 0.4s ease;
-  font-size: 0.85rem;
-  position: relative;
-  color: #fcfcfa;
-  border: none;
-  background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    transition: 0.4s ease;
+    font-size: 0.85rem;
+    position: relative;
+    color: #fcfcfa;
+    border: none;
+    background-color: transparent;
+    line-height: 100%;
 }
 .header__btn--left::after {
   content: "";
@@ -334,41 +335,126 @@ ul {
   fill: #9a9eab;
 }
 
-.user-header {
-  background-color: #453c41;
-  color: #9a9eab;
-}
-.user-header__container {
+.cards__container {
   margin: 0 auto;
   padding: 1.2rem 8rem;
+}
+.cards__content {
+  position: relative;
+  z-index: 50;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 2rem;
+}
+.cards__btn {
+  position: relative;
+  z-index: 50;
+  margin: 0.5rem;
+  padding: 1rem 2rem;
+  border: 8px solid transparent;
+  outline: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  background-color: #9a9eab;
+  color: #fcfcfa;
+  transition: border 0.6s ease;
+  padding: 0.25rem 1rem;
+  font-weight: normal;
+}
+.cards__btn:hover, .cards__btn:focus-visible {
+  border-top: 8px solid #5da104;
+  border-bottom: 8px solid #e05858;
+  border-left: 8px solid #336b87;
+  border-right: 8px solid #453c41;
+}
+.cards__result {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.cards__link {
+    max-width: 25%;
+    display: inline;
+}
+
+.cards__link img {
+    object-fit: cover;
+    max-width: 100%;
+    position: relative;
+    border: 5px solid transparent;
+    border-radius: 15px;
+    transition: border .4s ease;
+}
+
+.cards__link img:hover, .cards__link img:focus-visible {
+    border: 5px solid #000;
+}
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pagination__wrap a {
+    color: #453c41;
+    text-decoration: none;
+    transition: color .4s ease;
+}
+
+.pagination__wrap a:hover,
+.pagination__wrap a:focus-visible {
+    color: #9a9eab;
+}
+
+
+.user-header {
+    background-color: #453c41;
+    color: #9a9eab;
+}
+
+.user-header__container {
+    margin: 0 auto;
+    padding: 1.2rem 8rem;
+    display: flex;
+    justify-content: space-between;
 }
 .user-header__wrap {
-  display: flex;
-  gap: 2rem;
-  text-align: right;
+    display: flex;
+    align-items: end;
+    gap: 2rem;
+    text-align: right;
 }
 .user-header__name {
   font-weight: bold;
   font-size: 1rem;
 }
 .user-header__btn {
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 300;
-  transition: 0.4s ease;
-  font-size: 1rem;
-  position: relative;
-  color: #9a9eab;
-  border: none;
-  background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    transition: 0.4s ease;
+    font-size: 1rem;
+    position: relative;
+    color: #9a9eab;
+    border: none;
+    background-color: transparent;
+    padding-bottom: .3rem;
 }
 .user-header__btn--logout {
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 300;
-  transition: 0.4s ease;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 300;
+    transition: 0.4s ease;
+    font-size: 1rem;
+    position: relative;
+    color: #9a9eab;
+    border: none;
+    background-color: transparent;
+    line-height: 1.15;
 }
 .user-header__btn--logout::after {
   content: "";
@@ -453,8 +539,8 @@ ul {
 
 .deck-stat {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+  grid-template-columns: 1fr 2fr 2fr 2fr 3fr;
 }
 .deck-stat__wrap {
   display: flex;
@@ -467,6 +553,51 @@ ul {
   color: #9a9eab;
 }
 
+.users__container {
+  margin: 0 auto;
+  padding: 1.2rem 8rem;
+  position: relative;
+}
+.users__content {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 100;
+}
+.users__info {
+  display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.users__title {
+    font-size: 1.2rem;
+    color: #9a9eab;
+    line-height: 1;
+    margin: 0;
+    font-style: italic;
+}
+
+.header__title a {
+    text-decoration: none;
+    color: #9a9eab;
+}
+
+.users__btn {
+    background-color: transparent;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #9a9eab;
+    transition: color 0.4s ease;
+    cursor: pointer;
+}
+
+.users__btn:hover, .users__btn:focus-visible {
+    color: #9a9eab;
+}
+
 .modal {
   position: absolute;
   top: -100vh;
@@ -477,6 +608,7 @@ ul {
   background-color: rgba(0, 0, 0, 0.2);
   transition: all 0.4s ease;
   padding: 7rem 30rem;
+  z-index: 1000;
 }
 .modal--active {
   top: 0;
@@ -548,5 +680,118 @@ ul {
   border-left: 8px solid #336b87;
   border-right: 8px solid #453c41;
 }
+.modal__text {
+  font-weight: normal;
+  padding-top: 1rem;
+  display: inline-block;
+}
+.modal__google {
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.4s ease;
+    color: #453c41;
+    vertical-align: center;
+    font-weight: bold;
+}
+
+.modal__google:hover, .modal__google:focus-visible {
+    color: #9a9eab;
+}
 
 /*# sourceMappingURL=style.css.map */
+
+.deck-stat {
+    margin-bottom: 2rem;
+}
+
+.deck-stat__wrapper {
+    display: flex;
+    gap: .5rem;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    text-align: center;
+}
+
+.deck-stat__wrap {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+}
+
+.deck-stat__values {
+  display: flex;
+  flex-direction: column-reverse;
+  font-weight: bolder;
+  color: #336b87;
+  gap: .5rem;
+}
+
+.deck-stat__value {
+  display: flex;
+  font-size: 1rem;
+}
+
+.deck-stat__value--value {
+  font-weight: bold;
+  text-align: center;
+  padding-left: .5rem;
+}
+
+
+.deck-del {
+    display: flex;
+    gap: 1rem;
+}
+
+.deck-del a {
+    text-decoration: none;
+    color: #453c41;
+    transition: color .4s ease;
+}
+
+.deck-del a:hover,
+.deck-del a:focus-visible {
+    color: #336b87;
+}
+
+.deck-del__btn path {
+  width: 15px;
+  height: 15px;
+  transition: all .4s ease;
+}
+
+.deck-del__btn path:hover,
+.deck-del__btn path:focus-visible {
+    stroke: #336b87;
+}
+
+.registration-main__content,
+.login-main__content {
+    padding: 5rem 20rem;
+}
+
+.deck__link {
+    text-decoration: none;
+    color: #453c41;
+    font-weight: bolder;
+    transition: color .4s ease;
+}
+
+.deck__link:hover,
+.deck__link:focus-visible {
+    color: #9a9eab;
+}
+
+.user__list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.user__form {
+    display: flex;
+    flex-direction: column;
+}

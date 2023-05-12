@@ -1,17 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ru" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Card</title>
 
     <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="../../static/js/script.js" th:href="@{/js/script.js}">
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script defer rel="stylesheet" src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
 </head>
 <body>
 <header class="header" id="header">
     <div class="header__container">
-        <h1 class="header__title">Deck Sieve <span class="header__span">by Andrey Ananskiy</span></h1>
+        <h1 class="header__title">
+            <a th:href="@{/index}">
+                Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+            </a>
+        </h1>
         <div class="header__wrap">
             <div sec:authorize="hasAuthority('ADMIN')" class="header__account">
                 <a class="header__btn header__btn--left" href="/admin/users"><span
@@ -25,8 +32,8 @@
             </div>
             <div sec:authorize="isAuthenticated()" class="header__account">
                 <a class="header__btn header__btn--left"
-                   th:href="@{'/users/' + ${#authentication.principal.getId()}}"><span
-                        th:text="${#authentication.principal.username}">Имя пользователя</span></a>
+                   th:href="@{'/users/' + ${#authentication.principal.getId()}}">
+                    <span th:text="${#authentication.getName()}">Имя пользователя</span></a>
                 <a class="header__btn header__btn--right" href="javascript: document.logoutForm.submit()"><span
                         th:text="#{header.logOutBtn}">Выйти</span></a>
                 <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
@@ -45,13 +52,14 @@
         </div>
     </div>
 </header>
-<main class="card">
+
+<main class="card main">
     <div class="card__container">
         <div class="card__wrapper card__wrapper--top">
             <div class="card__wrap">
-                <form action="/cards" class="card__form">
-                    <button type="submit" class="card__btn"><span th:text="#{card.returnBtn}">Return</span></button>
-                </form>
+                <!--                <form action="history.back()" class="card__form">-->
+                <!--                    <button type="submit" class="card__btn"><span th:text="#{card.returnBtn}">Return</span></button>-->
+                <!--                </form>-->
                 <form action="/index" class="card__form">
                     <button type="submit" class="card__btn"><span
                             th:text="#{card.returnToSearchBtn}">Return to search</span></button>
@@ -67,7 +75,6 @@
                 <ul class="card-description__list">
                     <li th:if="${card.manacost}" class="card-description__item"><span th:text="#{card.manacost}">Manacost:</span>
                         <img th:src="'/img/mana/' + ${card.manacost?.common} + '.svg'" width="25" height=auto>
-                        <!--                        <span class="card-description__span" th:text="${card.manacost?.common}"></span>-->
                         <div th:each="color : ${card.manacost?.colorList}" style="display: inline-block">
                             <img th:src="'/img/mana/' + ${color} + '.svg'" width="25" height=auto>
                         </div>
@@ -110,12 +117,14 @@
                     </li>
                 </ul>
                 <div class="card-description__buttons">
-                    <form sec:authorize="isAuthenticated()" th:action="'/decks/' + ${deck} + '/'+ ${card.id} + '/add'"
+                    <form sec:authorize="isAuthenticated()"
+                          th:action="@{'/decks/' + ${selectedDeckId} + '/' + ${card.id} + '/add'}"
                           method="post"
                           class="card__form111">
                         <div>
                             <label for="deck">Select deck:
-                                <select id="deck" name="deck">
+                                <select id="deck" name="deck" onchange="updateActionUrl()">
+                                    <option selected value></option>
                                     <option th:each="deck : ${decks}"
                                             th:value="${deck.getId()}"
                                             th:text="${deck.name}">Deck name
@@ -123,7 +132,6 @@
                                 </select>
                             </label>
                         </div>
-
                         <button type="submit" class="card-description__btn">
                             <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"
@@ -133,6 +141,18 @@
                             </svg>
                         </button>
                     </form>
+                    <script th:inline="javascript">
+                        function updateActionUrl() {
+                            var selectedDeckId = document.getElementById('deck').value;
+                            if (!selectedDeckId) {
+                                selectedDeckId = document.getElementById('deck').options[0].value;
+                            }
+                            var form = document.getElementsByClassName('card__form111')[0];
+                            form.action = '/decks/' + selectedDeckId + '/' + [[${card.id}]] + '/add';
+                            document.getElementById('selectedDeckId').value = selectedDeckId;
+                            document.getElementById('selectedDeckId').setAttribute('data-selected-deck-id', selectedDeckId);
+                        }
+                    </script>
                     <button class="card-description__btn">
                         <svg width="30" height="30" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><title/>
                             <path d="M105,82a23,23,0,0,0-22.49,18.17L41.74,77.29a23,23,0,0,0,0-26.57L82.51,27.83a23,23,0,1,0-.44-6.63l-44.53,25a23,23,0,1,0,0,35.62l44.53,25A23,23,0,1,0,105,82Zm0-76A17,17,0,1,1,88,23,17,17,0,0,1,105,6ZM11,76A17,17,0,0,1,35,52h0A17,17,0,0,1,11,76Zm94,46a17,17,0,1,1,17-17A17,17,0,0,1,105,122Z"
@@ -144,5 +164,56 @@
         </div>
     </div>
 </main>
+
+<!--<div class="modal" id="modalRegister">-->
+<!--    <div class="modal__wrapper">-->
+<!--        <button class="modal__close" id="close" onclick="closeModalRegister()">-->
+<!--            <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"-->
+<!--                 xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>-->
+<!--            </svg>-->
+<!--        </button>-->
+<!--        <form th:action="@{/users}" enctype="multipart/form-data" method="post" th:object="${user}" class="modal__form">-->
+<!--            <label for="username">Username:-->
+<!--                <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">-->
+<!--            </label>-->
+<!--            <label for="rawPassword">Password:-->
+<!--                <input id="rawPassword" type="password" name="rawPassword" class="modal__input">-->
+<!--            </label>-->
+<!--            <button type="submit" class="modal__btn">Register</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="modal" id="modalEnter">-->
+<!--    <div class="modal__wrapper">-->
+<!--        <button class="modal__close" id="close" onclick="closeModalEnter()">-->
+<!--            <svg width="40px" height="40px" data-name="Livello 1" id="Livello_1" viewBox="0 0 128 128"-->
+<!--                 xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M64,0a64,64,0,1,0,64,64A64.07,64.07,0,0,0,64,0Zm0,122a58,58,0,1,1,58-58A58.07,58.07,0,0,1,64,122Z"/>-->
+<!--                <path stroke="#211F30FF"-->
+<!--                      d="M92.12,35.79a3,3,0,0,0-4.24,0L64,59.75l-23.87-24A3,3,0,0,0,35.88,40L59.76,64,35.88,88a3,3,0,0,0,4.25,4.24L64,68.25l23.88,24A3,3,0,0,0,92.13,88L68.24,64,92.13,40A3,3,0,0,0,92.12,35.79Z"/>-->
+<!--            </svg>-->
+<!--        </button>-->
+<!--        <form th:action="@{/login}" method="post" class="modal__form">-->
+<!--            <div style="color: #e05858" th:if="${param.error}">-->
+<!--                Bad credentials-->
+<!--            </div>-->
+<!--            <label for="username"><span th:text="#{login.username}">Username:</span>-->
+<!--                <input id="username" type="text" name="username" class="modal__input">-->
+<!--            </label>-->
+<!--            <label for="password"><span th:text="#{login.password}">Password:</span>-->
+<!--                <input id="password" type="password" name="password" class="modal__input">-->
+<!--            </label>-->
+<!--            <button type="submit" class="modal__btn">Login</button>-->
+<!--        </form>-->
+
+<!--        <p class="modal__text">Login with</p>-->
+<!--        <a href="/oauth2/authorization/google" class="modal__google">Google</a>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>

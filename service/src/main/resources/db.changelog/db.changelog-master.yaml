@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db.changelog/db.changelog-01apr23.sql
   - include:
       file: db.changelog/db.changelog-10apr23.sql
+  - include:
+      file: db.changelog/db.changelog-09may23.sql

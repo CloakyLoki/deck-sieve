@@ -2,27 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>User</title>
+
+    <link rel="stylesheet" href="../../static/css/normalize.css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script defer rel="stylesheet" src="../../static/js/script.js" th:src="@{/js/script.js}"></script>
 </head>
 <body>
-<form th:action="@{/users}" enctype="multipart/form-data" method="post" th:object="${user}">
-    <label for="username">Username:
-        <input id="username" type="text" name="username" th:value="*{username}">
-    </label><br>
-    <label for="rawPassword">Password:
-        <input id="rawPassword" type="password" name="rawPassword">
-    </label><br>
-    <label for="image">Image:
-        <input id="image" type="file" name="image">
-    </label><br>
-    <div th:each="role : ${roles}">
-        <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
-        <label th:for="${role}" th:text="${role}">Role name</label>
+<header class="header user-header" id="header">
+    <div class="user-header__container">
+        <h1 class="header__title">
+            <a th:href="@{/index}">
+                Deck Sieve <span class="header__span">by Andrey Ananskiy</span>
+            </a>
+        </h1>
     </div>
-    <button type="submit">Register</button>
-</form>
-<div th:if="${errors}">
-    <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
-</div>
+</header>
+<main class="user__main registration__main">
+    <div class="user-main__container registration-main__container">
+        <div class="user-main__content registration-main__content">
+            <form th:action="@{/users}" enctype="multipart/form-data" method="post" th:object="${user}"
+                  class="modal__form">
+                <label for="username">Username:
+                    <input id="username" type="text" name="username" th:value="*{username}" class="modal__input">
+                </label>
+                <label for="password">Password:
+                    <input id="password" type="password" name="password" class="modal__input">
+                </label>
+                <input id="isActive" type="hidden" name="isActive" value="true">
+                <input id="role" type="hidden" name="role" value="USER">
+                <button type="submit" class="modal__btn">Register</button>
+            </form>
+        </div>
+    </div>
+</main>
 </body>
 </html>

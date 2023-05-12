@@ -1,6 +1,6 @@
 logging:
-  level:
-    root: INFO
+  file:
+    name: deck_sieve.log
 
 spring:
   datasource:
