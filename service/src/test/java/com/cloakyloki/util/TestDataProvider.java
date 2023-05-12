@@ -110,9 +110,10 @@ public class TestDataProvider {
     }
 
     public static CardReadDto createCardReadDto() {
-        return new CardReadDto(1L,
-                "testCard",
-                0,
+        var card = TestDataProvider.createMishraCard();
+        return new CardReadDto(null,
+                card.getName(),
+                card.getManaValue(),
                 null,
                 null,
                 null,
@@ -134,24 +135,6 @@ public class TestDataProvider {
     }
 
     public static CardFilter createCardFilter() {
-        return new CardFilter("Mishra, Artificer Prodigy",
-                1,
-                "testManacost",
-                "testRarity",
-                "testType",
-                "testSubtype",
-                "testSupertype",
-                "testText",
-                "testFlafovorText",
-                "testKeyword",
-                "testPower",
-                "testArtist",
-                "testToughness",
-                "testUrl",
-                "testMvid",
-                "testIllId",
-                "testFrame",
-                false,
-                "testSetcode");
+        return new CardFilter("Mishra, Artificer Prodigy", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 }

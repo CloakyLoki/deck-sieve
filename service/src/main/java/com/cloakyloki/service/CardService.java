@@ -7,7 +7,6 @@ import com.cloakyloki.dto.ManacostDto;
 import com.cloakyloki.entity.enumerated.ColorIndicator;
 import com.cloakyloki.mapper.CardCreateUpdateMapper;
 import com.cloakyloki.mapper.CardReadMapper;
-import com.cloakyloki.mapper.ColorMapper;
 import com.cloakyloki.repository.CardRepository;
 import com.cloakyloki.repository.predicate.QPredicate;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,6 @@ public class CardService {
     private final CardRepository cardRepository;
     private final CardReadMapper cardReadMapper;
     private final CardCreateUpdateMapper cardCreateUpdateMapper;
-    private final ColorMapper colorMapper;
 
     public Page<CardReadDto> findAll(CardFilter filter, Pageable pageable) {
         var predicate = QPredicate.builder()

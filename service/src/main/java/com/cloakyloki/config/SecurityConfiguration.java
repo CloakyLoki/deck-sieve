@@ -61,7 +61,7 @@ public class SecurityConfiguration {
             if (userService.findByUsername(name).isEmpty()) {
                 userService.create(new UserCreateUpdateDto(name, LocalTime.now().toString(), USER, true));
             }
-            UserDetails user = userService.loadUserByUsername(name);
+            CustomUserDetails user = userService.loadUserByUsername(name);
             DefaultOidcUser oidcUser = new DefaultOidcUser(user.getAuthorities(), userRequest.getIdToken());
 
             var userDetailsMethods = new java.util.HashSet<>(Set.of(UserDetails.class.getMethods()));

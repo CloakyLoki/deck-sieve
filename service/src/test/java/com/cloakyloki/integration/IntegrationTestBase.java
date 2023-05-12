@@ -10,7 +10,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 
 @IT
 @AutoConfigureMockMvc
-@WithMockUser(authorities = {"ADMIN"})
+@WithMockUser(username = "test@gmail.com", password = "test", authorities = {"ADMIN", "USER"})
 public abstract class IntegrationTestBase {
 
     private static final PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres");

@@ -4,6 +4,7 @@ import com.cloakyloki.dto.CSetReadDto;
 import com.cloakyloki.entity.CSet;
 
 public class CSetReadMapper implements Mapper<CSet, CSetReadDto> {
+
     @Override
     public CSetReadDto map(CSet object) {
         return new CSetReadDto(

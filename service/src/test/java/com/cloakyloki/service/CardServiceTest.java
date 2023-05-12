@@ -38,34 +38,6 @@ class CardServiceTest {
     @InjectMocks
     private CardService cardService;
 
-//    @Test
-//    void findAll() {
-//        var cardReadDto = TestDataProvider.createCardReadDto();
-//        CardFilter filter = new CardFilter(cardReadDto.getName(),
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null);
-//        QPredicate.builder()
-//                .add(filter.name(), it-> it)
-//                .buildAnd();
-//        Mockito.doReturn(List.of(cardReadDto)).when(cardRepository).findAll();
-//    }
-
     @Test
     void findAllByDeckId() {
         var card = new Card(CARD_ID, CARD_NAME, null,
@@ -167,6 +139,29 @@ class CardServiceTest {
         Map<ColorIndicator, Integer> expectedResult = new HashMap<>();
         expectedResult.put(ColorIndicator.G, 3);
         var actualResult = cardService.getCardManaProduction(CARD_TEXT);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getColorsByManacost() {
+        var manacost = new ManacostDto("0", List.of(ColorIndicator.B, ColorIndicator.G));
+        var cards = List.of(
+                new CardReadDto(CARD_ID, CARD_NAME, 1, manacost, null,
+                        null, null, null, null, null, null,
+                        null, null, null, null, null, null,
+                        null, null, null),
+                new CardReadDto(CARD_ID, CARD_NAME, 2, manacost, null,
+                        null, null, null, null, null, null,
+                        null, null, null, null, null, null,
+                        null, null, null));
+        Map<ColorIndicator, Integer> colors = new HashMap<>();
+        colors.put(ColorIndicator.G, 1);
+        colors.put(ColorIndicator.B, 1);
+        Map<Integer, Map<ColorIndicator, Integer>> expectedResult = new HashMap<>();
+        expectedResult.put(1, colors);
+        expectedResult.put(2, colors);
+        var actualResult = cardService.getColorsByManacost(cards);
 
         assertEquals(expectedResult, actualResult);
     }

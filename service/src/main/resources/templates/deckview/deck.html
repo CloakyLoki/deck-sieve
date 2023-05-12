@@ -59,7 +59,6 @@
                     <div class="deck-stat__wrap">
                         <div class="deck-stat__values" th:each="mana : ${manaProduction}">
                             <div class="deck-stat__value deck-stat__value--value" th:text="${mana.value}"></div>
-                            <!--                            <div class="deck-stat__value" th:text="${mana.key}"></div>-->
                             <img th:src="'/img/mana/' + ${mana.key} + '.svg'" width="25" height=auto>
                         </div>
                     </div>
@@ -70,7 +69,6 @@
                     <div class="deck-stat__wrap">
                         <div class="deck-stat__values" th:each="manavalue : ${manacurve}">
                             <div class="deck-stat__value deck-stat__value--value" th:text="${manavalue.value}"></div>
-                            <!--                            <div class="deck-stat__value" th:text="${manavalue.key}"></div>-->
                             <img th:src="'/img/mana/' + ${manavalue.key} + '.svg'" width="25" height=auto>
                         </div>
                     </div>
@@ -81,7 +79,6 @@
                     <div class="deck-stat__wrap">
                         <div class="deck-stat__values" th:each="color : ${numberOfEachColor}">
                             <div class="deck-stat__value deck-stat__value--value" th:text="${color.value}"></div>
-                            <!--                            <div class="deck-stat__value" th:text="${color.key}"></div>-->
                             <img th:src="'/img/mana/' + ${color.key} + '.svg'" width="25" height=auto>
                         </div>
                     </div>
@@ -94,15 +91,12 @@
                             <div class="deck-stat__value deck-stat__value--value" th:text="${entry.key}"></div>
                             <div class="deck-stat__value" th:each="key : ${entry.value}">
                                 <img th:src="'/img/mana/' + ${key.key} + '.svg'" width="25" height=auto>
-                                <div class="deck-stat__values" th:text="${key.value}"></div>
+                                <div class="deck-stat__values" th:text="'/ ' + ${key.value}"></div>
                             </div>
                         </div>
                     </div>
                     <h2 class="deck-stat__title">Цвета по манакосту</h2>
                 </div>
-
-
-                <!--                Тест расширенного манакоста-->
 
             </div>
             <table class="deck-table"></table>

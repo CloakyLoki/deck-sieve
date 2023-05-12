@@ -1,7 +1,6 @@
 package com.cloakyloki.http.controller;
 
 import com.cloakyloki.dto.CardFilter;
-import com.cloakyloki.dto.CustomUser;
 import com.cloakyloki.dto.CustomUserDetails;
 import com.cloakyloki.dto.PageResponse;
 import com.cloakyloki.service.CardService;
@@ -44,7 +43,7 @@ public class CardController {
                 .map(authentication -> (CustomUserDetails) authentication.getPrincipal())
                 .map(CustomUserDetails::getUsername)
                 .orElseThrow();
-        var customUser = (CustomUser) userService.loadUserByUsername(maybeUser);
+        var customUser = userService.loadUserByUsername(maybeUser);
         var decks = deckService.findAllByUserId(customUser.getId());
         return cardService.findById(id)
                 .map(card -> {
