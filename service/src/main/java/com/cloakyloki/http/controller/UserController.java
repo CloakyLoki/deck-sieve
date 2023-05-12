@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/add")
-    public String addDeck(@PathVariable("id") Long id, DeckCreateUpdateDto deck) {
+    public String addDeck(@PathVariable("id") Long id, @Validated({Default.class, CreateAction.class}) DeckCreateUpdateDto deck) {
         deckService.create(deck);
         return "redirect:/users/{id}";
     }

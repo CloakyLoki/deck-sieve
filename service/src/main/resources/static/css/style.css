@@ -539,8 +539,8 @@ ul {
 
 .deck-stat {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+  grid-template-columns: 1fr 2fr 2fr 2fr 3fr;
 }
 .deck-stat__wrap {
   display: flex;
@@ -714,22 +714,28 @@ ul {
 }
 
 .deck-stat__wrap {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  align-items: end;
+  gap: 1rem;
 }
 
 .deck-stat__values {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
+  display: flex;
+  flex-direction: column-reverse;
+  font-weight: bolder;
+  color: #336b87;
+  gap: .5rem;
 }
 
 .deck-stat__value {
-    display: inline-block;
+  display: flex;
+  font-size: 1rem;
 }
 
 .deck-stat__value--value {
-    font-weight: bold;
+  font-weight: bold;
+  text-align: center;
+  padding-left: .5rem;
 }
 
 
@@ -750,7 +756,9 @@ ul {
 }
 
 .deck-del__btn path {
-    transition: all .4s ease;
+  width: 15px;
+  height: 15px;
+  transition: all .4s ease;
 }
 
 .deck-del__btn path:hover,
